@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ruang Kerja — alvenix</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#04080a">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Outfit:wght@600;700&family=Manrope:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="hq.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="bg-mesh" aria-hidden="true"></div>
+
+<div class="shell">
+  <!-- SIDEBAR -->
+  <aside class="side">
+    <a class="side__brand" href="index.html" title="Beranda">
+      <img src="logo.svg" alt="">
+      <div><strong class="wordmark"><span>alveni<b>x</b></span></strong><small>Ruang Kerja</small></div>
+    </a>
+    <nav class="side__nav" aria-label="HQ">
+      <a href="#overview" data-nav="overview">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="12" width="7" height="9" rx="2"/><rect x="3" y="16" width="7" height="5" rx="2"/></svg>
+        <span>Ringkasan</span>
+      </a>
+      <a href="#agents" data-nav="agents">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18.5 14.8c1.6.8 2.6 2.5 3 5.2"/></svg>
+        <span>Tim</span>
+      </a>
+      <a href="#leads" data-nav="leads">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21s-7-6.1-7-11.5a7 7 0 0 1 14 0C19 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+        <span>Ruang Data</span><em class="side__badge" id="navBadge">0</em>
+      </a>
+    </nav>
+    <div class="side__conn" id="connCard">
+      <div class="side__conn-top"><span class="pulse-dot is-gold" id="connDot"></span><b id="connTitle">Mode demo</b></div>
+      <p id="connText">Belum tersambung ke n8n. Data di bawah hanya contoh.</p>
+    </div>
+    <a class="side__back" href="index.html">← Beranda</a>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <header class="top">
+      <div>
+        <p class="top__crumb mono" id="crumb">Ruang Kerja / Ringkasan</p>
+        <h1 class="top__title" id="viewTitle">Ringkasan</h1>
+      </div>
+      <div class="top__right">
+        <span class="top__clock mono" id="clock">--:--</span>
+        <button class="btn btn--sm" id="syncBtn" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 11a8 8 0 0 0-14.6-4.5M4 4v4h4M4 13a8 8 0 0 0 14.6 4.5M20 20v-4h-4"/></svg>
+          Sinkron
+        </button>
+      </div>
+    </header>
+
+    <!-- ============ OVERVIEW ============ -->
+    <section class="view" data-view="overview">
+      <div class="welcome">
+        <div>
+          <p class="eyebrow">Selamat datang kembali</p>
+          <h2>Bisnis yang siap kamu <em class="serif gold-text">tawari hari ini.</em></h2>
+        </div>
+        <div class="welcome__chips" id="demoChip"></div>
+      </div>
+
+      <div class="kpis">
+        <article class="kpi"><span class="kpi__label">Total leads</span><strong class="kpi__val" data-kpi="total">0</strong><span class="kpi__sub">bisnis tanpa website</span></article>
+        <article class="kpi"><span class="kpi__label">Belum dihubungi</span><strong class="kpi__val" data-kpi="baru">0</strong><span class="kpi__sub">menunggu kamu</span></article>
+        <article class="kpi"><span class="kpi__label">Sudah dihubungi</span><strong class="kpi__val" data-kpi="contacted">0</strong><span class="kpi__sub">dihubungi + tertarik</span></article>
+        <article class="kpi kpi--gold"><span class="kpi__label">Deal</span><strong class="kpi__val" data-kpi="deal">0</strong><span class="kpi__sub">jadi klien</span></article>
+      </div>
+
+      <div class="grid-2">
+        <article class="panel">
+          <header class="panel__head"><h3>Tim hari ini</h3><a href="#agents" class="panel__link">Semua →</a></header>
+          <div class="crew" id="crewList"></div>
+        </article>
+        <article class="panel panel--term">
+          <header class="panel__head"><h3>Log aktivitas</h3><span class="live mono"><span class="pulse-dot"></span>live</span></header>
+          <div class="term mono" id="term"></div>
+        </article>
+      </div>
+
+      <article class="panel panel--fu">
+        <header class="panel__head"><h3>Jadwal follow-up &amp; negosiasi</h3><span class="mono" style="font-size:.7rem;color:var(--amber)">ditangani manusia</span></header>
+        <div class="toplist" id="fuList"></div>
+      </article>
+
+      <div class="grid-2 grid-2--wide">
+        <article class="panel">
+          <header class="panel__head"><h3>Prioritas tertinggi</h3><a href="#leads" class="panel__link">Lihat semua →</a></header>
+          <div class="toplist" id="topList"></div>
+        </article>
+        <article class="panel">
+          <header class="panel__head"><h3>Sebaran</h3></header>
+          <div class="split" id="citySplit"></div>
+          <h4 class="panel__sub">Kategori terbanyak</h4>
+          <div class="cats" id="catList"></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ AGENTS ============ -->
+    <section class="view" data-view="agents" hidden>
+      <p class="view__intro">Tim di kantor pribadimu: 4 karyawan AI + staf manusia untuk negosiasi. Raka mencari tiap hari jam 08.00 lewat n8n, Nadia langsung menyaring hasilnya.</p>
+      <div class="agents" id="agentGrid"></div>
+    </section>
+
+    <!-- ============ LEADS ============ -->
+    <section class="view" data-view="leads" hidden>
+      <div class="toolbar">
+        <label class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="q" type="search" placeholder="Cari nama, kategori, alamat…" autocomplete="off">
+        </label>
+        <div class="seg" id="cityFilter" role="group" aria-label="Kota">
+          <button type="button" data-city="" class="is-on">Semua</button>
+          <button type="button" data-city="Jambi">Jambi</button>
+          <button type="button" data-city="Jakarta">Jakarta</button>
+        </div>
+        <select id="statusFilter" class="sel" aria-label="Status">
+          <option value="">Semua status</option>
+        </select>
+        <select id="catFilter" class="sel" aria-label="Kategori"><option value="">Semua kategori</option></select>
+        <select id="sortBy" class="sel" aria-label="Urutkan">
+          <option value="score">Skor tertinggi</option>
+          <option value="reviews">Ulasan terbanyak</option>
+          <option value="rating">Rating tertinggi</option>
+          <option value="new">Terbaru</option>
+        </select>
+        <div class="seg" id="viewToggle" role="group" aria-label="Tampilan">
+          <button type="button" data-mode="board" class="is-on">Papan</button>
+          <button type="button" data-mode="table">Tabel</button>
+        </div>
+        <button class="btn btn--sm" id="exportBtn" type="button">Ekspor CSV</button>
+      </div>
+
+      <div class="board" id="board"></div>
+
+      <div class="table-wrap" id="tableWrap" hidden>
+        <table class="tbl">
+          <thead><tr>
+            <th>Bisnis</th><th>Kota</th><th>Rating</th><th>Skor “maju”</th><th>Status</th><th class="t-right">Aksi</th>
+          </tr></thead>
+          <tbody id="leadRows"></tbody>
+        </table>
+        <div class="empty" id="emptyState" hidden>
+          <p>Tidak ada lead yang cocok dengan filter.</p>
+        </div>
+      </div>
+      <p class="tbl__foot mono" id="tblFoot"></p>
+    </section>
+  </main>
+</div>
+
+<!-- Mobile tab bar -->
+<nav class="tabbar" aria-label="HQ mobile">
+  <a href="#overview" data-nav="overview">Ringkasan</a>
+  <a href="#agents" data-nav="agents">Tim</a>
+  <a href="#leads" data-nav="leads">Ruang Data</a>
+</nav>
+
+<!-- Lead drawer -->
+<div class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer__scrim" data-close></div>
+  <aside class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="dName">
+    <button class="drawer__x" type="button" data-close aria-label="Tutup">✕</button>
+    <div id="drawerBody"></div>
+  </aside>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script src="config.js"></script>
+<script src="agents.js"></script>
+<script src="demo-data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

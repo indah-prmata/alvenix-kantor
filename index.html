@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Selamat bekerja — alvenix</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#020608">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700&family=Outfit:wght@600;700&family=Manrope:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="hq.css">
+<link rel="stylesheet" href="beranda.css">
+</head>
+<body class="is-loading">
+
+<!-- INTRO -->
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro__mark">
+    <svg viewBox="0 0 100 100"><path d="M52 54 L18 58 M52 54 Q58 34 80 20 M52 54 Q60 72 77 84" /><circle cx="52" cy="54" r="13"/><circle cx="15" cy="58" r="10"/><circle cx="82" cy="18" r="10"/><circle cx="78" cy="86" r="10"/></svg>
+  </div>
+  <p class="intro__txt mono">menyalakan kantor<span>.</span><span>.</span><span>.</span></p>
+  <i class="intro__bar"></i>
+</div>
+
+<!-- LATAR -->
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="gridlines" aria-hidden="true"></div>
+<div class="spot" id="spot" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<canvas class="confetti" id="confetti" aria-hidden="true"></canvas>
+
+<header class="bar">
+  <a class="wordmark bar__brand" href="index.html"><img src="logo.svg" alt=""><span>alveni<b>x</b></span></a>
+  <nav class="bar__nav" aria-label="Menu">
+    <a class="is-on" href="index.html">Beranda</a>
+    <a href="app.html#overview">Ringkasan</a>
+    <a href="app.html#leads">Ruang Data</a>
+    <a href="app.html#agents">Tim</a>
+  </nav>
+  <div class="bar__right">
+    <span class="conn" id="conn"><span class="pulse-dot is-off"></span><span>menyambung…</span></span>
+    <button class="iconbtn" id="syncBtn" type="button" title="Sinkron (R)" aria-label="Sinkron">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 11a8 8 0 0 0-14.6-4.5M4 4v4h4M4 13a8 8 0 0 0 14.6 4.5M20 20v-4h-4"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="home">
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hello">
+      <p class="eyebrow reveal" id="today">—</p>
+      <h1 class="hello__title">
+        <span class="line"><span class="hello__greet" id="greet">Selamat datang —</span></span>
+        <span class="line"><span class="serif shine">selamat bekerja.</span></span>
+      </h1>
+      <p class="hello__line reveal" id="brief">Menyiapkan ringkasan hari ini…</p>
+      <div class="hello__cta reveal">
+        <a class="btn btn--gold mag" href="app.html#leads">
+          <span>Mulai kerja</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn--ghost mag" href="app.html#overview"><span>Lihat ringkasan</span></a>
+      </div>
+      <figure class="quote reveal">
+        <blockquote class="serif" id="quote">—</blockquote>
+        <figcaption class="mono">pegangan hari ini</figcaption>
+      </figure>
+    </div>
+
+    <div class="stage">
+      <div class="stage__tilt" id="tilt">
+        <div class="office" id="office"></div>
+        <div class="stage__floor"></div>
+      </div>
+      <div class="clock" aria-hidden="true">
+        <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="29"/><circle cx="32" cy="32" r="29" id="secRing"/></svg>
+        <div><b id="clock">--:--</b><span class="mono" id="zone">WIB</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker" aria-label="Temuan terbaru">
+    <span class="ticker__label mono"><span class="pulse-dot"></span>live dari Raka</span>
+    <div class="ticker__track"><div class="ticker__run" id="ticker"></div></div>
+  </div>
+
+  <!-- BENTO -->
+  <section class="bento" aria-label="Hari ini">
+    <a class="card stat" href="app.html#leads" style="--tone:#5ce1ef">
+      <span class="stat__label">Lead baru hari ini</span>
+      <b class="stat__num" data-k="fresh">0</b>
+      <em>ditemukan Raka</em>
+      <svg class="stat__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.1-7-11.5a7 7 0 0 1 14 0C19 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+    </a>
+    <a class="card stat" href="app.html#leads" style="--tone:#7cc4ff">
+      <span class="stat__label">Belum dihubungi</span>
+      <b class="stat__num" data-k="baru">0</b>
+      <em>siap ditawari</em>
+      <svg class="stat__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 5h16v11H8l-4 4z"/></svg>
+    </a>
+    <a class="card stat" href="app.html#overview" style="--tone:#ffb15c">
+      <span class="stat__label">Follow-up hari ini</span>
+      <b class="stat__num" data-k="fu">0</b>
+      <em id="fuSub">sesuai jadwal</em>
+      <svg class="stat__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
+    </a>
+    <a class="card stat stat--brand" href="app.html#leads" style="--tone:#ef6a3a">
+      <span class="stat__label">Deal</span>
+      <b class="stat__num" data-k="deal">0</b>
+      <em>jadi klien</em>
+      <svg class="stat__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m4 12 5 5L20 6"/></svg>
+    </a>
+
+    <!-- KERJAKAN DULU -->
+    <article class="card todo-card">
+      <header class="card__head">
+        <div><p class="card__kicker mono">prioritas</p><h2>Kerjakan dulu</h2></div>
+        <a href="app.html#leads" class="card__link">Semua lead <span>→</span></a>
+      </header>
+      <ol class="todo" id="todo"></ol>
+    </article>
+
+    <!-- GRAFIK 7 HARI -->
+    <article class="card chart-card">
+      <header class="card__head">
+        <div><p class="card__kicker mono">7 hari terakhir</p><h2>Temuan Raka</h2></div>
+        <div class="chart__total"><b id="weekTotal">0</b><span>bisnis</span></div>
+      </header>
+      <div class="chart" id="chart"></div>
+    </article>
+
+    <!-- TARGET -->
+    <article class="card target-card">
+      <header class="card__head">
+        <div><p class="card__kicker mono">target harian</p><h2>Dihubungi hari ini</h2></div>
+        <span class="mono card__meta" id="targetMeta">0 / 0</span>
+      </header>
+      <div class="target">
+        <div class="ring" id="ring" style="--p:0">
+          <svg viewBox="0 0 120 120">
+            <defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7ff0fb"/><stop offset=".55" stop-color="#22b8c6"/><stop offset="1" stop-color="#ef6a3a"/></linearGradient></defs>
+            <circle cx="60" cy="60" r="50"/><circle cx="60" cy="60" r="50" class="ring__val"/>
+          </svg>
+          <div><b id="targetNum">0</b><span id="targetPct">0%</span></div>
+        </div>
+        <p class="target__note" id="targetNote">Hubungi beberapa bisnis hari ini.</p>
+      </div>
+    </article>
+
+    <!-- TIM -->
+    <article class="card team-card">
+      <header class="card__head">
+        <div><p class="card__kicker mono">kantor kamu</p><h2>Tim yang bekerja</h2></div>
+        <a href="app.html#agents" class="card__link">Detail <span>→</span></a>
+      </header>
+      <ul class="crew" id="crew"></ul>
+    </article>
+
+    <!-- SEBARAN -->
+    <article class="card spread-card">
+      <header class="card__head">
+        <div><p class="card__kicker mono">peta pasar</p><h2>Sebaran lead</h2></div>
+      </header>
+      <div class="split" id="split"></div>
+      <ul class="cats" id="cats"></ul>
+    </article>
+  </section>
+
+  <!-- KUNCI -->
+  <form class="keybox" id="keybox" hidden>
+    <div>
+      <b>Masukkan kunci Ruang Kerja</b>
+      <span>Ada di file <code>n8n/.kunci</code>. Cukup sekali, nanti disimpan di browser ini.</span>
+    </div>
+    <input id="keyInput" type="password" placeholder="alv-…" autocomplete="off" required>
+    <button class="btn btn--sm btn--gold" type="submit">Buka</button>
+  </form>
+</main>
+
+<footer class="foot mono">
+  <span>alvenix · kantor pribadi</span>
+  <span class="foot__keys">tekan <kbd>R</kbd> sinkron · <kbd>D</kbd> ruang data</span>
+  <span id="syncInfo">—</span>
+</footer>
+
+<script src="config.js"></script>
+<script src="agents.js"></script>
+<script src="office.js"></script>
+<script src="beranda.js"></script>
+</body>
+</html>
