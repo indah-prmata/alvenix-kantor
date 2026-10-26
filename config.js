@@ -32,5 +32,5 @@ window.HQ_CONFIG = {
     "Halo kak, saya dari {brand} 👋\n\n" +
     "Saya lihat {nama} di {kota} ulasannya bagus banget di Google Maps, tapi belum punya website. " +
     "Kami bantu bikinkan website / landing page profesional supaya lebih gampang ditemukan pelanggan baru.\n\n" +
-    "Boleh saya kirim contoh desainnya gratis untuk {nama}?"
+    "Kalau Ibu/Bapak tertarik, kami akan kirimkan contoh demonya dulu."
 };
