@@ -92,7 +92,7 @@
         return;
       }
       const s = document.createElement("script");
-      s.src = toLoad[i]; s.onload = s.onerror = () => next(i + 1);
+      s.src = toLoad[i] + (me.dataset.v ? "?v=" + me.dataset.v : ""); s.onload = s.onerror = () => next(i + 1);
       document.body.appendChild(s);
     })(0);
   }
