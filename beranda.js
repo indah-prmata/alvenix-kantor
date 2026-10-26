@@ -96,16 +96,27 @@
   }
 
   /* ---------- ambil data ---------- */
-  async function fetchLeads() {
+  let backupDate = "";   // terisi kalau data diambil dari cadangan (n8n mati)
+  async function fetchLive() {
     if (!CFG.leadsUrl) throw new Error("leadsUrl kosong");
-    if (!accessKey) throw new Error("kunci");
     const url = CFG.leadsUrl + (CFG.leadsUrl.includes("?") ? "&" : "?") + "key=" + encodeURIComponent(accessKey);
     const res = await fetch(url, { headers: { Accept: "application/json" } });
     if (!res.ok) throw new Error("HTTP " + res.status);
     let json = await res.json();
     if (Array.isArray(json) && json.length === 1 && json[0].leads) json = json[0];
     if (json.summary) { accessKey = ""; save("hq.key", ""); throw new Error("kunci"); }
-    const arr = Array.isArray(json) ? json : json.leads || [];
+    return Array.isArray(json) ? json : json.leads || [];
+  }
+  async function fetchLeads() {
+    if (!accessKey) throw new Error("kunci");
+    let arr;
+    try { arr = await fetchLive(); backupDate = ""; }
+    catch (err) {
+      if (err.message === "kunci") throw err;
+      const snap = window.HQ_loadSnapshot && await window.HQ_loadSnapshot(accessKey);
+      if (!snap) throw err;
+      arr = snap.leads; backupDate = snap.saved_at;
+    }
     leads = arr.map(normalize).filter(l => l.name && l.name.length > 2);
     // status dari Sheet menang kalau lebih baru dari yang tersimpan di browser
     leads.forEach(l => {
@@ -270,7 +281,8 @@
       await fetchLeads();
       connected = true;
       $("#keybox").hidden = true;
-      setConn("ok", "terhubung n8n");
+      if (backupDate) setConn("warn", "mode cadangan · data " + new Date(backupDate).toLocaleDateString("id-ID", { day: "numeric", month: "short" }));
+      else setConn("ok", "terhubung n8n");
       $("#syncInfo").textContent = `sinkron ${new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })} · ${leads.length} leads`;
     } catch (err) {
       connected = false;

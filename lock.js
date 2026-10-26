@@ -60,14 +60,28 @@
   document.body ? mount() : document.addEventListener("DOMContentLoaded", mount);
   const form = box.querySelector("form"), input = box.querySelector("input"), btn = box.querySelector("button"), msg = box.querySelector(".lk__msg");
 
+  // Sidik (SHA-256) kode akses — dipakai hanya kalau n8n mati. Kodenya sendiri tidak ada di file ini.
+  const CODE_HASH = "9158b48716dc462b637fac64807c3f28c1fca237d75e557e0dff0788e4c1e438";
+  async function localCheck(key) {
+    const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode("alvenix:" + key));
+    return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("") === CODE_HASH;
+  }
+
   async function check(key) {
-    if (!key || !CFG.leadsUrl) return false;
-    const url = CFG.leadsUrl + (CFG.leadsUrl.includes("?") ? "&" : "?") + "key=" + encodeURIComponent(key);
-    const res = await fetch(url, { headers: { Accept: "application/json" } });
-    if (!res.ok) throw new Error("HTTP " + res.status);
-    let j = await res.json();
-    if (Array.isArray(j) && j.length === 1) j = j[0];
-    return !j.summary;   // kode salah -> n8n hanya mengirim ringkasan
+    if (!key) return false;
+    try {
+      if (!CFG.leadsUrl) throw new Error("tanpa n8n");
+      const url = CFG.leadsUrl + (CFG.leadsUrl.includes("?") ? "&" : "?") + "key=" + encodeURIComponent(key);
+      const res = await fetch(url, { headers: { Accept: "application/json" } });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      let j = await res.json();
+      if (Array.isArray(j) && j.length === 1) j = j[0];
+      return !j.summary;   // kode salah -> n8n hanya mengirim ringkasan
+    } catch {
+      // n8n mati / trial habis -> cocokkan dengan sidik kode, lalu pakai data cadangan
+      window.HQ_OFFLINE = true;
+      return localCheck(key);
+    }
   }
 
   function unlock() {

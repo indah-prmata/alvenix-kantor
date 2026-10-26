@@ -19,6 +19,7 @@
   let leads = [];
   let isDemo = true;
   let lastSync = null;
+  let backupDate = "";   // terisi kalau data diambil dari cadangan (n8n mati)
   const ui = { city: "", status: "", cat: "", q: "", sort: "score", mode: "board" };
 
   /* ---------- storage (wrapped: may be blocked) ---------- */
@@ -129,10 +130,20 @@
     }
     try {
       if (!accessKey) askKey();
-      const url = CFG.leadsUrl + (CFG.leadsUrl.includes("?") ? "&" : "?") + "key=" + encodeURIComponent(accessKey);
-      const res = await fetch(url, { headers: { Accept: "application/json" } });
-      if (!res.ok) throw new Error("HTTP " + res.status);
-      const json = await res.json();
+      let json;
+      try {
+        const url = CFG.leadsUrl + (CFG.leadsUrl.includes("?") ? "&" : "?") + "key=" + encodeURIComponent(accessKey);
+        const res = await fetch(url, { headers: { Accept: "application/json" } });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        json = await res.json();
+        if (Array.isArray(json) && json.length === 1 && json[0].leads) json = json[0];
+        backupDate = "";
+      } catch (err) {
+        // n8n mati / trial habis -> pakai data cadangan terenkripsi
+        const snap = window.HQ_loadSnapshot && await window.HQ_loadSnapshot(accessKey);
+        if (!snap) throw err;
+        json = { leads: snap.leads }; backupDate = snap.saved_at;
+      }
       if (json.summary) {   // kunci salah -> n8n hanya kirim ringkasan
         accessKey = ""; save("hq.key", "");
         throw new Error("kunci salah");
@@ -185,6 +196,12 @@
       $("#connTitle").textContent = "Mode demo";
       $("#connText").textContent = CFG.leadsUrl ? "Gagal tersambung ke n8n. Menampilkan data contoh." : "Belum tersambung ke n8n. Data di bawah hanya contoh.";
       $("#demoChip").innerHTML = `<span class="chip chip--warn"><span class="pulse-dot is-gold"></span>DATA DEMO — sambungkan n8n</span>`;
+    } else if (backupDate) {
+      const tgl = new Date(backupDate).toLocaleDateString("id-ID", { day: "numeric", month: "short" });
+      dot.className = "pulse-dot is-gold";
+      $("#connTitle").textContent = "Mode cadangan";
+      $("#connText").textContent = `n8n sedang mati. Data salinan per ${tgl} · ${leads.length} leads. Perubahan status tersimpan di browser ini saja.`;
+      $("#demoChip").innerHTML = `<span class="chip chip--warn"><span class="pulse-dot is-gold"></span>CADANGAN · ${tgl}</span>`;
     } else {
       dot.className = "pulse-dot";
       $("#connTitle").textContent = "Terhubung n8n";
