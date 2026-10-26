@@ -42,6 +42,7 @@
       <p id="connText">Belum tersambung ke n8n. Data di bawah hanya contoh.</p>
     </div>
     <a class="side__back" href="index.html">← Beranda</a>
+    <a class="side__back" href="#" onclick="HQ_LOGOUT(); return false;">🔒 Kunci &amp; keluar</a>
   </aside>
 
   <!-- MAIN -->
@@ -179,8 +180,6 @@
 <div class="toast" id="toast" role="status"></div>
 
 <script src="config.js"></script>
-<script src="agents.js"></script>
-<script src="demo-data.js"></script>
-<script src="app.js"></script>
+<script src="lock.js" data-load="agents.js demo-data.js app.js"></script>
 </body>
 </html>
