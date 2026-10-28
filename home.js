@@ -45,7 +45,10 @@
     const demo = e.target.closest("[data-demo]");
     if (demo && S) { try { const d = JSON.parse(demo.dataset.demo); window.open(S.links.demo({ name: d.n, category: d.c, city: d.k, rating: d.r, reviews: d.u }), "_blank", "noopener"); } catch {} }
   });
-  document.addEventListener("click", e => { if (e.target.closest("[data-open-chat]")) window.HQ_CHAT?.open(); });
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-open-chat]")) window.HQ_CHAT?.open();
+    const t = e.target.closest("[data-try]"); if (t) { $("#progCode").value = t.dataset.try; location.href = "klien.html#k=" + t.dataset.try; }
+  });
   $("#progForm")?.addEventListener("submit", e => { e.preventDefault(); location.href = "klien.html#k=" + encodeURIComponent($("#progCode").value.trim().toUpperCase()); });
 
   /* ---------- Reveal (tanpa GSAP juga jalan) ---------- */

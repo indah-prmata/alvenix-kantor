@@ -78,7 +78,7 @@
   <div id="out"></div>
 
   <div class="help">
-    <div><b>✏️ Revisi maks. 5×</b>Kumpulkan perubahan dalam satu pesan.</div>
+    <div><b>✏️ Revisi maks. 3×</b>Boleh ubah total dari awal atau ganti konsep.</div>
     <div><b>🛠️ Ada error?</b>Langsung kami kerjakan, tanpa biaya.</div>
     <div><b>💬 Ada pertanyaan?</b>Tanya Dina di pojok kanan bawah.</div>
   </div>
@@ -99,7 +99,7 @@
     ["Website online", "Website sudah tayang di alamat Anda."],
     ["Selesai & serah terima", "Website resmi diserahkan. Terima kasih!"]
   ];
-  const MAX = CFG.maksRevisi || 5;
+  const MAX = CFG.maksRevisi || 3;
   const fmt = d => d ? new Date(d).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" }) : "—";
 
   function render(P) {
@@ -140,13 +140,26 @@
     } catch { return null; }
   }
 
+  // proyek yang tersimpan di browser ini (dibuat dari Ruang Kerja di perangkat yang sama)
+  function local(kode) {
+    try {
+      const p = (JSON.parse(localStorage.getItem("hq.proyek.v1")) || {})[kode];
+      if (!p) return null;
+      const paid = (p.bayar || []).reduce((s, b) => s + (+b.j || 0), 0);
+      return { kode: p.kode, n: p.n, nm: p.nm, p: p.p, t: p.t, rv: p.rv, pv: p.pv, dl: p.dl, cat: p.cat, up: p.up, by: paid >= p.harga ? "lunas" : paid > 0 ? "dp" : "belum" };
+    } catch { return null; }
+  }
+  // kode contoh untuk mencoba portal
+  const CONTOH = () => { const d = new Date(); d.setDate(d.getDate() + 4);
+    return { kode: "ALV-CONTOH", n: "Kopi Senja", nm: "Kak Dimas", p: "landing", t: 3, rv: 1, pv: "", dl: d.toISOString().slice(0, 10), cat: "Ini contoh tampilan portal. Desain sudah jadi — silakan cek dan kirim revisi kalau ada yang ingin diubah.", by: "dp", up: new Date().toISOString() }; };
+
   async function show(kode, snap) {
     $("#msg").textContent = "";
-    const fresh = await live(kode);
+    const fresh = await live(kode) || local(kode) || (kode === "ALV-CONTOH" ? CONTOH() : null);
     const P = fresh && (!snap || new Date(fresh.up || 0) >= new Date(snap.up || 0)) ? fresh : snap;
     if (P) { render(P); history.replaceState(null, "", "#k=" + encodeURIComponent(P.kode) + (snap ? "&p=" + location.hash.match(/p=([^&]+)/)?.[1] : "")); return; }
     $("#out").innerHTML = "";
-    $("#msg").textContent = CFG.progresUrl ? "Kode tidak ditemukan. Cek lagi, atau buka link progres yang dikirim tim kami lewat WhatsApp." : "Buka link progres yang dikirim tim kami lewat WhatsApp ya 🙏";
+    $("#msg").textContent = "Kode tidak ditemukan. Cek lagi, atau buka link progres yang dikirim tim kami lewat WhatsApp 🙏 (mau coba? pakai kode ALV-CONTOH)";
   }
 
   $("#find").addEventListener("submit", e => { e.preventDefault(); const k = $("#kode").value.trim().toUpperCase(); if (k) show(k, null); });
@@ -158,6 +171,6 @@
   window.HQ_CHAT_CTX = window.HQ_CHAT_CTX || { halaman: "klien" };
 })();
 </script>
-<script src="chat.js?v=20261029b"></script>
+<script src="chat.js?v=20261029c"></script>
 </body>
 </html>

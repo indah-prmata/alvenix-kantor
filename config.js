@@ -56,9 +56,9 @@ window.HQ_CONFIG = {
       isi: ["Semua isi paket Landing Page", "Beberapa halaman: Beranda, Tentang, Layanan, Galeri, Kontak", "Katalog / menu dengan foto", "Disusun supaya mudah ditemukan Google"] }
   ],
   // Sudah termasuk di semua paket.
-  termasuk: ["Domain .com / .id (nama usaha sendiri)", "Hosting tahun pertama", "Keamanan SSL & perlindungan serangan", "Cadangan data", "Maksimal 5 kali revisi", "Perbaikan error/bug tanpa biaya"],
+  termasuk: ["Domain .com / .id (nama usaha sendiri)", "Hosting tahun pertama", "Keamanan SSL & perlindungan serangan", "Cadangan data", "Maksimal 3 kali revisi (boleh ubah total / ganti konsep)", "Perbaikan error/bug tanpa biaya"],
   biayaTahunan: 1500000,   // mulai tahun ke-2
-  maksRevisi: 5,
+  maksRevisi: 3,
   dpPersen: 50,            // uang muka di penawaran — ubah sesuai kebijakan
   berlakuHari: 7,          // masa berlaku penawaran
   targetOmzet: 10000000,   // target pemasukan per bulan (dasbor Cuan)

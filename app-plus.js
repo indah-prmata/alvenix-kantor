@@ -13,7 +13,7 @@
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const R = S.rupiah;
-  const MAX = CFG.maksRevisi || 5;
+  const MAX = CFG.maksRevisi || 3;
   const TAHAP = ["Brief & kebutuhan", "Bahan diterima", "Desain dibuat", "Revisi", "Website online", "Selesai"];
   const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } };
   const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} };
@@ -138,7 +138,7 @@
       </div>
       <div class="d-sec"><h4>Revisi (${p.rv}/${MAX})</h4>
         <div class="d-acts" style="margin-top:0"><button class="btn btn--sm" type="button" id="rvMin">−</button><div class="rev-bar">${Array.from({ length: MAX }, (_, i) => `<i class="${i < p.rv ? "used" : ""}"></i>`).join("")}</div><button class="btn btn--sm" type="button" id="rvPlus">+ Revisi masuk</button></div>
-        ${p.rv >= MAX ? `<p class="tbl__foot">Jatah revisi habis — revisi berikutnya dihitung pekerjaan tambahan.</p>` : ""}
+        ${p.rv >= MAX ? `<p class="tbl__foot">Jatah 3 revisi habis — revisi berikutnya dihitung pekerjaan tambahan.</p>` : ""}
       </div>
       <div class="d-sec"><h4>Data proyek</h4>
         <div class="d-row">
