@@ -55,6 +55,18 @@
   .rev i.used { background: var(--orange); }
   .note { margin-top: 16px; padding: 14px 16px; border-radius: 16px; border-left: 3px solid var(--gold); background: rgba(34,184,198,.07); }
   .acts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+  .pv__seg { display: flex; gap: 4px; padding: 4px; border-radius: 999px; border: 1px solid var(--line-2); align-self: flex-start; }
+  .pv__seg button { border: 0; border-radius: 999px; padding: 8px 14px; background: none; color: var(--muted); font: 600 .82rem var(--f-body); cursor: pointer; }
+  .pv__seg button.is-on { background: var(--gold-grad); color: #021417; }
+  .pv__stage { margin-top: 20px; display: grid; justify-items: center; }
+  .pv__device { width: 100%; border-radius: 16px; overflow: hidden; border: 1px solid var(--line-2); background: #fff; box-shadow: 0 30px 60px -30px rgba(0,0,0,.8); transition: width .5s var(--ease), border-radius .5s var(--ease); }
+  .pv__bar { display: flex; align-items: center; gap: 6px; padding: 10px 14px; background: #10191d; border-bottom: 1px solid var(--line); }
+  .pv__bar i { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.18); }
+  .pv__bar span { margin-left: 10px; flex: 1; min-width: 0; padding: 4px 12px; border-radius: 999px; background: rgba(255,255,255,.06); font: .72rem var(--f-mono); color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pv__device iframe { display: block; width: 100%; height: min(70vh, 640px); border: 0; background: #fff; }
+  .pv__stage[data-dev="hp"] .pv__device { width: 390px; max-width: 100%; border-radius: 34px; border: 10px solid #1b2428; }
+  .pv__stage[data-dev="hp"] .pv__bar { display: none; }
+  .pv__stage[data-dev="hp"] iframe { height: 720px; max-height: 75vh; }
   .upd { margin-top: 18px; font-family: var(--f-mono); font-size: .68rem; color: var(--dim); }
   .help { margin-top: 30px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
   .help div { padding: 16px; border-radius: 16px; border: 1px solid var(--line); font-size: .9rem; color: var(--muted); }
@@ -90,6 +102,7 @@
 (() => {
   const CFG = window.HQ_CONFIG || {}, S = window.HQ_SHARED;
   const $ = s => document.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const TAHAP = [
     ["Brief & kebutuhan", "Kami mencatat kebutuhan, gaya, dan isi website."],
@@ -102,7 +115,9 @@
   const MAX = CFG.maksRevisi || 3;
   const fmt = d => d ? new Date(d).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" }) : "—";
 
+  const safeUrl = u => /^https?:\/\//i.test(String(u || "").trim()) ? String(u).trim() : "";
   function render(P) {
+    const pv = safeUrl(P.pv);
     const t = Math.max(0, Math.min(TAHAP.length - 1, +P.t || 0));
     const pct = Math.round(((t + (t === TAHAP.length - 1 ? 1 : .5)) / TAHAP.length) * 100);
     const pk = S.paket(P.p);
@@ -121,11 +136,31 @@
         </div>
         ${P.cat ? `<div class="note"><span class="lbl" style="font-family:var(--f-mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)">Catatan dari tim</span><br>${esc(P.cat)}</div>` : ""}
         <div class="acts">
-          ${P.pv ? `<a class="btn btn--gold" href="${esc(P.pv)}" target="_blank" rel="noopener">Lihat pratinjau website</a>` : ""}
+          ${pv ? `<a class="btn btn--gold" href="#pratinjau">Lihat pratinjau website ↓</a>` : ""}
           <a class="btn btn--wa" href="${wa}" target="_blank" rel="noopener">💬 ${t === 3 ? "Kirim revisi via WhatsApp" : "Hubungi tim"}</a>
         </div>
         <p class="upd">Diperbarui ${P.up ? new Date(P.up).toLocaleString("id-ID", { dateStyle: "medium", timeStyle: "short" }) : "—"}</p>
-      </section>`;
+      </section>
+      ${pv ? `
+      <section class="card pv" id="pratinjau">
+        <div class="card__head"><div><h2>Pratinjau website</h2><p>Versi terbaru yang sedang kami kerjakan untuk ${esc(P.n)}.</p></div>
+          <div class="pv__seg" role="group" aria-label="Ukuran layar"><button type="button" data-dev="laptop" class="is-on">💻 Laptop</button><button type="button" data-dev="hp">📱 HP</button></div></div>
+        <div class="pv__stage" data-dev="laptop">
+          <div class="pv__device">
+            <div class="pv__bar"><i></i><i></i><i></i><span>${esc(pv.replace(/^https?:\/\//, "").split(/[?#]/)[0])}</span></div>
+            <iframe src="${esc(pv)}" title="Pratinjau website ${esc(P.n)}" loading="lazy" referrerpolicy="no-referrer"></iframe>
+          </div>
+        </div>
+        <div class="acts">
+          <a class="btn btn--gold" href="${esc(pv)}" target="_blank" rel="noopener">Buka layar penuh ↗</a>
+          <a class="btn btn--wa" href="${S.waLink(CFG.waKantor, `Halo Tim ${CFG.brand} 👋
+Saya dari *${P.n}* (kode *${P.kode}*). Revisi untuk pratinjau website:
+
+1. `)}" target="_blank" rel="noopener">✏️ Kirim revisi (${rv}/${MAX} terpakai)</a>
+        </div>
+        <p class="upd">Kalau tampilan tidak muncul di sini, tekan “Buka layar penuh”.</p>
+      </section>` : ""}`;
+    $$("[data-dev]", $("#out")).forEach(b => b.onclick = () => { $(".pv__stage").dataset.dev = b.dataset.dev; $$(".pv__seg button").forEach(x => x.classList.toggle("is-on", x === b)); });
     requestAnimationFrame(() => setTimeout(() => $("#barFill").style.width = pct + "%", 60));
     window.HQ_CHAT_CTX = { halaman: "klien", usaha: P.n };
   }
@@ -151,7 +186,8 @@
   }
   // kode contoh untuk mencoba portal
   const CONTOH = () => { const d = new Date(); d.setDate(d.getDate() + 4);
-    return { kode: "ALV-CONTOH", n: "Kopi Senja", nm: "Kak Dimas", p: "landing", t: 3, rv: 1, pv: "", dl: d.toISOString().slice(0, 10), cat: "Ini contoh tampilan portal. Desain sudah jadi — silakan cek dan kirim revisi kalau ada yang ingin diubah.", by: "dp", up: new Date().toISOString() }; };
+    return { kode: "ALV-CONTOH", n: "Kopi Senja", nm: "Kak Dimas", p: "landing", t: 3, rv: 1, pv: "", dl: d.toISOString().slice(0, 10), cat: "Ini contoh tampilan portal. Desain sudah jadi — silakan cek pratinjau di bawah dan kirim revisi kalau ada yang ingin diubah.", by: "dp", up: new Date().toISOString(),
+      pv: S.links.demo({ name: "Kopi Senja", category: "Kedai Kopi", city: "Jambi", address: "Jl. Contoh No. 7, Kota Jambi", rating: 4.8, reviews: 640 }) }; };
 
   async function show(kode, snap) {
     $("#msg").textContent = "";
@@ -171,6 +207,6 @@
   window.HQ_CHAT_CTX = window.HQ_CHAT_CTX || { halaman: "klien" };
 })();
 </script>
-<script src="chat.js?v=20261029c"></script>
+<script src="chat.js?v=20261029d"></script>
 </body>
 </html>

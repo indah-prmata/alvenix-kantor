@@ -58,3 +58,5 @@
 #cuanKpi .kpi__val { font-size: clamp(1.25rem, 2.2vw, 1.7rem); }
 .toplist__name[data-pj] { cursor: pointer; }
 @media (max-width: 640px) { .pj-stage { grid-template-columns: 1fr; } }
+.pv-row { display: flex; gap: 8px; }
+.pv-row .sel { flex: 1; min-width: 0; }

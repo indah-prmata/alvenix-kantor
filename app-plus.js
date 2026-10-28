@@ -145,8 +145,9 @@
           <label><span>Nama kontak</span><input class="sel" id="fNm" value="${esc(p.nm)}" placeholder="mis. Bu Rina"></label>
           <label><span>WhatsApp klien</span><input class="sel" id="fWa" value="${esc(p.wa)}" placeholder="08…"></label>
           <label><span>Target selesai</span><input class="sel" type="date" id="fDl" value="${esc(p.dl)}"></label>
-          <label><span>Link pratinjau</span><input class="sel" id="fPv" value="${esc(p.pv)}" placeholder="https://…"></label>
         </div>
+        <label class="plus-full"><span>🌐 Link website yang kamu buat — tampil langsung di Portal Klien (Laptop &amp; HP)</span>
+          <div class="pv-row"><input class="sel" id="fPv" value="${esc(p.pv)}" placeholder="mis. https://kopisenja.vercel.app">${p.pv ? `<a class="btn btn--sm" href="${esc(p.pv)}" target="_blank" rel="noopener">Buka</a>` : ""}</div></label>
         <label class="plus-full"><span>Catatan untuk klien (tampil di portal)</span><textarea class="d-note" id="fCat" placeholder="mis. Menunggu foto menu dari klien">${esc(p.cat)}</textarea></label>
       </div>
       <div class="d-sec"><h4>Pembayaran — ${R(dibayar(p))} dari ${R(p.harga)}</h4>
