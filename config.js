@@ -47,13 +47,13 @@ window.HQ_CONFIG = {
   waKantor: "6282264116532",
 
   // Paket & harga resmi (sama dengan panduan sales). harga dalam rupiah.
+  // hargaNormal = harga coret (promo). Hapus hargaNormal kalau promo selesai.
+  promo: "Promo terbatas",
   paket: [
-    { id: "landing", nama: "Landing Page", harga: 2499000, ringkas: "1 halaman lengkap, fokus mendatangkan chat WhatsApp",
-      isi: ["Desain rapi di HP & laptop", "Tombol WhatsApp + Google Maps", "Layanan, harga, galeri, testimoni", "Link siap dipasang di bio Instagram"] },
-    { id: "profil", nama: "Website Profil Usaha", harga: 4999000, ringkas: "Hingga 5 halaman: Beranda, Tentang, Layanan, Galeri, Kontak",
-      isi: ["Semua isi paket Landing Page", "Halaman terpisah untuk tiap informasi", "Disusun supaya mudah ditemukan Google", "Cocok untuk klinik, katering, salon lengkap"] },
-    { id: "lengkap", nama: "Website Lengkap", harga: 7999000, ringkas: "Hingga 10 halaman + katalog/menu online + form pemesanan",
-      isi: ["Semua isi paket Profil Usaha", "Katalog produk / menu dengan foto", "Form pesan & booking ke WhatsApp", "Cocok untuk butik & usaha bercabang"] }
+    { id: "landing", nama: "Landing Page", harga: 950000, hargaNormal: 1500000, ringkas: "1 halaman promosi · siap untuk iklan",
+      isi: ["Desain rapi di HP & laptop", "Tombol WhatsApp + Google Maps", "Layanan, harga, galeri, testimoni", "Link siap dipasang di bio Instagram & iklan"] },
+    { id: "profil", nama: "Website", harga: 1900000, hargaNormal: 3000000, ringkas: "Multi-halaman · company profile",
+      isi: ["Semua isi paket Landing Page", "Beberapa halaman: Beranda, Tentang, Layanan, Galeri, Kontak", "Katalog / menu dengan foto", "Disusun supaya mudah ditemukan Google"] }
   ],
   // Sudah termasuk di semua paket.
   termasuk: ["Domain .com / .id (nama usaha sendiri)", "Hosting tahun pertama", "Keamanan SSL & perlindungan serangan", "Cadangan data", "Maksimal 5 kali revisi", "Perbaikan error/bug tanpa biaya"],

@@ -31,7 +31,8 @@
     <article class="svc ${i === 0 ? "svc--featured" : ""} reveal">
       ${i === 0 ? `<span class="svc__tag mono">Paling laris</span>` : ""}
       <h3>${esc(p.nama)}</h3>
-      <div class="price">${rp(p.harga)}</div>
+      ${p.hargaNormal > p.harga ? `<s class="price__was">${rp(p.hargaNormal)}</s>` : ""}
+      <div class="price">${rp(p.harga)}${S && S.hemat(p) ? ` <span class="price__save">Hemat ${S.hemat(p)}%</span>` : ""}</div>
       <p>${esc(p.ringkas)}</p>
       <ul>${p.isi.map(x => `<li>${esc(x)}</li>`).join("")}</ul>
       <button class="btn btn--sm ${i === 0 ? "btn--gold" : ""}" type="button" data-pick="${esc(p.nama)}">Saya mau paket ini →</button>
@@ -44,6 +45,7 @@
     const demo = e.target.closest("[data-demo]");
     if (demo && S) { try { const d = JSON.parse(demo.dataset.demo); window.open(S.links.demo({ name: d.n, category: d.c, city: d.k, rating: d.r, reviews: d.u }), "_blank", "noopener"); } catch {} }
   });
+  document.addEventListener("click", e => { if (e.target.closest("[data-open-chat]")) window.HQ_CHAT?.open(); });
   $("#progForm")?.addEventListener("submit", e => { e.preventDefault(); location.href = "klien.html#k=" + encodeURIComponent($("#progCode").value.trim().toUpperCase()); });
 
   /* ---------- Reveal (tanpa GSAP juga jalan) ---------- */
@@ -89,52 +91,17 @@
     }));
   }
 
+  /* ---------- Hero: kantor 3D melayang + ikut gerak mouse ---------- */
   const office = $("#office");
-  const STEPS = ["hero", "raka", "nadia", "bima", "nego", "sari", "you", "data", "end"];
-  const mobile = () => innerWidth < 900;
-  // posisi "kamera": geser + zoom kantor supaya titik fokus ada di area yang kosong dari teks
-  function cam(step) {
-    const w = office.offsetWidth, h = office.offsetHeight, W = innerWidth, H = innerHeight, m = mobile();
-    if (step === "hero") return m ? { x: 0, y: H * .2, scale: .92 } : { x: W * .2, y: H * .04, scale: .86 };
-    if (step === "end") return m ? { x: 0, y: -H * .08, scale: .9 } : { x: W * .17, y: 0, scale: .92 };
-    const p = window.Office.points[step] || [50, 50];
-    const s = m ? 2.0 : (step === "data" ? 1.75 : 1.95);
-    const offX = m ? 0 : W * .17, offY = m ? -H * .17 : 0;
-    return { x: -(p[0] - 50) / 100 * w * s + offX, y: -(p[1] - 50) / 100 * h * s + offY, scale: s };
+  window.Office?.focus(null);
+  gsap.from(office, { autoAlpha: 0, scale: .8, y: 60, duration: 1.6, ease: "power3.out", delay: .2 });
+  if (matchMedia("(pointer: fine)").matches && !reduce) {
+    const qx = gsap.quickTo(office, "rotationY", { duration: 1.2, ease: "power3.out" }), qy = gsap.quickTo(office, "rotationX", { duration: 1.2, ease: "power3.out" });
+    gsap.set("#tour .tour__stage", { perspective: 1400 });
+    addEventListener("pointermove", e => { qx((e.clientX / innerWidth - .5) * 10); qy(-(e.clientY / innerHeight - .5) * 8); }, { passive: true });
   }
-
-  gsap.set(office, { ...cam("hero"), transformOrigin: "50% 50%" });
-  const caps = $$(".cap"), rail = $$("#rail li"), hero = $("#tourHero");
-  let current = -1;
-  function setStep(i) {
-    if (i === current) return;
-    current = i;
-    caps.forEach(c => c.classList.toggle("is-on", +c.dataset.step === i));
-    rail.forEach(r => r.classList.toggle("is-on", +r.dataset.i === i));
-    rail.forEach(r => r.classList.toggle("is-done", +r.dataset.i < i));
-    const s = STEPS[i];
-    window.Office.focus(s === "hero" || s === "end" ? null : s);
-  }
-
-  const N = STEPS.length;
-  const tl = gsap.timeline({
-    defaults: { ease: "power2.inOut" },
-    scrollTrigger: {
-      trigger: "#tour", start: "top top", end: () => "+=" + innerHeight * N * .85,
-      pin: true, scrub: 1, invalidateOnRefresh: true,
-      onUpdate: self => {
-        $("#tourBar").style.transform = `scaleX(${self.progress})`;
-        setStep(Math.max(0, Math.min(N - 1, Math.floor(tl.time() + .35))));
-      }
-    }
-  });
-  tl.to(hero, { autoAlpha: 0, y: -60, duration: .45 }, .35);
-  for (let i = 1; i < N; i++) {
-    const s = STEPS[i];
-    tl.to(office, { x: () => cam(s).x, y: () => cam(s).y, scale: () => cam(s).scale, duration: .65 }, i - .65);
-  }
-  tl.to({}, { duration: .4 }, N - 1);
-  setStep(0);
+  gsap.to(office, { yPercent: 12, ease: "none", scrollTrigger: { trigger: "#tour", start: "top top", end: "bottom top", scrub: true } });
+  gsap.to("#tourHero", { yPercent: -18, autoAlpha: .2, ease: "none", scrollTrigger: { trigger: "#tour", start: "top top", end: "bottom top", scrub: true } });
 
   /* ---------- Contoh: scroll horizontal (desktop) ---------- */
   const track = $("#workTrack");

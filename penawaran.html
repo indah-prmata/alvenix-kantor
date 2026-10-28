@@ -106,7 +106,7 @@
       <ul class="incl">${(CFG.termasuk || []).map(t => `<li>${esc(t)}</li>`).join("")}</ul>
       <h2>Rincian biaya</h2>
       <table>
-        <tr><td>${esc(p.nama)} — pembuatan + domain, hosting &amp; keamanan tahun pertama</td><td>${S.rupiah(p.harga)}</td></tr>
+        ${p.hargaNormal > p.harga ? `<tr><td>Harga normal ${esc(p.nama)}</td><td><s style="color:var(--muted);font-weight:500">${S.rupiah(p.hargaNormal)}</s></td></tr><tr><td>Harga promo${CFG.promo ? " (" + esc(CFG.promo.toLowerCase()) + ")" : ""} — hemat ${S.hemat(p)}%</td><td style="color:#2f6bff">${S.rupiah(p.harga)}</td></tr>` : ""}<tr><td>${esc(p.nama)} — pembuatan + domain, hosting &amp; keamanan tahun pertama</td><td>${S.rupiah(p.harga)}</td></tr>
         <tr class="total"><td>Total</td><td>${S.rupiah(p.harga)}</td></tr>
         <tr class="dp"><td>Uang muka ${CFG.dpPersen || 50}% (untuk mulai pengerjaan)</td><td>${S.rupiah(dp)}</td></tr>
         <tr><td>Pelunasan — setelah website jadi &amp; disetujui</td><td>${S.rupiah(p.harga - dp)}</td></tr>
@@ -127,6 +127,6 @@
   window.HQ_CHAT_CTX = { halaman: "penawaran", usaha: Q.n };
 })();
 </script>
-<script src="chat.js?v=20261028"></script>
+<script src="chat.js?v=20261029b"></script>
 </body>
 </html>

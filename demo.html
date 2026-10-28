@@ -109,7 +109,9 @@
   .offer h2 { font-family: "Manrope", sans-serif; font-weight: 800; font-size: clamp(2rem, 4.4vw, 3.4rem); line-height: 1.05; letter-spacing: -.035em; color: #fff; margin: 14px 0 12px; max-width: 15em; }
   .offer h2 em { font-style: normal; background: linear-gradient(100deg, #7ff0fb, #22b8c6 45%, #ff9a5c); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .offer > .wrap > p { color: #8fa4aa; max-width: 36em; }
-  .pk { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 40px 0 26px; }
+  .was { color: #6f858b; font-size: 15px; }
+  .save { display: inline-block; vertical-align: middle; font: 700 12px "Manrope", sans-serif; letter-spacing: .06em; padding: 5px 10px; border-radius: 999px; background: #2f6bff; color: #fff; }
+  .pk { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 40px 0 26px; }
   .pk__c { padding: 26px; border-radius: 22px; border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.03); display: flex; flex-direction: column; }
   .pk__c--hi { border-color: #22b8c6; background: rgba(34,184,198,.08); }
   .pk__c small { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #5ce1ef; font-weight: 700; }
@@ -309,11 +311,11 @@
   });
 
   // paket alvenix
-  const saran = { salon: "landing", bengkel: "landing", laundry: "landing", kuliner: "profil", katering: "profil", klinik: "profil", butik: "lengkap", umum: "landing" }[J];
+  const saran = { salon: "landing", bengkel: "landing", laundry: "landing", kuliner: "profil", katering: "profil", klinik: "profil", butik: "profil", umum: "landing" }[J];
   $("#pk").innerHTML = (CFG.paket || []).map(p => `
     <div class="pk__c ${p.id === saran ? "pk__c--hi" : ""}">
       <small>${p.id === saran ? "Disarankan untuk " + esc(name) : "&nbsp;"}</small>
-      <h3>${esc(p.nama)}</h3><div class="price">${S.rupiah(p.harga)}</div><p>${esc(p.ringkas)}</p>
+      <h3>${esc(p.nama)}</h3>${p.hargaNormal > p.harga ? `<s class="was">${S.rupiah(p.hargaNormal)}</s>` : ""}<div class="price">${S.rupiah(p.harga)}${S.hemat(p) ? ` <span class="save">Hemat ${S.hemat(p)}%</span>` : ""}</div><p>${esc(p.ringkas)}</p>
       <ul>${p.isi.map(i => `<li>${esc(i)}</li>`).join("")}</ul>
       <button class="btn" type="button" data-pick="${esc(p.nama)}">Saya mau paket ini</button>
     </div>`).join("");
@@ -326,6 +328,6 @@
   window.HQ_CHAT_CTX = { halaman: "demo", usaha: name, jenis: J };
 })();
 </script>
-<script src="chat.js?v=20261028"></script>
+<script src="chat.js?v=20261029b"></script>
 </body>
 </html>

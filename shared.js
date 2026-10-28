@@ -29,6 +29,7 @@
   };
   const waLink = (phone, text) => { const n = waNumber(phone); return n ? `https://api.whatsapp.com/send?phone=${n}&text=${encodeURIComponent(text || "")}` : ""; };
   const paket = id => (CFG.paket || []).find(p => p.id === id) || (CFG.paket || [])[0];
+  const hemat = p => p.hargaNormal > p.harga ? Math.round((1 - p.harga / p.hargaNormal) * 100) : 0;
 
   // jenis usaha -> tema demo
   function jenis(category) {
@@ -52,5 +53,5 @@
     klien: snap => base() + "klien.html#p=" + enc(snap)
   };
 
-  window.HQ_SHARED = { enc, dec, base, rupiah, waNumber, waLink, paket, jenis, kode, links };
+  window.HQ_SHARED = { enc, dec, base, rupiah, waNumber, waLink, paket, hemat, jenis, kode, links };
 })();

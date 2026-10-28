@@ -51,6 +51,7 @@
   .dn__form button{width:44px;height:44px;border-radius:50%;border:0;background:#22b8c6;color:#021417;cursor:pointer;display:grid;place-items:center}
   .dn__form svg{width:18px;height:18px}
   .dn__foot{padding:0 0 10px;text-align:center;font-size:10.5px;color:#52636a}
+  @media (max-width:560px){.dn-fab{padding:6px;right:12px;bottom:12px}.dn-fab>span:nth-child(2){display:none}.dn-fab__dot{left:30px}}
   @keyframes dnIn{from{opacity:0;transform:translateY(6px)}}
   @keyframes dnDot{50%{opacity:.25;transform:translateY(-2px)}}`;
   document.head.appendChild(css);
@@ -106,11 +107,11 @@
   function paketFrom(t) {
     if (/\blanding\b/.test(t)) return "landing";
     if (/\b(profil|company|5 halaman|lima halaman)\b/.test(t)) return "profil";
-    if (/\b(lengkap|katalog|toko|10 halaman)\b/.test(t)) return "lengkap";
+    if (/\b(website|company|multi|katalog|beberapa halaman)\b/.test(t) && !/\blanding\b/.test(t)) return "profil";
     return "";
   }
-  const pkLine = p => `• <b>${esc(p.nama)}</b> — ${R(p.harga)}\n   ${esc(p.ringkas)}`;
-  const saranJenis = { salon: "landing", bengkel: "landing", laundry: "landing", kuliner: "profil", katering: "profil", klinik: "profil", butik: "lengkap", umum: "landing" };
+  const pkLine = p => `• <b>${esc(p.nama)}</b> — ${R(p.harga)}${p.hargaNormal > p.harga ? ` <s>${R(p.hargaNormal)}</s>` : ""}\n   ${esc(p.ringkas)}`;
+  const saranJenis = { salon: "landing", bengkel: "landing", laundry: "landing", kuliner: "profil", katering: "profil", klinik: "profil", butik: "profil", umum: "landing" };
 
   // basis jawaban: [pola, fungsi jawaban -> [html, chips]]
   const KB = [
@@ -118,7 +119,7 @@
     [/\b(terima kasih)\b/, () => ["Sama-sama 😊 Kalau nanti ada yang ingin ditanyakan lagi, Dina ada di sini ya.", ["Saya tertarik", "Lihat paket"]]],
     [/\b(beda|bedanya|perbedaan|pilih|cocok|sarankan|rekomendasi|mana yang)\b/, () => {
       const s = PK.find(p => p.id === saranJenis[PAGE.jenis || "umum"]) || PK[0];
-      return [`Singkatnya:\n• <b>Landing page</b> = 1 halaman seperti brosur yang bisa diklik, fokus ke tombol WhatsApp. Paling hemat & cepat.\n• <b>Website profil</b> = beberapa halaman (layanan, galeri, kontak), lebih lengkap & resmi.\n• <b>Website lengkap</b> = ditambah katalog/menu & form pesan.\n\nUntuk ${PAGE.jenis && PAGE.jenis !== "umum" ? "usaha seperti ini" : "kebanyakan UMKM"}, Dina sarankan <b>${esc(s.nama)}</b> (${R(s.harga)}).`, [`Ambil ${s.nama}`, "Biaya per tahun?", "Bisa revisi?"]];
+      return [`Singkatnya:\n• <b>Landing page</b> = 1 halaman seperti brosur yang bisa diklik, fokus ke tombol WhatsApp. Paling hemat & cepat.\n• <b>Website</b> = beberapa halaman (layanan, galeri, katalog, kontak), lebih lengkap & resmi seperti company profile.\n\nUntuk ${PAGE.jenis && PAGE.jenis !== "umum" ? "usaha seperti ini" : "kebanyakan UMKM"}, Dina sarankan <b>${esc(s.nama)}</b> (${R(s.harga)}).`, [`Ambil ${s.nama}`, "Biaya per tahun?", "Bisa revisi?"]];
     }],
     [/\b(tahun|tahunan|perpanjang|perpanjangan|bulanan|per bulan|langganan|tiap tahun)\b/, () => [`Tahun pertama sudah termasuk di harga paket. Mulai tahun ke-2 cukup <b>${R(CFG.biayaTahunan)}/tahun</b> — itu sudah mencakup domain, hosting, keamanan, cadangan data, dan perbaikan error. Tidak ada biaya bulanan.`, ["Ada biaya tersembunyi?", "Saya tertarik"]]],
     [/\b(tersembunyi|tambahan|hidden)\b/, () => ["Tidak ada 🙏 Semua biaya disampaikan di awal: biaya pembuatan, lalu biaya tahunan mulai tahun ke-2. Kalau nanti ada fitur tambahan yang Ibu/Bapak minta sendiri, harganya kami sampaikan dulu sebelum dikerjakan.", ["Saya tertarik", "Bisa revisi?"]]],
@@ -140,9 +141,9 @@
     [/\b(progres|progress|sampai mana|status proyek|cek proyek|kode proyek|sudah sampai)\b/, () => [`Progres pengerjaan bisa dipantau di <b>Portal Klien</b>: <a href="${S.base()}klien.html" style="color:#7ff0fb">buka portal</a> lalu masukkan kode proyek dari tim kami.`, ["Sambungkan ke tim"]]],
     [/\b(ganti isi|update|ubah harga|ganti foto|edit sendiri|perubahan nanti)\b/, () => ["Setelah online, cukup kirim perubahan (harga, foto, info) lewat WhatsApp — tim kami yang bantu ubahkan.", ["Biaya per tahun?", "Saya tertarik"]]],
     [/\b(siapa|alvenix|kantor|alamat kantor|penipuan|tipu|percaya|amanah|terpercaya)\b/, () => [`${esc(CFG.brand)} adalah jasa pembuatan website & landing page untuk usaha di Jambi dan Jakarta. Ibu/Bapak bisa lihat <b>demo gratis dulu</b>, dan pembayarannya bertahap — pelunasan setelah website jadi & disetujui.`, ["Berapa harganya?", "Sambungkan ke tim"]]],
-    [/\b(email|toko online|checkout|keranjang|booking|reservasi|dua bahasa|inggris|fitur)\b/, () => ["Bisa, sebagai tambahan atau lewat paket Website Lengkap (katalog + form pesan ke WhatsApp). Untuk fitur khusus seperti toko online, email bisnis, atau dua bahasa, tim kami yang hitungkan — mau saya sambungkan?", ["Sambungkan ke tim", "Lihat paket"], "tim"]],
+    [/\b(email|toko online|checkout|keranjang|booking|reservasi|dua bahasa|inggris|fitur)\b/, () => ["Bisa, sebagai fitur tambahan. Paket Website sudah bisa memuat katalog/menu dengan tombol pesan ke WhatsApp. Untuk fitur khusus seperti toko online, email bisnis, atau dua bahasa, tim kami yang hitungkan — mau saya sambungkan?", ["Sambungkan ke tim", "Lihat paket"], "tim"]],
     // paling umum — ditaruh terakhir supaya pertanyaan yang lebih spesifik menang
-    [/\b(harga|biaya|berapa|tarif|price|budget|paket|mahal|bayar berapa)\b/, () => [`Ini paket kami:\n${PK.map(pkLine).join("\n")}\n\nSemua sudah <b>termasuk domain, hosting & keamanan untuk tahun pertama</b>, revisi sampai ${CFG.maksRevisi || 5} kali, dan perbaikan error tanpa biaya.`, ["Apa bedanya paket?", "Biaya per tahun?", "Saya tertarik"]]]
+    [/\b(harga|biaya|berapa|tarif|price|budget|paket|mahal|bayar berapa)\b/, () => [`${CFG.promo ? "🔥 <b>" + esc(CFG.promo) + "</b> — " : ""}Ini paket kami:\n${PK.map(pkLine).join("\n")}\n\nSemua sudah <b>termasuk domain, hosting & keamanan untuk tahun pertama</b>, revisi sampai ${CFG.maksRevisi || 5} kali, dan perbaikan error tanpa biaya.`, ["Apa bedanya paket?", "Biaya per tahun?", "Saya tertarik"]]]
   ];
 
   /* ---------------- alur serah ke Tim Negosiasi ---------------- */

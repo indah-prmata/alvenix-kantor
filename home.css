@@ -284,7 +284,10 @@ html.lenis, html.lenis body { height: auto; }
 
 /* ============ HARGA ============ */
 .pricing__lead { color: var(--muted); margin: 14px 0 0; }
-.pricing__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.pricing__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; max-width: 980px; }
+.price__was { display: block; margin-top: 6px; color: var(--muted); font-size: 1rem; }
+.price__save { display: inline-block; vertical-align: middle; margin-left: 6px; font: 700 .7rem var(--f-body); letter-spacing: .08em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; background: linear-gradient(120deg, #ffb15c, #ef6a3a); color: #fff; }
+.promo-chip { margin-left: 8px; padding: 3px 10px; border-radius: 999px; background: rgba(239,106,58,.15); color: #ffb15c; letter-spacing: .08em; }
 .pricing__grid .svc { padding: 32px 30px; }
 .pricing__grid .svc h3 { margin-top: 18px; font-size: 1.45rem; }
 .price { font-family: var(--f-display); font-weight: 600; font-size: clamp(1.9rem, 3vw, 2.5rem); letter-spacing: -.045em; color: #fff; margin: 4px 0 6px; }
@@ -311,4 +314,66 @@ html.lenis, html.lenis body { height: auto; }
 @media (max-width: 900px) {
   .pricing__grid, .pricing__terms, .progress-band__box { grid-template-columns: minmax(0, 1fr); }
   .progress-band__form { flex-direction: column; }
+}
+
+/* ============ HERO v2 (tanpa tur 8 langkah) ============ */
+.hero2 .tour__stage { place-items: center end; padding-right: max(8px, calc((100vw - 1320px) / 2)); }
+.hero2 .office { width: min(60vw, calc(86vh * 820 / 730)); transform-style: preserve-3d; }
+.hero2 .tour__hero { width: min(600px, 46vw); }
+.hero2 .hero__title { font-size: clamp(2.6rem, 5.4vw, 5.1rem); line-height: .98; margin: 14px 0 22px; }
+.hero2 .hero__title em { display: inline-block; }
+.promo { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 26px; padding: 7px 8px 7px 14px; border-radius: 999px; border: 1px solid rgba(255,177,92,.4); background: rgba(239,106,58,.1); font-size: .86rem; color: #ffd9bf; transition: border-color .3s, transform .3s var(--ease); }
+.promo:hover { border-color: #ffb15c; transform: translateY(-2px); }
+.promo b { color: #fff; }
+.promo em { font-style: normal; font-weight: 700; font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; background: linear-gradient(120deg, #ffb15c, #ef6a3a); color: #fff; }
+.promo__dot { width: 8px; height: 8px; border-radius: 50%; background: #ffb15c; box-shadow: 0 0 0 0 rgba(255,177,92,.6); animation: promoPulse 1.8s infinite; }
+@keyframes promoPulse { 70% { box-shadow: 0 0 0 9px rgba(255,177,92,0); } 100% { box-shadow: 0 0 0 0 rgba(255,177,92,0); } }
+.hero__ctas .btn svg { width: 18px; height: 18px; }
+.trust { list-style: none; display: flex; flex-wrap: wrap; gap: 10px 22px; margin: 30px 0 0; padding: 0; font-size: .92rem; color: #cfe0e4; }
+.trust li { display: inline-flex; align-items: center; gap: 8px; }
+.trust svg { width: 18px; height: 18px; color: var(--cyan); }
+
+/* ============ CARA KERJA ============ */
+.steps4__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; counter-reset: s; }
+.steps4__list li { position: relative; padding: 28px 24px; border-radius: 22px; border: 1px solid var(--line); background: linear-gradient(170deg, rgba(255,255,255,.05), rgba(255,255,255,.012)); }
+.steps4__list li:not(:last-child)::after { content: ""; position: absolute; top: 46px; right: -12px; width: 8px; height: 8px; border-top: 1.5px solid var(--gold); border-right: 1.5px solid var(--gold); transform: rotate(45deg); opacity: .6; }
+.steps4__n { font-family: var(--f-display); font-size: 2.4rem; font-weight: 600; letter-spacing: -.05em; background: var(--brand-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.steps4__list h3 { font-family: var(--f-display); font-weight: 500; font-size: 1.15rem; letter-spacing: -.02em; margin: 14px 0 8px; }
+.steps4__list p { margin: 0; color: var(--muted); font-size: .94rem; }
+
+/* ============ AJAKAN PENUTUP ============ */
+.final { padding-bottom: clamp(80px, 10vw, 130px); }
+.final__box { position: relative; overflow: hidden; text-align: center; padding: clamp(40px, 7vw, 90px) clamp(20px, 5vw, 60px); border-radius: 34px; border: 1px solid rgba(34,184,198,.35); background: radial-gradient(70% 90% at 50% 0%, rgba(34,184,198,.22), transparent 70%), radial-gradient(50% 60% at 100% 100%, rgba(239,106,58,.14), transparent 70%), rgba(255,255,255,.02); }
+.final__box::after { content: ""; position: absolute; right: -70px; bottom: -90px; width: 340px; height: 340px; background: url(logo.svg) center / contain no-repeat; opacity: .07; pointer-events: none; }
+.final__box .eyebrow { justify-content: center; }
+.final__box .h2 { max-width: 16em; margin-left: auto; margin-right: auto; }
+.final__box p:not(.eyebrow) { color: var(--muted); max-width: 34rem; margin: 18px auto 30px; }
+.final__box .hero__ctas { justify-content: center; }
+
+@media (max-width: 1080px) {
+  .steps4__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .steps4__list li::after { display: none; }
+}
+@media (max-width: 900px) {
+  .hero2 { height: auto; min-height: 100svh; display: flex; flex-direction: column; }
+  .hero2 .tour__hero { position: relative; left: auto; right: auto; top: auto; transform: none; width: auto; padding: 108px 16px 0; }
+  .hero2 .tour__stage { position: relative; inset: auto; place-items: center; padding: 10px 0 30px; }
+  .hero2 .office { width: min(100%, 560px); }
+  .hero2 .hero__title { font-size: clamp(2.4rem, 11vw, 3.4rem); }
+  .promo { font-size: .78rem; margin-bottom: 18px; }
+  .trust { gap: 8px 16px; font-size: .85rem; margin-top: 22px; }
+}
+@media (max-width: 560px) {
+  .steps4__list { grid-template-columns: minmax(0, 1fr); }
+  .hero__ctas .btn { flex: 1 1 100%; }
+}
+/* halaman depan: balon kata internal di gambar kantor disembunyikan */
+.hero2 .o-bubble { display: none; }
+@media (max-width: 900px) {
+  .hero2 .tour__hero { order: 1; }
+  .hero2 .tour__stage { order: 2; }
+}
+@media (max-width: 560px) {
+  .promo__t { display: none; }
+  .promo { gap: 8px; padding-left: 12px; }
 }
