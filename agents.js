@@ -25,9 +25,14 @@ window.HQ_AGENTS = [
   {
     id: "sari", name: "Sari", initial: "S", tone: "rose",
     role: "Desainer",
-    desc: "Membuat contoh tampilan website untuk calon klien sebelum kamu menawarkan.",
-    tools: ["Mockup", "Segera hadir"],
-    soon: true
+    desc: "Membuat demo website personal untuk tiap calon klien dalam 1 klik — lengkap dengan nama, rating & lokasi usahanya.",
+    tools: ["Demo otomatis", "8 tema usaha", "Penawaran resmi"]
+  },
+  {
+    id: "dina", name: "Dina", initial: "D", tone: "blue",
+    role: "CS Chat 24 Jam",
+    desc: "Menjawab pertanyaan konsumen di demo, penawaran & portal klien. Begitu konsumen berminat, langsung dioper ke Tim Negosiasi di WhatsApp.",
+    tools: ["Chat otomatis", "AI (n8n)", "Serah ke negosiasi"]
   }
 ];
 

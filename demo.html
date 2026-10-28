@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Demo website</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link id="fontLink" rel="stylesheet" href="">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#fff; --ink:#151515; --muted:#6b6b6b; --soft:#f5f2ee; --line:#e8e3dc; --acc:#22b8c6; --acc2:#13879a; --on:#fff; --hero1:#e9f8fa; --hero2:#d2f0f4; --f-d:"Manrope",sans-serif; --r:22px; }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 "Manrope", system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 32px); }
+  h1, h2, h3 { font-family: var(--f-d); margin: 0; letter-spacing: -.02em; }
+
+  /* pita demo alvenix */
+  .ribbon { position: sticky; top: 0; z-index: 50; background: #061015; color: #dff6f9; font-size: 13.5px; }
+  .ribbon .wrap { display: flex; align-items: center; gap: 12px; min-height: 46px; }
+  .ribbon__mark { display: flex; align-items: center; gap: 7px; font: 700 15px "Outfit", sans-serif; color: #fff; flex: none; }
+  .ribbon__mark svg { width: 20px; height: 20px; }
+  .ribbon__mark b { color: #ef6a3a; }
+  .ribbon p { margin: 0; flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #9fb3b8; }
+  .ribbon p strong { color: #fff; }
+  .ribbon button { flex: none; border: 0; border-radius: 999px; padding: 8px 15px; font: 700 13px "Manrope", sans-serif; background: linear-gradient(120deg, #7ff0fb, #22b8c6); color: #021417; cursor: pointer; }
+
+  /* navigasi usaha */
+  .nav { position: sticky; top: 46px; z-index: 40; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 66px; }
+  .nav__brand { font-family: var(--f-d); font-weight: 700; font-size: 20px; letter-spacing: -.02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .nav__links { display: flex; gap: 26px; font-weight: 600; font-size: 14.5px; color: var(--muted); }
+  .nav__links a:hover { color: var(--ink); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; height: 50px; padding: 0 24px; border-radius: 999px; font-weight: 700; font-size: 15px; border: 1.5px solid transparent; cursor: pointer; transition: transform .3s, box-shadow .3s; white-space: nowrap; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn svg { width: 19px; height: 19px; }
+  .btn--acc { background: var(--acc); color: var(--on); box-shadow: 0 12px 30px -12px var(--acc); }
+  .btn--line { border-color: var(--line); background: transparent; }
+  .btn--sm { height: 42px; padding: 0 18px; font-size: 14px; }
+
+  /* hero */
+  .hero { padding: clamp(40px, 7vw, 90px) 0 60px; position: relative; overflow: hidden; }
+  .hero .wrap { display: grid; grid-template-columns: 1.05fr .95fr; gap: 48px; align-items: center; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--acc2); }
+  .eyebrow::before { content: ""; width: 28px; height: 2px; background: currentColor; }
+  .hero h1 { font-size: clamp(2.5rem, 6vw, 4.6rem); line-height: 1.02; margin: 18px 0 18px; font-weight: 700; }
+  .hero p.lead { font-size: 1.12rem; color: var(--muted); max-width: 32em; margin: 0 0 28px; }
+  .hero__cta { display: flex; flex-wrap: wrap; gap: 12px; }
+  .rating { display: inline-flex; align-items: center; gap: 12px; margin-top: 30px; padding: 10px 16px 10px 10px; border-radius: 999px; background: var(--soft); }
+  .rating__g { width: 34px; height: 34px; border-radius: 50%; background: #fff; display: grid; place-items: center; font: 800 16px Arial; color: #4285f4; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+  .rating b { font-size: 17px; }
+  .rating .stars { color: #f5a623; letter-spacing: 1px; }
+  .rating small { color: var(--muted); font-size: 13px; }
+  .visual { position: relative; aspect-ratio: 4/4.4; border-radius: 34px; background: linear-gradient(150deg, var(--hero1), var(--hero2)); overflow: hidden; box-shadow: 0 40px 80px -40px rgba(0,0,0,.35); }
+  .visual::before { content: ""; position: absolute; width: 75%; aspect-ratio: 1; border-radius: 50%; right: -18%; top: -14%; background: radial-gradient(circle, color-mix(in srgb, var(--acc) 45%, transparent), transparent 70%); }
+  .visual::after { content: ""; position: absolute; inset: 0; background-image: radial-gradient(color-mix(in srgb, var(--ink) 9%, transparent) 1.2px, transparent 1.4px); background-size: 22px 22px; mask: linear-gradient(160deg, transparent 30%, #000); }
+  .visual__icon { position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%); font-size: clamp(110px, 16vw, 190px); filter: drop-shadow(0 30px 40px rgba(0,0,0,.25)); z-index: 1; animation: float 6s ease-in-out infinite; }
+  .visual__name { position: absolute; left: 24px; bottom: 22px; right: 24px; z-index: 2; font-family: var(--f-d); font-size: clamp(22px, 2.6vw, 30px); font-weight: 700; line-height: 1.1; color: var(--ink); }
+  .float-card { position: absolute; z-index: 3; background: #fff; border-radius: 16px; padding: 12px 15px; box-shadow: 0 20px 40px -18px rgba(0,0,0,.35); font-size: 13px; line-height: 1.35; color: #222; }
+  .float-card b { display: block; font-size: 15px; }
+  .float-card--a { top: 22px; left: 22px; animation: float 7s ease-in-out infinite; }
+  .float-card--b { top: 40%; right: 18px; animation: float 8s ease-in-out infinite reverse; }
+  @keyframes float { 50% { transform: translateY(-10px); } }
+  .visual__icon { animation-name: floatC; }
+  @keyframes floatC { 50% { transform: translate(-50%, calc(-50% - 12px)); } }
+
+  section.block { padding: 80px 0; }
+  .head { max-width: 640px; margin-bottom: 40px; }
+  .head h2 { font-size: clamp(1.9rem, 3.6vw, 2.8rem); line-height: 1.08; margin: 12px 0 10px; }
+  .head p { color: var(--muted); margin: 0; }
+
+  .services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .svc { padding: 26px; border-radius: var(--r); background: var(--soft); border: 1px solid var(--line); transition: transform .35s, box-shadow .35s; }
+  .svc:hover { transform: translateY(-4px); box-shadow: 0 24px 40px -28px rgba(0,0,0,.3); }
+  .svc i { font-style: normal; font-size: 30px; display: block; margin-bottom: 14px; }
+  .svc h3 { font-size: 1.15rem; margin-bottom: 6px; }
+  .svc p { margin: 0; color: var(--muted); font-size: 14.5px; }
+
+  .why { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .why div { padding: 28px; border-radius: var(--r); background: var(--ink); color: var(--bg); }
+  .why b { display: block; font-family: var(--f-d); font-size: 2.4rem; line-height: 1; margin-bottom: 10px; color: var(--acc); }
+  .why span { opacity: .8; }
+
+  .testi { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .testi figure { margin: 0; padding: 24px; border-radius: var(--r); border: 1px solid var(--line); }
+  .testi blockquote { margin: 0 0 14px; font-size: 15px; }
+  .testi figcaption { font-size: 13px; color: var(--muted); }
+  .note { display: inline-block; margin-top: 14px; font-size: 12.5px; color: var(--muted); background: var(--soft); padding: 6px 12px; border-radius: 999px; }
+
+  .loc { display: grid; grid-template-columns: 1fr 1.2fr; gap: 24px; align-items: stretch; }
+  .loc__info { padding: 30px; border-radius: var(--r); background: var(--soft); display: grid; gap: 18px; align-content: start; }
+  .loc__info span { display: block; font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .loc iframe { width: 100%; height: 100%; min-height: 340px; border: 0; border-radius: var(--r); filter: saturate(.9); }
+
+  .cta { margin: 0 0 80px; padding: clamp(36px, 6vw, 64px); border-radius: 34px; background: linear-gradient(130deg, var(--acc), var(--acc2)); color: var(--on); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; }
+  .cta h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); max-width: 15em; }
+  .cta .btn { background: #fff; color: var(--acc2); }
+  footer.biz { border-top: 1px solid var(--line); padding: 26px 0 40px; font-size: 13.5px; color: var(--muted); }
+  footer.biz .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+
+  /* penawaran alvenix (setelah demo) */
+  .offer { background: #050c10; color: #dfeef1; padding: 90px 0 120px; position: relative; overflow: hidden; }
+  .offer::before { content: ""; position: absolute; width: 700px; height: 700px; right: -200px; top: -300px; border-radius: 50%; background: radial-gradient(circle, rgba(34,184,198,.35), transparent 65%); }
+  .offer .wrap { position: relative; }
+  .offer .eyebrow { color: #5ce1ef; }
+  .offer h2 { font-family: "Manrope", sans-serif; font-weight: 800; font-size: clamp(2rem, 4.4vw, 3.4rem); line-height: 1.05; letter-spacing: -.035em; color: #fff; margin: 14px 0 12px; max-width: 15em; }
+  .offer h2 em { font-style: normal; background: linear-gradient(100deg, #7ff0fb, #22b8c6 45%, #ff9a5c); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .offer > .wrap > p { color: #8fa4aa; max-width: 36em; }
+  .pk { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 40px 0 26px; }
+  .pk__c { padding: 26px; border-radius: 22px; border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.03); display: flex; flex-direction: column; }
+  .pk__c--hi { border-color: #22b8c6; background: rgba(34,184,198,.08); }
+  .pk__c small { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #5ce1ef; font-weight: 700; }
+  .pk__c h3 { font-family: "Manrope", sans-serif; color: #fff; font-size: 1.2rem; margin: 8px 0 4px; }
+  .pk__c .price { font: 800 2rem/1.1 "Manrope", sans-serif; color: #fff; letter-spacing: -.03em; margin: 6px 0 10px; }
+  .pk__c p { color: #8fa4aa; font-size: 14px; margin: 0 0 12px; }
+  .pk__c ul { margin: 0 0 20px; padding-left: 18px; font-size: 14px; color: #c9dade; flex: 1; }
+  .pk__c .btn { width: 100%; background: #fff; color: #031418; }
+  .pk__c--hi .btn { background: linear-gradient(120deg, #7ff0fb, #22b8c6); }
+  .incl { display: flex; flex-wrap: wrap; gap: 8px; }
+  .incl span { border: 1px solid rgba(255,255,255,.14); border-radius: 999px; padding: 7px 14px; font-size: 13px; color: #cfe3e7; }
+  .incl span::before { content: "✓ "; color: #5ee69a; }
+
+  .modal { position: fixed; inset: 0; z-index: 800; display: grid; place-items: center; padding: 16px; background: rgba(0,0,0,.5); backdrop-filter: blur(4px); }
+  .modal[hidden] { display: none; }
+  .modal div { max-width: 380px; padding: 26px; border-radius: 20px; background: #fff; color: #222; text-align: center; box-shadow: 0 30px 60px -20px rgba(0,0,0,.5); }
+  .modal b { display: block; font-size: 18px; margin-bottom: 8px; }
+  .modal p { margin: 0 0 18px; color: #555; font-size: 15px; }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s, transform .8s; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (max-width: 900px) {
+    .hero .wrap, .loc { grid-template-columns: 1fr; }
+    .services, .why, .testi, .pk { grid-template-columns: 1fr; }
+    .nav__links { display: none; }
+    .visual { aspect-ratio: 4/3.4; }
+  }
+  @media (max-width: 560px) {
+    .ribbon p { font-size: 12px; }
+    .ribbon__mark span { display: none; }
+    .nav .btn { display: none; }
+    section.block { padding: 56px 0; }
+    .hero__cta .btn { flex: 1 1 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="ribbon"><div class="wrap">
+  <span class="ribbon__mark"><svg viewBox="0 0 100 100"><g stroke="#22b8c6" stroke-width="11" stroke-linecap="round" fill="none"><path d="M52 54 L18 58"/><path d="M52 54 Q58 34 80 20"/><path d="M52 54 Q60 72 77 84"/></g><g fill="#22b8c6"><circle cx="52" cy="54" r="15"/><circle cx="15" cy="58" r="12"/><circle cx="82" cy="18" r="12"/><circle cx="78" cy="86" r="12"/></g></svg><span>alveni<b>x</b></span></span>
+  <p id="ribbonText">Contoh demo website</p>
+  <button type="button" data-go-offer>Lihat harga</button>
+</div></div>
+
+<nav class="nav"><div class="wrap">
+  <a class="nav__brand" href="#top" id="navName">Nama Usaha</a>
+  <div class="nav__links"><a href="#layanan">Layanan</a><a href="#tentang">Tentang</a><a href="#lokasi">Lokasi</a></div>
+  <a class="btn btn--acc btn--sm" href="#" data-biz-wa><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Z"/></svg>Chat WhatsApp</a>
+</div></nav>
+
+<main id="top">
+  <section class="hero"><div class="wrap">
+    <div>
+      <span class="eyebrow" id="heroEyebrow">Kategori · Kota</span>
+      <h1 id="heroName">Nama Usaha</h1>
+      <p class="lead" id="heroLead">—</p>
+      <div class="hero__cta">
+        <a class="btn btn--acc" href="#" data-biz-wa><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Z"/></svg><span id="ctaText">Chat via WhatsApp</span></a>
+        <a class="btn btn--line" href="#lokasi">Lihat lokasi</a>
+      </div>
+      <div class="rating" id="ratingBox"><span class="rating__g">G</span><div><b id="ratingVal">5,0</b> <span class="stars" id="ratingStars">★★★★★</span><br><small id="ratingCount">ulasan di Google</small></div></div>
+    </div>
+    <div class="visual reveal">
+      <div class="float-card float-card--a"><b id="fcA">★ 5,0</b><span id="fcA2">Rating Google</span></div>
+      <div class="float-card float-card--b"><b id="fcB">Buka hari ini</b><span>Chat untuk info</span></div>
+      <div class="visual__icon" id="heroIcon">✨</div>
+      <div class="visual__name" id="visualName">Nama Usaha</div>
+    </div>
+  </div></section>
+
+  <section class="block" id="layanan"><div class="wrap">
+    <div class="head reveal"><span class="eyebrow">Layanan</span><h2 id="svcTitle">Layanan kami</h2><p id="svcLead">—</p></div>
+    <div class="services" id="services"></div>
+  </div></section>
+
+  <section class="block" id="tentang" style="padding-top:0"><div class="wrap">
+    <div class="head reveal"><span class="eyebrow">Kenapa kami</span><h2 id="whyTitle">Dipercaya pelanggan</h2></div>
+    <div class="why reveal" id="why"></div>
+  </div></section>
+
+  <section class="block" style="padding-top:0"><div class="wrap">
+    <div class="head reveal"><span class="eyebrow">Testimoni</span><h2>Kata pelanggan</h2></div>
+    <div class="testi reveal" id="testi"></div>
+    <span class="note">Contoh tampilan — nanti diisi ulasan asli dari Google Anda</span>
+  </div></section>
+
+  <section class="block" id="lokasi" style="padding-top:0"><div class="wrap">
+    <div class="head reveal"><span class="eyebrow">Lokasi</span><h2>Kunjungi kami</h2></div>
+    <div class="loc reveal">
+      <div class="loc__info">
+        <div><span>Alamat</span><b id="locAddr">—</b></div>
+        <div><span>Jam buka</span><b>Senin – Sabtu · 08.00 – 20.00</b><small style="color:var(--muted);display:block">contoh — disesuaikan nanti</small></div>
+        <div><span>Kontak</span><b id="locPhone">—</b></div>
+        <a class="btn btn--acc" id="mapsBtn" href="#" target="_blank" rel="noopener">Buka di Google Maps</a>
+      </div>
+      <iframe id="map" title="Peta lokasi" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div></section>
+
+  <div class="wrap"><div class="cta reveal"><h2 id="ctaTitle">Siap melayani Anda hari ini.</h2><a class="btn" href="#" data-biz-wa>Chat sekarang</a></div></div>
+  <footer class="biz"><div class="wrap"><span id="footName">© Nama Usaha</span><span>Website oleh alvenix</span></div></footer>
+</main>
+
+<!-- PENAWARAN ALVENIX -->
+<section class="offer" id="offer"><div class="wrap">
+  <span class="eyebrow">Untuk pemilik <span id="offerName">usaha ini</span></span>
+  <h2>Suka dengan demonya? <em>Website ini bisa jadi milik Anda.</em></h2>
+  <p>Foto, warna, layanan, dan harga kami sesuaikan dengan usaha asli. Anda cukup kirim bahan lewat WhatsApp — semua urusan teknis kami yang kerjakan.</p>
+  <div class="pk" id="pk"></div>
+  <div class="incl" id="incl"></div>
+</div></section>
+
+<div class="modal" id="waModal" hidden><div>
+  <b>Ini tombol WhatsApp untuk pelanggan Anda 💬</b>
+  <p id="waModalText">Di website asli, pelanggan menekan tombol ini dan langsung chat ke nomor usaha Anda.</p>
+  <button class="btn btn--acc btn--sm" type="button" data-close-modal>Mengerti</button>
+</div></div>
+
+<script src="config.js?v=20261028"></script>
+<script src="shared.js?v=20261028"></script>
+<script>
+(() => {
+  const CFG = window.HQ_CONFIG || {}, S = window.HQ_SHARED;
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const D = S.dec((location.hash.match(/d=([^&]+)/) || [])[1] || "") || { n: "Usaha Anda", c: "Usaha", k: "Kota Anda", r: 4.9, u: 120 };
+  const J = S.jenis(D.c);
+
+  const THEME = {
+    salon:   { font: "Cormorant+Garamond:wght@500;600;700", fam: '"Cormorant Garamond", serif', bg: "#fffaf7", ink: "#2a1d1d", soft: "#f8eee9", line: "#efe1da", acc: "#c46a7a", acc2: "#9b4658", h1: "#fbe7ea", h2: "#f2d3d9", icon: "💇‍♀️",
+               lead: "Tampil lebih percaya diri dengan perawatan dari tangan yang berpengalaman.", svc: [["✂️", "Potong & Styling", "Potongan rapi sesuai bentuk wajah dan gaya Anda."], ["🎨", "Pewarnaan Rambut", "Warna tahan lama dengan produk yang aman."], ["💆‍♀️", "Creambath & Spa", "Rileks sekaligus merawat kesehatan rambut."], ["💅", "Nail Art", "Kuku cantik untuk setiap acara."], ["👰", "Makeup & Hijab Do", "Untuk wisuda, lamaran, hingga pernikahan."], ["🌿", "Perawatan Wajah", "Facial untuk kulit lebih segar dan bersih."]], cta: "Booking jadwal sekarang", ctaT: "Saatnya tampil paling cantik." },
+    bengkel: { font: "Oswald:wght@500;600;700", fam: '"Oswald", sans-serif', bg: "#f6f6f4", ink: "#111315", soft: "#ecebe7", line: "#dddcd6", acc: "#f26a1b", acc2: "#c24e0a", h1: "#2a2d31", h2: "#16181b", icon: "🏍️", dark: true,
+               lead: "Servis cepat, jujur, dan bergaransi — kendaraan Anda kembali prima.", svc: [["🔧", "Servis Rutin", "Ganti oli, tune up, dan pengecekan menyeluruh."], ["🛞", "Ban & Velg", "Tambal, ganti, dan balancing ban."], ["⚡", "Kelistrikan", "Aki, lampu, starter, dan kabel."], ["🛠️", "Turun Mesin", "Ditangani mekanik berpengalaman."], ["🚨", "Panggilan Darurat", "Mogok di jalan? Kami datang ke lokasi."], ["🧾", "Harga Transparan", "Estimasi biaya jelas sebelum dikerjakan."]], cta: "Chat mekanik sekarang", ctaT: "Kendaraan bermasalah? Kami siap bantu." },
+    kuliner: { font: "Fraunces:opsz,wght@9..144,600;9..144,700", fam: '"Fraunces", serif', bg: "#fffbf3", ink: "#2b1a10", soft: "#f8efe0", line: "#efe2cc", acc: "#c8551d", acc2: "#9a3d10", h1: "#fde9cf", h2: "#f6d2a8", icon: "🍽️",
+               lead: "Rasa yang bikin kangen, dibuat dari bahan segar setiap hari.", svc: [["🍛", "Menu Andalan", "Racikan khas yang paling banyak dipesan."], ["🥤", "Minuman Segar", "Pelengkap sempurna untuk setiap hidangan."], ["🛵", "Pesan Antar", "Bisa diantar lewat ojek online atau kurir."], ["🎉", "Pesanan Acara", "Untuk arisan, rapat, hingga syukuran."], ["👨‍🍳", "Dimasak Fresh", "Disiapkan saat dipesan, bukan dari kemarin."], ["💳", "Bayar Mudah", "Tunai, transfer, atau QRIS."]], cta: "Pesan sekarang", ctaT: "Lapar? Pesan sekarang, kami siapkan." },
+    katering:{ font: "Fraunces:opsz,wght@9..144,600;9..144,700", fam: '"Fraunces", serif', bg: "#fbfdf7", ink: "#1d2a14", soft: "#eff4e4", line: "#e0e8d0", acc: "#5b8c2a", acc2: "#3f6a17", h1: "#e7f2d6", h2: "#d1e6b5", icon: "🍱",
+               lead: "Katering lezat dan higienis untuk kantor, acara, dan keluarga Anda.", svc: [["🍱", "Nasi Kotak", "Pilihan menu lengkap untuk rapat & acara."], ["🥘", "Prasmanan", "Untuk pernikahan, syukuran, dan gathering."], ["📅", "Katering Harian", "Langganan makan siang kantor dan rumah."], ["🥗", "Menu Sehat", "Pilihan rendah minyak dan seimbang."], ["🚚", "Antar Tepat Waktu", "Sampai sebelum acara dimulai."], ["🧼", "Higienis", "Dapur bersih dan bahan berkualitas."]], cta: "Tanya paket & harga", ctaT: "Ada acara? Serahkan konsumsinya pada kami." },
+    butik:   { font: "Playfair+Display:wght@500;600;700", fam: '"Playfair Display", serif', bg: "#fbfaf8", ink: "#141414", soft: "#f1eeea", line: "#e4dfd8", acc: "#141414", acc2: "#141414", h1: "#efe9e2", h2: "#ddd3c8", icon: "👗",
+               lead: "Koleksi pilihan untuk tampil anggun di setiap kesempatan.", svc: [["👗", "Koleksi Terbaru", "Model terkini yang diperbarui setiap minggu."], ["🧕", "Busana Muslim", "Gamis, tunik, dan hijab yang nyaman."], ["✂️", "Jahit & Permak", "Ukuran pas sesuai keinginan Anda."], ["🎁", "Seragam & Acara", "Untuk keluarga, kantor, dan komunitas."], ["📦", "Kirim ke Seluruh Indonesia", "Pesan lewat WhatsApp, kami kirim."], ["💎", "Kualitas Terjamin", "Bahan pilihan dan jahitan rapi."]], cta: "Tanya koleksi", ctaT: "Temukan gaya terbaik Anda di sini." },
+    klinik:  { font: "Plus+Jakarta+Sans:wght@600;700;800", fam: '"Plus Jakarta Sans", sans-serif', bg: "#f7fbfd", ink: "#0f2633", soft: "#eaf4f8", line: "#d9e9ef", acc: "#1d7fd1", acc2: "#145fa0", h1: "#e1f0fb", h2: "#c9e3f7", icon: "🩺",
+               lead: "Pelayanan kesehatan yang ramah, profesional, dan terpercaya.", svc: [["🩺", "Pemeriksaan Umum", "Konsultasi dengan tenaga kesehatan berpengalaman."], ["🦷", "Perawatan Khusus", "Layanan sesuai kebutuhan Anda."], ["💊", "Obat & Resep", "Tersedia lengkap dan terjamin."], ["📅", "Janji Temu", "Atur jadwal tanpa antre lama."], ["🧪", "Pemeriksaan Lab", "Hasil cepat dan akurat."], ["🤝", "Ramah Keluarga", "Untuk anak hingga lansia."]], cta: "Buat janji temu", ctaT: "Kesehatan Anda, prioritas kami." },
+    laundry: { font: "Nunito:wght@700;800", fam: '"Nunito", sans-serif', bg: "#f7fcff", ink: "#10263a", soft: "#e9f5fd", line: "#d6ebf8", acc: "#2b9bdc", acc2: "#1c79b0", h1: "#e0f2fd", h2: "#c4e5fa", icon: "🧺",
+               lead: "Pakaian bersih, wangi, dan rapi — tanpa repot.", svc: [["👕", "Cuci Kiloan", "Hemat untuk pakaian sehari-hari."], ["👔", "Setrika Rapi", "Siap pakai untuk kerja dan acara."], ["🛏️", "Bed Cover & Karpet", "Dicuci bersih sampai ke serat."], ["⚡", "Layanan Kilat", "Selesai di hari yang sama."], ["🛵", "Antar Jemput", "Kami ambil dan antar ke rumah."], ["🌸", "Wangi Tahan Lama", "Pilihan pewangi favorit Anda."]], cta: "Jadwalkan jemput", ctaT: "Cucian menumpuk? Biar kami yang urus." },
+    umum:    { font: "Unbounded:wght@500;600;700", fam: '"Unbounded", sans-serif', bg: "#ffffff", ink: "#0f1a1d", soft: "#f2f7f8", line: "#e1eaec", acc: "#16a3b2", acc2: "#0e7d89", h1: "#e4f6f8", h2: "#cbedf1", icon: "🏪",
+               lead: "Melayani dengan sepenuh hati — kualitas yang sudah dibuktikan pelanggan.", svc: [["⭐", "Layanan Utama", "Layanan unggulan yang paling dicari pelanggan."], ["🤝", "Pelayanan Ramah", "Tim yang siap membantu kebutuhan Anda."], ["💬", "Respon Cepat", "Tanya apa saja lewat WhatsApp."], ["📍", "Lokasi Mudah", "Gampang ditemukan lewat Google Maps."], ["💳", "Pembayaran Mudah", "Tunai, transfer, atau QRIS."], ["🏆", "Terpercaya", "Dibuktikan oleh ulasan pelanggan."]], cta: "Chat sekarang", ctaT: "Ada yang bisa kami bantu?" }
+  };
+  const T = THEME[J] || THEME.umum;
+  $("#fontLink").href = `https://fonts.googleapis.com/css2?family=${T.font}&display=swap`;
+  const root = document.documentElement.style;
+  [["--bg", T.bg], ["--ink", T.ink], ["--soft", T.soft], ["--line", T.line], ["--acc", T.acc], ["--acc2", T.acc2], ["--hero1", T.h1], ["--hero2", T.h2], ["--f-d", T.fam]].forEach(([k, v]) => root.setProperty(k, v));
+  if (T.dark) $(".visual__name").style.color = "#fff";
+
+  const name = D.n || "Usaha Anda", city = D.k || "", rating = +D.r || 0, reviews = +D.u || 0;
+  const r1 = rating ? rating.toFixed(1).replace(".", ",") : "–";
+  document.title = `${name} — demo website`;
+  $("#ribbonText").innerHTML = `Demo website untuk <strong>${esc(name)}</strong> — bisa jadi milik Anda`;
+  ["#navName", "#heroName", "#visualName"].forEach(s => $(s).textContent = name);
+  $("#offerName").textContent = name;
+  $("#heroEyebrow").textContent = `${D.c || "Usaha"}${city ? " · " + city : ""}`;
+  $("#heroLead").textContent = T.lead;
+  $("#heroIcon").textContent = T.icon;
+  $("#ctaText").textContent = T.cta;
+  $("#ctaTitle").textContent = T.ctaT;
+  $("#ratingVal").textContent = r1;
+  $("#ratingStars").textContent = "★★★★★".slice(0, Math.round(rating) || 5);
+  $("#ratingCount").textContent = reviews ? `dari ${reviews.toLocaleString("id-ID")} ulasan di Google` : "ulasan di Google";
+  $("#fcA").textContent = `★ ${r1}`; $("#fcA2").textContent = reviews ? `${reviews.toLocaleString("id-ID")} ulasan Google` : "Rating Google";
+  $("#svcTitle").textContent = `Layanan ${name}`;
+  $("#svcLead").textContent = `Semua yang Anda butuhkan${city ? " di " + city : ""}, dalam satu tempat.`;
+  $("#services").innerHTML = T.svc.map(([i, h, p]) => `<div class="svc reveal"><i>${i}</i><h3>${esc(h)}</h3><p>${esc(p)}</p></div>`).join("");
+  $("#whyTitle").textContent = `Kenapa pelanggan memilih ${name}`;
+  $("#why").innerHTML = [
+    [r1, `rating rata-rata di Google`],
+    [reviews ? reviews.toLocaleString("id-ID") + "+" : "100+", "pelanggan sudah memberi ulasan"],
+    ["📍", `mudah dijangkau${city ? " di " + city : ""}`]
+  ].map(([b, s]) => `<div><b>${esc(b)}</b><span>${esc(s)}</span></div>`).join("");
+  $("#testi").innerHTML = [["Pelayanannya ramah dan hasilnya memuaskan. Pasti balik lagi!", "Pelanggan"], ["Tempatnya nyaman, harganya masuk akal. Recommended.", "Pelanggan"], ["Cepat, rapi, dan profesional. Terima kasih banyak!", "Pelanggan"]]
+    .map(([q, w]) => `<figure><div class="stars" style="color:#f5a623">★★★★★</div><blockquote>“${q}”</blockquote><figcaption>— ${w} (contoh)</figcaption></figure>`).join("");
+  $("#locAddr").textContent = D.a || city || "—";
+  $("#locPhone").textContent = D.p || "Nomor WhatsApp usaha";
+  const q = encodeURIComponent(`${name} ${D.a || city}`);
+  $("#map").src = `https://maps.google.com/maps?q=${q}&z=15&output=embed`;
+  $("#mapsBtn").href = D.m || `https://www.google.com/maps/search/${q}`;
+  $("#footName").textContent = `© ${new Date().getFullYear()} ${name}${city ? " · " + city : ""}`;
+
+  // tombol WA usaha: di demo hanya diperagakan
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-biz-wa]")) {
+      e.preventDefault();
+      $("#waModalText").textContent = `Di website asli, pelanggan menekan tombol ini dan langsung chat ke WhatsApp ${name}${D.p ? " (" + D.p + ")" : ""} — pesannya sudah terisi otomatis.`;
+      $("#waModal").hidden = false;
+    }
+    if (e.target.closest("[data-close-modal]") || e.target.id === "waModal") $("#waModal").hidden = true;
+    if (e.target.closest("[data-go-offer]")) $("#offer").scrollIntoView({ behavior: "smooth" });
+    const pick = e.target.closest("[data-pick]");
+    if (pick && window.HQ_CHAT) window.HQ_CHAT.ask(`Saya tertarik paket ${pick.dataset.pick}`);
+  });
+
+  // paket alvenix
+  const saran = { salon: "landing", bengkel: "landing", laundry: "landing", kuliner: "profil", katering: "profil", klinik: "profil", butik: "lengkap", umum: "landing" }[J];
+  $("#pk").innerHTML = (CFG.paket || []).map(p => `
+    <div class="pk__c ${p.id === saran ? "pk__c--hi" : ""}">
+      <small>${p.id === saran ? "Disarankan untuk " + esc(name) : "&nbsp;"}</small>
+      <h3>${esc(p.nama)}</h3><div class="price">${S.rupiah(p.harga)}</div><p>${esc(p.ringkas)}</p>
+      <ul>${p.isi.map(i => `<li>${esc(i)}</li>`).join("")}</ul>
+      <button class="btn" type="button" data-pick="${esc(p.nama)}">Saya mau paket ini</button>
+    </div>`).join("");
+  $("#incl").innerHTML = (CFG.termasuk || []).map(t => `<span>${esc(t)}</span>`).join("") + `<span>Mulai tahun ke-2 ${S.rupiah(CFG.biayaTahunan)}/tahun</span>`;
+
+  // animasi muncul
+  const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { x.target.classList.add("in"); io.unobserve(x.target); } }), { threshold: .12 });
+  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+  window.HQ_CHAT_CTX = { halaman: "demo", usaha: name, jenis: J };
+})();
+</script>
+<script src="chat.js?v=20261028"></script>
+</body>
+</html>

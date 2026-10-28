@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Portal Klien — alvenix</title>
+<meta name="theme-color" content="#03080c">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600&family=Outfit:wght@700&family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="hq.css?v=20261028">
+<style>
+  body { background: #03080c; min-height: 100vh; }
+  .glow { position: fixed; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(55vw 45vh at 85% 0%, rgba(34,184,198,.22), transparent 70%), radial-gradient(40vw 40vh at 0% 100%, rgba(239,106,58,.1), transparent 70%); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 16px 120px; }
+  .top { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; }
+  .top .wordmark { font-size: 1.35rem; }
+  .top small { font-family: var(--f-mono); font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+  h1 { font-family: var(--f-display); font-weight: 600; font-size: clamp(2rem, 6vw, 3.2rem); line-height: 1.04; letter-spacing: -.04em; margin: 24px 0 10px; }
+  h1 .serif { color: #7ff0fb; }
+  .lead { color: var(--muted); margin: 0 0 24px; }
+  .find { display: flex; gap: 10px; }
+  .find input { flex: 1; min-width: 0; height: 54px; padding: 0 20px; border-radius: 999px; border: 1px solid var(--line-2); background: rgba(255,255,255,.04); color: var(--text); font: 600 1.05rem var(--f-mono); letter-spacing: .12em; text-transform: uppercase; outline: none; }
+  .find input:focus { border-color: var(--gold); box-shadow: 0 0 0 4px rgba(34,184,198,.15); }
+  .msg { min-height: 1.5em; margin: 10px 4px 0; font-size: .9rem; color: var(--red); }
+  .card { margin-top: 26px; padding: 26px; border-radius: 24px; border: 1px solid var(--line); background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)); backdrop-filter: blur(16px); animation: up .6s var(--ease) both; }
+  @keyframes up { from { opacity: 0; transform: translateY(20px); } }
+  .card__head { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .card__head h2 { margin: 0; font-family: var(--f-display); font-weight: 500; font-size: 1.5rem; letter-spacing: -.03em; }
+  .card__head p { margin: 4px 0 0; color: var(--muted); }
+  .kode { align-self: flex-start; font-family: var(--f-mono); font-size: .8rem; padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(34,184,198,.45); color: var(--gold); }
+  .pct { display: flex; align-items: baseline; gap: 10px; margin: 26px 0 10px; }
+  .pct b { font-family: var(--f-display); font-weight: 500; font-size: 3rem; letter-spacing: -.05em; line-height: 1; }
+  .pct span { color: var(--muted); }
+  .bar { height: 10px; border-radius: 999px; background: rgba(255,255,255,.07); overflow: hidden; }
+  .bar i { display: block; height: 100%; width: 0; border-radius: inherit; background: var(--brand-grad); transition: width 1.4s var(--ease); box-shadow: 0 0 20px rgba(34,184,198,.6); }
+  .steps { list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 0; }
+  .steps li { position: relative; display: grid; grid-template-columns: 34px 1fr; gap: 14px; padding-bottom: 20px; }
+  .steps li::before { content: ""; position: absolute; left: 16px; top: 32px; bottom: 0; width: 2px; background: rgba(255,255,255,.08); }
+  .steps li:last-child::before { display: none; }
+  .steps li.done::before { background: var(--gold); }
+  .dot { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font: 600 .8rem var(--f-display); border: 1.5px solid var(--line-2); color: var(--muted); background: #071116; position: relative; z-index: 1; }
+  .done .dot { background: var(--gold); border-color: var(--gold); color: #021417; }
+  .now .dot { border-color: var(--orange); color: #fff; background: rgba(239,106,58,.2); box-shadow: 0 0 0 6px rgba(239,106,58,.12); }
+  .steps b { display: block; padding-top: 5px; }
+  .steps small { color: var(--muted); }
+  .now b { color: #ffb88f; }
+  .info { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+  .info > div { padding: 14px 16px; border-radius: 16px; background: rgba(255,255,255,.04); border: 1px solid var(--line); }
+  .info span { display: block; font-family: var(--f-mono); font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  .info b { font-size: 1.05rem; }
+  .rev { display: flex; gap: 5px; margin-top: 6px; }
+  .rev i { width: 16px; height: 6px; border-radius: 3px; background: rgba(255,255,255,.12); }
+  .rev i.used { background: var(--orange); }
+  .note { margin-top: 16px; padding: 14px 16px; border-radius: 16px; border-left: 3px solid var(--gold); background: rgba(34,184,198,.07); }
+  .acts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+  .upd { margin-top: 18px; font-family: var(--f-mono); font-size: .68rem; color: var(--dim); }
+  .help { margin-top: 30px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .help div { padding: 16px; border-radius: 16px; border: 1px solid var(--line); font-size: .9rem; color: var(--muted); }
+  .help b { display: block; color: var(--text); margin-bottom: 2px; }
+  @media (max-width: 600px) { .info, .help { grid-template-columns: 1fr; } .find { flex-direction: column; } .find .btn { width: 100%; } }
+</style>
+</head>
+<body>
+<div class="glow" aria-hidden="true"></div>
+<div class="wrap">
+  <header class="top"><span class="wordmark"><img src="logo.svg" alt=""><span>alveni<b>x</b></span></span><small>Portal Klien</small></header>
+
+  <h1>Pantau website Anda,<br><span class="serif">kapan saja.</span></h1>
+  <p class="lead">Masukkan kode proyek dari tim kami untuk melihat sampai mana pengerjaan website Anda.</p>
+  <form class="find" id="find" autocomplete="off">
+    <input id="kode" placeholder="ALV-XXXXX" aria-label="Kode proyek" required>
+    <button class="btn btn--gold" type="submit">Cek progres</button>
+  </form>
+  <p class="msg" id="msg" role="status"></p>
+
+  <div id="out"></div>
+
+  <div class="help">
+    <div><b>✏️ Revisi maks. 5×</b>Kumpulkan perubahan dalam satu pesan.</div>
+    <div><b>🛠️ Ada error?</b>Langsung kami kerjakan, tanpa biaya.</div>
+    <div><b>💬 Ada pertanyaan?</b>Tanya Dina di pojok kanan bawah.</div>
+  </div>
+</div>
+
+<script src="config.js?v=20261028"></script>
+<script src="shared.js?v=20261028"></script>
+<script>
+(() => {
+  const CFG = window.HQ_CONFIG || {}, S = window.HQ_SHARED;
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const TAHAP = [
+    ["Brief & kebutuhan", "Kami mencatat kebutuhan, gaya, dan isi website."],
+    ["Bahan diterima", "Logo, foto, dan daftar layanan sudah kami terima."],
+    ["Desain dibuat", "Tim sedang membuat tampilan website Anda."],
+    ["Revisi", "Silakan cek pratinjau dan kirim perubahan."],
+    ["Website online", "Website sudah tayang di alamat Anda."],
+    ["Selesai & serah terima", "Website resmi diserahkan. Terima kasih!"]
+  ];
+  const MAX = CFG.maksRevisi || 5;
+  const fmt = d => d ? new Date(d).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" }) : "—";
+
+  function render(P) {
+    const t = Math.max(0, Math.min(TAHAP.length - 1, +P.t || 0));
+    const pct = Math.round(((t + (t === TAHAP.length - 1 ? 1 : .5)) / TAHAP.length) * 100);
+    const pk = S.paket(P.p);
+    const rv = Math.min(MAX, +P.rv || 0);
+    const wa = S.waLink(CFG.waKantor, `Halo Tim ${CFG.brand} 👋\nSaya dari *${P.n}* (kode proyek *${P.kode}*).\n\n`);
+    $("#out").innerHTML = `
+      <section class="card">
+        <div class="card__head"><div><h2>${esc(P.n)}</h2><p>${esc(pk.nama)}${P.nm ? " · " + esc(P.nm) : ""}</p></div><span class="kode">${esc(P.kode)}</span></div>
+        <div class="pct"><b>${pct}%</b><span>${esc(TAHAP[t][0])}</span></div>
+        <div class="bar"><i id="barFill"></i></div>
+        <ol class="steps">${TAHAP.map(([h, s], i) => `<li class="${i < t ? "done" : i === t ? "now" : ""}"><span class="dot">${i < t ? "✓" : i + 1}</span><div><b>${h}</b><small>${i === t ? "Tahap sekarang — " : ""}${s}</small></div></li>`).join("")}</ol>
+        <div class="info">
+          <div><span>Revisi terpakai</span><b>${rv} / ${MAX}</b><div class="rev">${Array.from({ length: MAX }, (_, i) => `<i class="${i < rv ? "used" : ""}"></i>`).join("")}</div></div>
+          <div><span>Target selesai</span><b>${fmt(P.dl)}</b></div>
+          <div><span>Pembayaran</span><b>${{ lunas: "Lunas ✓", dp: "Uang muka diterima" }[P.by] || "Menunggu uang muka"}</b></div>
+        </div>
+        ${P.cat ? `<div class="note"><span class="lbl" style="font-family:var(--f-mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)">Catatan dari tim</span><br>${esc(P.cat)}</div>` : ""}
+        <div class="acts">
+          ${P.pv ? `<a class="btn btn--gold" href="${esc(P.pv)}" target="_blank" rel="noopener">Lihat pratinjau website</a>` : ""}
+          <a class="btn btn--wa" href="${wa}" target="_blank" rel="noopener">💬 ${t === 3 ? "Kirim revisi via WhatsApp" : "Hubungi tim"}</a>
+        </div>
+        <p class="upd">Diperbarui ${P.up ? new Date(P.up).toLocaleString("id-ID", { dateStyle: "medium", timeStyle: "short" }) : "—"}</p>
+      </section>`;
+    requestAnimationFrame(() => setTimeout(() => $("#barFill").style.width = pct + "%", 60));
+    window.HQ_CHAT_CTX = { halaman: "klien", usaha: P.n };
+  }
+
+  async function live(kode) {
+    if (!CFG.progresUrl) return null;
+    try {
+      const r = await fetch(CFG.progresUrl + "?kode=" + encodeURIComponent(kode), { headers: { Accept: "application/json" } });
+      if (!r.ok) return null;
+      let j = await r.json(); if (Array.isArray(j)) j = j[0];
+      return j && j.kode ? j : null;
+    } catch { return null; }
+  }
+
+  async function show(kode, snap) {
+    $("#msg").textContent = "";
+    const fresh = await live(kode);
+    const P = fresh && (!snap || new Date(fresh.up || 0) >= new Date(snap.up || 0)) ? fresh : snap;
+    if (P) { render(P); history.replaceState(null, "", "#k=" + encodeURIComponent(P.kode) + (snap ? "&p=" + location.hash.match(/p=([^&]+)/)?.[1] : "")); return; }
+    $("#out").innerHTML = "";
+    $("#msg").textContent = CFG.progresUrl ? "Kode tidak ditemukan. Cek lagi, atau buka link progres yang dikirim tim kami lewat WhatsApp." : "Buka link progres yang dikirim tim kami lewat WhatsApp ya 🙏";
+  }
+
+  $("#find").addEventListener("submit", e => { e.preventDefault(); const k = $("#kode").value.trim().toUpperCase(); if (k) show(k, null); });
+
+  const h = location.hash;
+  const snap = S.dec((h.match(/p=([^&]+)/) || [])[1] || "");
+  const k = decodeURIComponent((h.match(/k=([^&]+)/) || [])[1] || "") || (snap && snap.kode);
+  if (k) { $("#kode").value = k; show(k, snap); }
+  window.HQ_CHAT_CTX = window.HQ_CHAT_CTX || { halaman: "klien" };
+})();
+</script>
+<script src="chat.js?v=20261028"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+/* Ruang Kerja — tambahan: proyek, cuan, percepat closing */
+.plus-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; margin: -6px 0 22px; }
+.plus-head__r { display: flex; align-items: center; gap: 12px; }
+.plus-count { font-size: .72rem; color: var(--muted); }
+
+.pj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 14px; }
+.pj { padding: 18px; border-radius: 18px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; transition: border-color .3s, transform .35s var(--ease); }
+.pj:hover { border-color: rgba(34,184,198,.5); transform: translateY(-3px); }
+.pj header { display: flex; justify-content: space-between; gap: 10px; }
+.pj header b { display: block; font-size: 1rem; }
+.pj header small { color: var(--muted); font-size: .78rem; }
+.pj__pct { font-family: var(--f-display); font-size: 1.5rem; font-weight: 500; letter-spacing: -.04em; color: var(--gold); }
+.pj__steps { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; margin: 16px 0 12px; }
+.pj__steps i { height: 6px; border-radius: 3px; background: rgba(255,255,255,.08); }
+.pj__steps i.done { background: var(--gold); }
+.pj__steps i.now { background: var(--orange); box-shadow: 0 0 10px rgba(239,106,58,.6); }
+.pj__meta { display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: .76rem; color: var(--muted); }
+.pj__meta .is-late { color: var(--red); }
+.pay { font-family: var(--f-mono); font-size: .66rem; padding: 3px 8px; border-radius: 999px; border: 1px solid var(--line-2); white-space: nowrap; }
+.pay--lunas { color: var(--green); border-color: rgba(94,230,154,.35); }
+.pay--dp { color: var(--amber); border-color: rgba(255,177,92,.35); }
+.pay--belum { color: var(--red); border-color: rgba(255,122,122,.35); }
+.plus-empty { grid-column: 1 / -1; text-align: center; padding: 50px 20px; }
+.plus-empty b { display: block; margin-bottom: 6px; color: var(--text); }
+
+/* drawer proyek */
+.pj-stage { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.pj-stage button { display: flex; align-items: center; gap: 9px; padding: 9px 11px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); font: 600 .82rem var(--f-body); text-align: left; cursor: pointer; }
+.pj-stage button span { width: 22px; height: 22px; flex: none; border-radius: 50%; display: grid; place-items: center; font-size: .7rem; border: 1px solid var(--line-2); }
+.pj-stage button.done { color: var(--text); }
+.pj-stage button.done span { background: var(--gold); border-color: var(--gold); color: #021417; }
+.pj-stage button.now { border-color: var(--orange); color: #fff; background: rgba(239,106,58,.1); }
+.pj-stage button.now span { border-color: var(--orange); }
+.rev-bar { display: flex; align-items: center; gap: 5px; padding: 0 6px; }
+.rev-bar i { width: 18px; height: 8px; border-radius: 4px; background: rgba(255,255,255,.1); }
+.rev-bar i.used { background: var(--orange); }
+.plus-full { display: grid; gap: 6px; margin-top: 10px; font-size: .72rem; color: var(--muted); }
+.d-row input.sel { background-image: none; padding-right: 12px; cursor: text; }
+.pay-list { display: grid; gap: 6px; }
+.pay-list div { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 12px; background: var(--surface); font-size: .86rem; }
+.pay-list span { color: var(--muted); }
+.pay-list .icon-btn { width: 28px; height: 28px; font-size: .7rem; }
+.plus-del { color: var(--red); border-color: rgba(255,122,122,.3); }
+
+/* percepat closing di detail lead */
+.plus-sec { padding: 16px; border-radius: 16px; border: 1px solid rgba(34,184,198,.35); background: radial-gradient(120% 100% at 100% 0%, rgba(34,184,198,.12), transparent 60%), var(--surface); }
+.plus-sec h4 { color: var(--gold) !important; font-size: .82rem !important; }
+.plus-step { padding: 10px 0; border-top: 1px solid var(--line); }
+.plus-step:first-of-type { border-top: 0; padding-top: 0; }
+.plus-step b { display: block; font-size: .9rem; }
+.plus-step > span { display: block; font-size: .78rem; color: var(--muted); }
+.plus-step .d-acts { margin-top: 10px; }
+.plus-step .sel { height: 40px; flex: 1 1 200px; }
+
+/* cuan */
+.cuan-bar { height: 5px; border-radius: 3px; background: rgba(255,255,255,.08); margin-top: 10px; overflow: hidden; }
+.cuan-bar i { display: block; height: 100%; background: var(--brand-grad); border-radius: inherit; }
+#cuanKpi .kpi__val { font-size: clamp(1.25rem, 2.2vw, 1.7rem); }
+.toplist__name[data-pj] { cursor: pointer; }
+@media (max-width: 640px) { .pj-stage { grid-template-columns: 1fr; } }

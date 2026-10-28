@@ -250,7 +250,8 @@
       raka: `Terakhir mencari ${ago(lastFound)}`,
       nadia: `${leads.length} dinilai · ${leads.filter(l => l.score >= 70).length} skor ≥ 70`,
       bima: `${leads.filter(l => waNumber(l.phone)).length} siap di-WA`,
-      sari: "Membuat mockup",
+      sari: "Siap membuat demo personal",
+      dina: "Menjawab chat konsumen 24 jam",
       nego: `${leads.filter(l => statusOf(l) === "nego").length} dalam negosiasi`
     };
     $("#crew").innerHTML = AGENTS.map(a => {

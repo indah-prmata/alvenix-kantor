@@ -227,6 +227,8 @@
       case "nadia": return [[leads.length, "dinilai"], [hot, "skor ≥ 70"], [avg(leads.map(l => l.score)), "rata-rata skor"]];
       case "nego": return [[leads.filter(l => picOf(l) === "nego").length, "ditangani"], [leads.filter(l => statusOf(l) === "nego").length, "negosiasi"], [leads.filter(l => fuState(l) === "today" || fuState(l) === "late").length, "follow-up hari ini"]];
       case "bima": return [[leads.filter(l => waNumber(l.phone)).length, "punya WA"], [contacted, "sudah dihubungi"], [leads.filter(l => statusOf(l) === "deal").length, "deal"]];
+      case "sari": return [[leads.filter(l => ["tertarik", "nego", "deal"].includes(statusOf(l))).length, "demo terkirim"], [8, "tema usaha"], [leads.filter(l => statusOf(l) === "deal").length, "jadi deal"]];
+      case "dina": return [["24/7", "online"], [CFG.chatUrl ? "AI" : "FAQ", "mode jawab"], [leads.filter(l => l.agent === "Dina").length, "minat masuk"]];
       default: return [["—", "mockup"], ["—", "dikirim"], ["—", "disetujui"]];
     }
   }
@@ -239,6 +241,8 @@
     if (a.id === "raka") return latest ? `Terakhir menemukan ${latest.name} (${latest.city})` : "Menyisir Google Maps…";
     if (a.id === "nadia") return latest ? `Memberi skor ${latest.score} untuk ${latest.name}` : "Menunggu lead baru…";
     if (a.id === "bima") return `${leads.filter(l => statusOf(l) === "baru").length} pesan siap dikirim`;
+    if (a.id === "sari") return "Siap membuat demo — buka detail lead → Percepat closing";
+    if (a.id === "dina") return "Menjaga chat di demo, penawaran & portal klien";
     if (a.id === "nego") { const due = leads.filter(l => fuState(l) === "today" || fuState(l) === "late").length; return due ? `${due} follow-up jatuh tempo hari ini` : `${leads.filter(l => statusOf(l) === "nego").length} klien sedang dinegosiasikan`; }
     return "";
   }
@@ -499,9 +503,10 @@
     $("#dFuMsg").onclick = () => { const url = waLink(l, fill(CFG.followupTemplate, l)); if (url) window.open(url, "_blank", "noopener"); };
     $("#dCopy").onclick = () => navigator.clipboard?.writeText($("#dMsg").value).then(() => toast("Pesan disalin"), () => toast("Tidak bisa menyalin"));
     $("#dNote").oninput = e => { clearTimeout(openLead._n); openLead._n = setTimeout(() => setStatus(l.id, undefined, e.target.value), 500); };
-    $("#drawer").classList.add("is-open");
-    $("#drawer").setAttribute("aria-hidden", "false");
+    if (window.HQ_PLUS) window.HQ_PLUS.drawerExtra(l, $("#drawerBody"));
+    openDrawer();
   }
+  function openDrawer() { $("#drawer").classList.add("is-open"); $("#drawer").setAttribute("aria-hidden", "false"); }
   function closeDrawer() { $("#drawer").classList.remove("is-open"); $("#drawer").setAttribute("aria-hidden", "true"); }
 
   /* ---------- CSV ---------- */
@@ -516,7 +521,7 @@
   }
 
   /* ---------- routing ---------- */
-  const TITLES = { overview: "Ringkasan", agents: "Tim", leads: "Ruang Data" };
+  const TITLES = { overview: "Ringkasan", agents: "Tim", leads: "Ruang Data", proyek: "Proyek", cuan: "Cuan" };
   function route() {
     const v = (location.hash.slice(1) || "overview");
     const view = TITLES[v] ? v : "overview";
@@ -524,12 +529,17 @@
     $$("[data-nav]").forEach(a => a.classList.toggle("is-on", a.dataset.nav === view));
     $("#viewTitle").textContent = TITLES[view];
     $("#crumb").textContent = "Ruang Kerja / " + TITLES[view];
+    if (window.HQ_PLUS) window.HQ_PLUS.render();
     window.scrollTo(0, 0);
   }
 
   function refresh() {
     renderConn(); renderCrew(); renderAgents(); renderOverview(); renderLeads();
+    if (window.HQ_PLUS) window.HQ_PLUS.render();
   }
+
+  // dipakai app-plus.js (fitur jualan & proyek)
+  window.HQ_APP = { getLeads: () => leads, statusOf, setStatus, refresh, toast, log: logUser, openDrawer, closeDrawer };
 
   /* ---------- events ---------- */
   document.addEventListener("click", e => {

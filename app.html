@@ -10,8 +10,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Outfit:wght@600;700&family=Manrope:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="hq.css?v=20261026b">
-<link rel="stylesheet" href="app.css?v=20261026b">
+<link rel="stylesheet" href="hq.css?v=20261028">
+<link rel="stylesheet" href="app.css?v=20261028">
+<link rel="stylesheet" href="plus.css?v=20261028">
 </head>
 <body>
 <div class="bg-mesh" aria-hidden="true"></div>
@@ -35,6 +36,14 @@
       <a href="#leads" data-nav="leads">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21s-7-6.1-7-11.5a7 7 0 0 1 14 0C19 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
         <span>Ruang Data</span><em class="side__badge" id="navBadge">0</em>
+      </a>
+      <a href="#proyek" data-nav="proyek">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 14h3M8 17h6"/></svg>
+        <span>Proyek</span><em class="side__badge" id="navProyek">0</em>
+      </a>
+      <a href="#cuan" data-nav="cuan">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg>
+        <span>Cuan</span>
       </a>
     </nav>
     <div class="side__conn" id="connCard">
@@ -158,6 +167,23 @@
       </div>
       <p class="tbl__foot mono" id="tblFoot"></p>
     </section>
+
+    <!-- ============ PROYEK ============ -->
+    <section class="view" data-view="proyek" hidden>
+      <div class="plus-head"><p class="view__intro" style="margin:0">Semua website yang sedang dikerjakan. Klik kartu untuk ubah tahap, catat revisi & pembayaran, dan kirim update progres ke klien.</p>
+        <div class="plus-head__r"><span class="mono plus-count" id="proyekCount"></span><button class="btn btn--sm btn--gold" type="button" id="newProj">+ Proyek baru</button></div></div>
+      <div class="pj-grid" id="proyekList"></div>
+    </section>
+
+    <!-- ============ CUAN ============ -->
+    <section class="view" data-view="cuan" hidden>
+      <div class="kpis" id="cuanKpi"></div>
+      <div class="grid-2">
+        <article class="panel"><header class="panel__head"><h3>💰 Tagihan tertunda</h3></header><div class="toplist" id="cuanTagih"></div></article>
+        <article class="panel"><header class="panel__head"><h3>🔁 Perpanjangan tahunan (60 hari)</h3></header><div class="toplist" id="cuanRenew"></div></article>
+      </div>
+      <article class="panel"><header class="panel__head"><h3>🔥 Lead hangat — kejar sekarang</h3><a href="#leads" class="panel__link">Ruang Data →</a></header><div class="toplist" id="cuanHot"></div></article>
+    </section>
   </main>
 </div>
 
@@ -165,7 +191,9 @@
 <nav class="tabbar" aria-label="HQ mobile">
   <a href="#overview" data-nav="overview">Ringkasan</a>
   <a href="#agents" data-nav="agents">Tim</a>
-  <a href="#leads" data-nav="leads">Ruang Data</a>
+  <a href="#leads" data-nav="leads">Data</a>
+  <a href="#proyek" data-nav="proyek">Proyek</a>
+  <a href="#cuan" data-nav="cuan">Cuan</a>
 </nav>
 
 <!-- Lead drawer -->
@@ -179,7 +207,7 @@
 
 <div class="toast" id="toast" role="status"></div>
 
-<script src="config.js?v=20261026b"></script>
-<script src="lock.js?v=20261026b" data-load="agents.js demo-data.js data/leads.enc.js snapshot.js app.js" data-v="20261026b"></script>
+<script src="config.js?v=20261028"></script>
+<script src="lock.js?v=20261028" data-load="agents.js demo-data.js data/leads.enc.js snapshot.js shared.js app.js app-plus.js" data-v="20261028"></script>
 </body>
 </html>
