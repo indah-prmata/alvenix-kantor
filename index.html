@@ -3,194 +3,318 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Selamat bekerja — alvenix</title>
-<meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#020608">
+<title>alvenix — Jasa Website &amp; Landing Page</title>
+<meta name="description" content="alvenix — kantor digital yang membangun website dan landing page untuk bisnis & UMKM. Desain custom, mobile-first, konsultasi gratis via WhatsApp.">
+<meta name="theme-color" content="#03080c">
 <link rel="icon" href="logo.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700&family=Outfit:wght@600;700&family=Manrope:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="hq.css?v=20261028">
-<link rel="stylesheet" href="beranda.css?v=20261028">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="hq.css?v=20261028b">
+<link rel="stylesheet" href="home.css?v=20261028b">
 </head>
-<body class="is-loading">
-
-<!-- INTRO -->
-<div class="intro" id="intro" aria-hidden="true">
-  <div class="intro__mark">
-    <svg viewBox="0 0 100 100"><path d="M52 54 L18 58 M52 54 Q58 34 80 20 M52 54 Q60 72 77 84" /><circle cx="52" cy="54" r="13"/><circle cx="15" cy="58" r="10"/><circle cx="82" cy="18" r="10"/><circle cx="78" cy="86" r="10"/></svg>
-  </div>
-  <p class="intro__txt mono">menyalakan kantor<span>.</span><span>.</span><span>.</span></p>
-  <i class="intro__bar"></i>
-</div>
-
-<!-- LATAR -->
+<body>
 <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
-<div class="gridlines" aria-hidden="true"></div>
-<div class="spot" id="spot" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
-<canvas class="confetti" id="confetti" aria-hidden="true"></canvas>
+<div class="spot" id="spot" aria-hidden="true"></div>
 
-<header class="bar">
-  <a class="wordmark bar__brand" href="index.html"><img src="logo.svg" alt=""><span>alveni<b>x</b></span></a>
-  <nav class="bar__nav" aria-label="Menu">
-    <a class="is-on" href="index.html">Beranda</a>
-    <a href="app.html#overview">Ringkasan</a>
-    <a href="app.html#leads">Ruang Data</a>
-    <a href="app.html#agents">Tim</a>
+<!-- NAV -->
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="Beranda">
+    <span class="wordmark"><img src="logo.svg" alt=""><span>alveni<b>x</b></span></span>
+  </a>
+  <nav class="nav__links" aria-label="Menu utama">
+    <a href="#tour">Kantor</a>
+    <a href="#layanan">Layanan</a>
+    <a href="#harga">Harga</a>
+    <a href="#karya">Contoh</a>
+    <a href="klien.html">Cek Progres</a>
+    <a href="#kontak">Kontak</a>
   </nav>
-  <div class="bar__right">
-    <span class="conn" id="conn"><span class="pulse-dot is-off"></span><span>menyambung…</span></span>
-    <button class="iconbtn" id="syncBtn" type="button" title="Sinkron (R)" aria-label="Sinkron">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 11a8 8 0 0 0-14.6-4.5M4 4v4h4M4 13a8 8 0 0 0 14.6 4.5M20 20v-4h-4"/></svg>
-    </button>
-    <button class="iconbtn" type="button" title="Kunci &amp; keluar" aria-label="Kunci dan keluar" onclick="HQ_LOGOUT()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
-    </button>
+  <div class="nav__cta">
+    <a class="btn btn--sm btn--ghost" href="kantor.html" title="Khusus tim alvenix">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+      Masuk Tim
+    </a>
+    <a class="btn btn--sm btn--gold js-wa" href="#">Konsultasi</a>
   </div>
 </header>
 
-<main class="home">
-  <!-- HERO -->
-  <section class="hero" id="hero">
-    <div class="hello">
-      <p class="eyebrow reveal" id="today">—</p>
-      <h1 class="hello__title">
-        <span class="line"><span class="hello__greet" id="greet">Selamat datang —</span></span>
-        <span class="line"><span class="serif shine">selamat bekerja.</span></span>
+<main id="top">
+
+  <!-- ============ TUR KANTOR (pinned) ============ -->
+  <section class="tour" id="tour">
+    <div class="tour__stage"><div class="office" id="office"></div></div>
+
+    <div class="tour__hero" id="tourHero">
+      <p class="eyebrow">Selamat datang di kantor alvenix</p>
+      <h1 class="hero__title">
+        <span class="line"><span>Kantor digital</span></span>
+        <span class="line"><span>yang membangun</span></span>
+        <span class="line"><span><em class="serif gold-text">website</em> bisnismu.</span></span>
       </h1>
-      <p class="hello__line reveal" id="brief">Menyiapkan ringkasan hari ini…</p>
-      <div class="hello__cta reveal">
-        <a class="btn btn--gold mag" href="app.html#leads">
-          <span>Mulai kerja</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <p class="hero__lead">Website &amp; landing page yang bikin bisnismu terlihat profesional, gampang ditemukan di Google, dan mendatangkan pesanan lewat WhatsApp.</p>
+      <div class="hero__ctas">
+        <a class="btn btn--gold js-wa" href="#">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.1.1.6-.1 1.2Z"/></svg>
+          Konsultasi Gratis
         </a>
-        <a class="btn btn--ghost mag" href="app.html#overview"><span>Lihat ringkasan</span></a>
+        <a class="btn btn--orange" href="#layanan">Lihat Layanan</a>
       </div>
-      <figure class="quote reveal">
-        <blockquote class="serif" id="quote">—</blockquote>
-        <figcaption class="mono">pegangan hari ini</figcaption>
-      </figure>
+      <p class="tour__hint mono"><span class="mouse"><i></i></span>Scroll untuk tur keliling kantor</p>
     </div>
 
-    <div class="stage">
-      <div class="stage__tilt" id="tilt">
-        <div class="office" id="office"></div>
-        <div class="stage__floor"></div>
-      </div>
-      <div class="clock" aria-hidden="true">
-        <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="29"/><circle cx="32" cy="32" r="29" id="secRing"/></svg>
-        <div><b id="clock">--:--</b><span class="mono" id="zone">WIB</span></div>
-      </div>
+    <div class="tour__caps">
+      <article class="cap" data-step="1" style="--tone:#22b8c6">
+        <span class="cap__num mono">01 · Riset</span>
+        <h2>Raka mempelajari <em class="serif gold-text">bisnismu.</em></h2>
+        <p>Pelanggan, kompetitor, dan apa yang dicari orang di Google Maps — semua dipelajari sebelum satu piksel pun didesain.</p>
+      </article>
+      <article class="cap" data-step="2" style="--tone:#9b7bff">
+        <span class="cap__num mono">02 · Strategi</span>
+        <h2>Nadia menemukan <em class="serif gold-text">yang paling menjual.</em></h2>
+        <p>Rating, ulasan, produk andalan — kami tentukan apa yang harus tampil paling depan supaya pengunjung langsung percaya.</p>
+      </article>
+      <article class="cap" data-step="3" style="--tone:#3fcf86">
+        <span class="cap__num mono">03 · Komunikasi</span>
+        <h2>Bima selalu siap <em class="serif gold-text">di WhatsApp.</em></h2>
+        <p>Update progres, revisi, dan pertanyaan — cepat dan tanpa ribet, langsung dari HP-mu.</p>
+      </article>
+      <article class="cap" data-step="4" style="--tone:#ffb15c">
+        <span class="cap__num mono">04 · Negosiasi</span>
+        <h2>Dilanjutkan oleh <em class="serif gold-text">manusia sungguhan.</em></h2>
+        <p>Bukan bot: <b class="js-nego">Tim Negosiasi</b> kami yang membalas chat-mu, menjawab soal harga, dan menyesuaikan paket dengan budget bisnismu.</p>
+        <a class="btn btn--sm btn--orange js-nego-wa" href="#">Chat tim negosiasi →</a>
+      </article>
+      <article class="cap" data-step="5" style="--tone:#ff7aa8">
+        <span class="cap__num mono">05 · Desain</span>
+        <h2>Sari merancang <em class="serif gold-text">tampilanmu.</em></h2>
+        <p>Demo website khusus untuk bisnismu kami kirim lebih dulu — gratis. Cocok dulu, baru lanjut.</p>
+        <a class="btn btn--sm" href="#karya">Lihat contoh demo →</a>
+      </article>
+      <article class="cap" data-step="6" style="--tone:#ef6a3a">
+        <span class="cap__num mono">06 · Founder</span>
+        <h2>Saya sendiri yang <em class="serif gold-text">memastikan selesai.</em></h2>
+        <p>Setiap website dicek langsung oleh founder: cepat, rapi di HP, dan siap mendatangkan pelanggan.</p>
+      </article>
+      <article class="cap" data-step="7" style="--tone:#ffb15c">
+        <span class="cap__num mono">07 · Progres</span>
+        <h2>Pantau websitemu <em class="serif gold-text">kapan saja.</em></h2>
+        <p>Setiap klien dapat kode proyek. Cek sampai mana pengerjaan, sisa jatah revisi, dan pratinjau — langsung dari HP.</p>
+        <a class="btn btn--sm" href="klien.html">Buka Portal Klien →</a>
+      </article>
+      <article class="cap" data-step="8" style="--tone:#22b8c6">
+        <span class="cap__num mono">08 · Giliranmu</span>
+        <h2>Kantor kami buka <em class="serif gold-text">untuk bisnismu.</em></h2>
+        <p>Ceritakan bisnismu, kami kirim contoh desainnya. Gratis, tanpa komitmen.</p>
+        <a class="btn btn--sm btn--gold js-wa" href="#">Mulai konsultasi →</a>
+      </article>
     </div>
+
+    <ol class="tour__rail" id="rail" aria-hidden="true">
+      <li data-i="0"><span>Lobi</span></li>
+      <li data-i="1"><span>Riset</span></li>
+      <li data-i="2"><span>Strategi</span></li>
+      <li data-i="3"><span>Komunikasi</span></li>
+      <li data-i="4"><span>Negosiasi</span></li>
+      <li data-i="5"><span>Desain</span></li>
+      <li data-i="6"><span>Founder</span></li>
+      <li data-i="7"><span>Progres</span></li>
+      <li data-i="8"><span>Mulai</span></li>
+    </ol>
+    <div class="tour__progress"><i id="tourBar"></i></div>
   </section>
 
-  <!-- TICKER -->
-  <div class="ticker" aria-label="Temuan terbaru">
-    <span class="ticker__label mono"><span class="pulse-dot"></span>live dari Raka</span>
-    <div class="ticker__track"><div class="ticker__run" id="ticker"></div></div>
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>Website</span><i>✦</i><span class="o">Landing Page</span><i>✦</i><span>Toko Online</span><i>✦</i><span class="o">Company Profile</span><i>✦</i><span>Katalog</span><i>✦</i>
+      <span>Website</span><i>✦</i><span class="o">Landing Page</span><i>✦</i><span>Toko Online</span><i>✦</i><span class="o">Company Profile</span><i>✦</i><span>Katalog</span><i>✦</i>
+    </div>
   </div>
 
-  <!-- BENTO -->
-  <section class="bento" aria-label="Hari ini">
-    <a class="card stat" href="app.html#leads" style="--tone:#5ce1ef">
-      <span class="stat__label">Lead baru hari ini</span>
-      <b class="stat__num" data-k="fresh">0</b>
-      <em>ditemukan Raka</em>
-      <svg class="stat__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.1-7-11.5a7 7 0 0 1 14 0C19 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
-    </a>
-    <a class="card stat" href="app.html#leads" style="--tone:#7cc4ff">
-      <span class="stat__label">Belum dihubungi</span>
-      <b class="stat__num" data-k="baru">0</b>
-      <em>siap ditawari</em>
-      <svg class="stat__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 5h16v11H8l-4 4z"/></svg>
-    </a>
-    <a class="card stat" href="app.html#overview" style="--tone:#ffb15c">
-      <span class="stat__label">Follow-up hari ini</span>
-      <b class="stat__num" data-k="fu">0</b>
-      <em id="fuSub">sesuai jadwal</em>
-      <svg class="stat__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
-    </a>
-    <a class="card stat stat--brand" href="app.html#leads" style="--tone:#ef6a3a">
-      <span class="stat__label">Deal</span>
-      <b class="stat__num" data-k="deal">0</b>
-      <em>jadi klien</em>
-      <svg class="stat__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m4 12 5 5L20 6"/></svg>
-    </a>
-
-    <!-- KERJAKAN DULU -->
-    <article class="card todo-card">
-      <header class="card__head">
-        <div><p class="card__kicker mono">prioritas</p><h2>Kerjakan dulu</h2></div>
-        <a href="app.html#leads" class="card__link">Semua lead <span>→</span></a>
-      </header>
-      <ol class="todo" id="todo"></ol>
-    </article>
-
-    <!-- GRAFIK 7 HARI -->
-    <article class="card chart-card">
-      <header class="card__head">
-        <div><p class="card__kicker mono">7 hari terakhir</p><h2>Temuan Raka</h2></div>
-        <div class="chart__total"><b id="weekTotal">0</b><span>bisnis</span></div>
-      </header>
-      <div class="chart" id="chart"></div>
-    </article>
-
-    <!-- TARGET -->
-    <article class="card target-card">
-      <header class="card__head">
-        <div><p class="card__kicker mono">target harian</p><h2>Dihubungi hari ini</h2></div>
-        <span class="mono card__meta" id="targetMeta">0 / 0</span>
-      </header>
-      <div class="target">
-        <div class="ring" id="ring" style="--p:0">
-          <svg viewBox="0 0 120 120">
-            <defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7ff0fb"/><stop offset=".55" stop-color="#22b8c6"/><stop offset="1" stop-color="#ef6a3a"/></linearGradient></defs>
-            <circle cx="60" cy="60" r="50"/><circle cx="60" cy="60" r="50" class="ring__val"/>
-          </svg>
-          <div><b id="targetNum">0</b><span id="targetPct">0%</span></div>
+  <!-- ============ LAYANAN ============ -->
+  <section class="section services" id="layanan">
+    <div class="section__head">
+      <p class="eyebrow reveal">Layanan</p>
+      <h2 class="h2 reveal">Dua produk utama, <em class="serif gold-text">satu tujuan:</em> pelanggan baru.</h2>
+    </div>
+    <div class="services__grid">
+      <article class="svc reveal">
+        <div class="svc__top">
+          <div class="svc__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9h18M7 13h6M7 16h4"/></svg></div>
+          <span class="svc__kind mono">01 · 1 halaman</span>
         </div>
-        <p class="target__note" id="targetNote">Hubungi beberapa bisnis hari ini.</p>
-      </div>
-    </article>
-
-    <!-- TIM -->
-    <article class="card team-card">
-      <header class="card__head">
-        <div><p class="card__kicker mono">kantor kamu</p><h2>Tim yang bekerja</h2></div>
-        <a href="app.html#agents" class="card__link">Detail <span>→</span></a>
-      </header>
-      <ul class="crew" id="crew"></ul>
-    </article>
-
-    <!-- SEBARAN -->
-    <article class="card spread-card">
-      <header class="card__head">
-        <div><p class="card__kicker mono">peta pasar</p><h2>Sebaran lead</h2></div>
-      </header>
-      <div class="split" id="split"></div>
-      <ul class="cats" id="cats"></ul>
-    </article>
+        <h3>Landing Page</h3>
+        <p>Satu halaman yang fokus menjual: promo, produk andalan, menu, atau event. Siap disebar ke Instagram, TikTok, dan iklan.</p>
+        <ul><li>Desain custom sesuai brand</li><li>Tombol WhatsApp &amp; Google Maps</li><li>Cocok untuk iklan Meta / TikTok</li><li>Paling cepat jadi</li></ul>
+        <a class="btn btn--sm" href="#harga">Lihat harga Landing Page →</a>
+      </article>
+      <article class="svc svc--featured reveal">
+        <span class="svc__tag mono">Paling lengkap</span>
+        <div class="svc__top">
+          <div class="svc__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-6h6v6"/></svg></div>
+          <span class="svc__kind mono">02 · multi halaman</span>
+        </div>
+        <h3>Website Bisnis</h3>
+        <p>Kantor online lengkap: beranda, tentang kami, layanan / katalog, galeri, testimoni, lokasi &amp; kontak.</p>
+        <ul><li>Domain sendiri (namabisnis.com)</li><li>Katalog produk + order WhatsApp</li><li>Disusun agar mudah ditemukan Google</li><li>Error apa pun langsung kami perbaiki</li></ul>
+        <a class="btn btn--sm btn--gold" href="#harga">Lihat harga Website →</a>
+      </article>
+    </div>
+    <div class="addons reveal">
+      <span class="mono">Tambahan:</span>
+      <span>Toko online</span><span>Email bisnis</span><span>Copywriting</span><span>Foto produk</span><span>Perawatan bulanan</span><span>Redesign website lama</span>
+    </div>
   </section>
 
-  <!-- KUNCI -->
-  <form class="keybox" id="keybox" hidden>
-    <div>
-      <b>Masukkan kunci Ruang Kerja</b>
-      <span>Ada di file <code>n8n/.kunci</code>. Cukup sekali, nanti disimpan di browser ini.</span>
+  <!-- ============ CONTOH (horizontal) ============ -->
+  <section class="work" id="karya">
+    <div class="work__head">
+      <p class="eyebrow">Contoh konsep</p>
+      <h2 class="h2">Seperti ini bisnismu <em class="serif gold-text">bisa tampil.</em></h2>
+      <p class="work__hint mono">klik kartu untuk lihat demo · ← geser →</p>
     </div>
-    <input id="keyInput" type="password" placeholder="alv-…" autocomplete="off" required>
-    <button class="btn btn--sm btn--gold" type="submit">Buka</button>
-  </form>
+    <div class="work__viewport">
+      <div class="work__track" id="workTrack">
+        <figure class="mock" data-demo='{"n":"Kopi Senja","c":"Kedai Kopi","k":"Jambi","r":4.8,"u":640}' style="--a:#c98a4b;--b:#2a1a10">
+          <div class="mock__bar"><i></i><i></i><i></i><span>kopisenja.id</span></div>
+          <div class="mock__body">
+            <div class="mock__nav"><b>Kopi Senja</b><span></span><span></span><span></span></div>
+            <div class="mock__hero"><h4>Kopi enak,<br>tempat nyaman.</h4><p></p><em>Pesan via WA</em></div>
+            <div class="mock__cards"><span></span><span></span><span></span></div>
+          </div>
+          <figcaption><b>Kedai Kopi</b><span>Landing page · menu &amp; lokasi</span></figcaption>
+        </figure>
+        <figure class="mock" data-demo='{"n":"Klinik Senyum","c":"Klinik Gigi","k":"Jakarta","r":4.9,"u":410}' style="--a:#4f9dff;--b:#0d1a33">
+          <div class="mock__bar"><i></i><i></i><i></i><span>kliniksenyum.co.id</span></div>
+          <div class="mock__body">
+            <div class="mock__nav"><b>Klinik Senyum</b><span></span><span></span><span></span></div>
+            <div class="mock__hero"><h4>Senyum sehat<br>untuk keluarga.</h4><p></p><em>Buat janji</em></div>
+            <div class="mock__cards"><span></span><span></span><span></span></div>
+          </div>
+          <figcaption><b>Klinik</b><span>Website bisnis · reservasi</span></figcaption>
+        </figure>
+        <figure class="mock" data-demo='{"n":"Bengkel Maju","c":"Bengkel Sepeda Motor","k":"Jambi","r":4.8,"u":359}' style="--a:#ff6b3d;--b:#1e0f0a">
+          <div class="mock__bar"><i></i><i></i><i></i><span>bengkelmaju.com</span></div>
+          <div class="mock__body">
+            <div class="mock__nav"><b>Bengkel Maju</b><span></span><span></span><span></span></div>
+            <div class="mock__hero"><h4>Servis cepat,<br>harga jujur.</h4><p></p><em>Booking servis</em></div>
+            <div class="mock__cards"><span></span><span></span><span></span></div>
+          </div>
+          <figcaption><b>Bengkel</b><span>Landing page · booking</span></figcaption>
+        </figure>
+        <figure class="mock" data-demo='{"n":"Salon Ayu","c":"Salon Kecantikan","k":"Jakarta","r":4.9,"u":812}' style="--a:#ff7aa8;--b:#2a0f1c">
+          <div class="mock__bar"><i></i><i></i><i></i><span>salonayu.id</span></div>
+          <div class="mock__body">
+            <div class="mock__nav"><b>Salon Ayu</b><span></span><span></span><span></span></div>
+            <div class="mock__hero"><h4>Tampil cantik<br>setiap hari.</h4><p></p><em>Reservasi</em></div>
+            <div class="mock__cards"><span></span><span></span><span></span></div>
+          </div>
+          <figcaption><b>Salon</b><span>Landing page · paket &amp; harga</span></figcaption>
+        </figure>
+        <figure class="mock" data-demo='{"n":"Dapur Mama","c":"Katering","k":"Jambi","r":4.8,"u":275}' style="--a:#3fcf86;--b:#0a1f15">
+          <div class="mock__bar"><i></i><i></i><i></i><span>dapurmama.com</span></div>
+          <div class="mock__body">
+            <div class="mock__nav"><b>Dapur Mama</b><span></span><span></span><span></span></div>
+            <div class="mock__hero"><h4>Katering rumahan<br>untuk acaramu.</h4><p></p><em>Lihat menu</em></div>
+            <div class="mock__cards"><span></span><span></span><span></span></div>
+          </div>
+          <figcaption><b>Katering</b><span>Website bisnis · katalog menu</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HARGA ============ -->
+  <section class="section pricing" id="harga">
+    <div class="section__head">
+      <p class="eyebrow reveal">Harga</p>
+      <h2 class="h2 reveal">Harga jelas, <em class="serif gold-text">tanpa biaya tersembunyi.</em></h2>
+      <p class="pricing__lead reveal">Semua paket sudah termasuk domain, hosting, dan keamanan untuk tahun pertama.</p>
+    </div>
+    <div class="pricing__grid" id="pricing"></div>
+    <div class="addons reveal" id="included"></div>
+    <div class="pricing__terms reveal">
+      <div><b>✏️ Revisi maksimal 5 kali</b><span>Satu pesan berisi daftar perubahan dihitung satu revisi.</span></div>
+      <div><b>🛠️ Error &amp; bug langsung dikerjakan</b><span>Tanpa biaya, tidak mengurangi jatah revisi.</span></div>
+      <div><b>🔁 Tahun ke-2 cukup <span id="renewPrice">Rp1.500.000</span>/tahun</b><span>Domain, hosting, keamanan &amp; perbaikan error.</span></div>
+    </div>
+  </section>
+
+  <!-- ============ CEK PROGRES ============ -->
+  <section class="section progress-band" id="progres">
+    <div class="progress-band__box reveal">
+      <div>
+        <p class="eyebrow">Portal Klien</p>
+        <h2 class="h2">Sudah jadi klien? <em class="serif gold-text">Cek progresnya.</em></h2>
+        <p>Masukkan kode proyek dari tim kami untuk melihat tahap pengerjaan, sisa revisi, dan pratinjau website.</p>
+      </div>
+      <form class="progress-band__form" action="klien.html" id="progForm">
+        <input id="progCode" placeholder="ALV-XXXXX" aria-label="Kode proyek" required>
+        <button class="btn btn--gold" type="submit">Cek progres →</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="section faq" id="faq">
+    <div class="section__head">
+      <p class="eyebrow reveal">FAQ</p>
+      <h2 class="h2 reveal">Yang sering <em class="serif gold-text">ditanyakan.</em></h2>
+    </div>
+    <div class="faq__list">
+      <details class="reveal"><summary>Berapa harganya?</summary><p>Landing page Rp2.499.000, website profil usaha Rp4.999.000, website lengkap Rp7.999.000 — sudah termasuk domain, hosting, dan keamanan tahun pertama. Mulai tahun ke-2 cukup Rp1.500.000/tahun.</p></details>
+      <details class="reveal"><summary>Berapa lama pembuatannya?</summary><p>Tergantung paket dan kelengkapan bahan (logo, foto, daftar harga). Landing page yang paling cepat jadi, dan progresnya bisa kamu pantau sendiri di Portal Klien.</p></details>
+      <details class="reveal"><summary>Bisa revisi?</summary><p>Bisa, maksimal 5 kali selama website dibuat. Kumpulkan semua perubahan dalam satu pesan — satu pesan dihitung satu revisi walau isinya banyak.</p></details>
+      <details class="reveal"><summary>Kalau ada error setelah online?</summary><p>Error atau bug apa pun langsung kami kerjakan, tanpa biaya, dan tidak mengurangi jatah revisi.</p></details>
+      <details class="reveal"><summary>Saya belum punya domain, bagaimana?</summary><p>Tenang, domain .com atau .id dengan nama usahamu sudah termasuk. Kami bantu cek dan pilihkan.</p></details>
+      <details class="reveal"><summary>Saya tidak punya foto / teks yang bagus.</summary><p>Foto dari HP pun bisa, nanti kami rapikan. Kami juga bantu menulis teks yang menjual.</p></details>
+      <details class="reveal"><summary>Bayarnya bagaimana?</summary><p>Bertahap: uang muka di awal, pelunasan setelah website jadi dan kamu setujui. Kamu juga bisa lihat demo gratis dulu sebelum memutuskan.</p></details>
+    </div>
+  </section>
+
+  <!-- ============ RESEPSIONIS ============ -->
+  <section class="section contact" id="kontak">
+    <div class="contact__box">
+      <div class="contact__copy">
+        <p class="eyebrow reveal">Resepsionis</p>
+        <h2 class="h2 reveal">Siap punya <em class="serif gold-text">kantor online?</em></h2>
+        <p class="reveal">Isi form singkat ini — pesanmu langsung terkirim ke WhatsApp kami. Konsultasi gratis, tanpa komitmen.</p>
+      </div>
+      <form class="form reveal" id="contactForm">
+        <label><span>Nama kamu</span><input name="nama" required placeholder="mis. Budi"></label>
+        <label><span>Nama bisnis</span><input name="bisnis" required placeholder="mis. Kopi Senja"></label>
+        <label><span>Kota</span><input name="kota" placeholder="mis. Jambi"></label>
+        <label><span>Kebutuhan</span>
+          <select name="jenis"><option>Landing Page</option><option>Website Bisnis</option><option>Belum tahu, mau konsultasi</option></select>
+        </label>
+        <label class="form__full"><span>Cerita singkat (opsional)</span><textarea name="pesan" rows="3" placeholder="Bisnis saya jualan…"></textarea></label>
+        <button class="btn btn--gold form__full" type="submit">Kirim ke WhatsApp →</button>
+      </form>
+    </div>
+  </section>
+
 </main>
 
-<footer class="foot mono">
-  <span>alvenix · kantor pribadi</span>
-  <span class="foot__keys">tekan <kbd>R</kbd> sinkron · <kbd>D</kbd> ruang data</span>
-  <span id="syncInfo">—</span>
+<footer class="foot">
+  <div class="foot__big" aria-hidden="true">alveni<b>x</b></div>
+  <div class="foot__row">
+    <span class="wordmark"><img src="logo.svg" alt=""><span>alveni<b>x</b></span></span>
+    <span class="mono">Jasa Website &amp; Landing Page · © <span id="year"></span></span>
+    <a href="klien.html">Cek progres</a> · <a href="kantor.html">Masuk tim →</a>
+  </div>
 </footer>
 
-<script src="config.js?v=20261028"></script>
-<script src="lock.js?v=20261028" data-load="agents.js office.js data/leads.enc.js snapshot.js beranda.js" data-v="20261028"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="config.js?v=20261028b"></script>
+<script src="shared.js?v=20261028b"></script>
+<script src="agents.js?v=20261028b"></script>
+<script src="office.js?v=20261028b"></script>
+<script src="home.js?v=20261028b"></script>
+<script>window.HQ_CHAT_CTX = { halaman: "beranda" };</script>
+<script src="chat.js?v=20261028b"></script>
 </body>
 </html>
