@@ -115,6 +115,7 @@
       status: raw.status || "",
       found_at: raw.found_at || raw.scrapedAt || raw.created_at || new Date().toISOString(),
       agent: raw.agent || "Raka",
+      ulasan: raw.ulasan || "",
       demo: !!raw.demo
     };
     l.score = raw.score != null ? +raw.score : score(l);
@@ -461,6 +462,7 @@
         <div>Tidak ditemukan website di profil Google Maps</div>
         <div>Ditemukan oleh ${esc(l.agent)} · ${fmtDate(l.found_at)}</div>
       </div></div>
+      ${l.ulasan ? `<div class="d-sec"><h4>Ulasan terbaru di Google Maps</h4><div class="d-why">${l.ulasan.split(" | ").map(u => `<div>${esc(u)}</div>`).join("")}</div></div>` : ""}
       <div class="d-sec"><h4>Pesan WhatsApp dari Bima (bisa diedit)</h4>
         <textarea class="d-msg" id="dMsg">${esc(waText(l))}</textarea>
         <div class="d-acts">
