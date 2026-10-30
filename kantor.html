@@ -20,7 +20,7 @@
   <div class="intro__mark">
     <svg viewBox="0 0 100 100"><path d="M52 54 L18 58 M52 54 Q58 34 80 20 M52 54 Q60 72 77 84" /><circle cx="52" cy="54" r="13"/><circle cx="15" cy="58" r="10"/><circle cx="82" cy="18" r="10"/><circle cx="78" cy="86" r="10"/></svg>
   </div>
-  <p class="intro__txt mono">menyalakan kantor<span>.</span><span>.</span><span>.</span></p>
+  <p class="intro__txt mono">welcome<span>.</span><span>.</span><span>.</span></p>
   <i class="intro__bar"></i>
 </div>
 
@@ -190,7 +190,15 @@
   <span id="syncInfo">—</span>
 </footer>
 
-<script src="config.js?v=20261028"></script>
-<script src="lock.js?v=20261028" data-load="agents.js office.js data/leads.enc.js snapshot.js beranda.js" data-v="20261028"></script>
+<script src="config.js?v=20261030d"></script>
+<script>
+  // tanpa layar kunci: data tetap butuh kode (kotak kode muncul di beranda kalau belum diisi)
+  window.HQ_LOGOUT = () => { try { localStorage.setItem("hq.key", '""'); } catch {} location.reload(); };
+</script>
+<script src="agents.js?v=20261030d"></script>
+<script src="office.js?v=20261030d"></script>
+<script src="data/leads.enc.js?v=20261030d"></script>
+<script src="snapshot.js?v=20261030d"></script>
+<script src="beranda.js?v=20261030d"></script>
 </body>
 </html>

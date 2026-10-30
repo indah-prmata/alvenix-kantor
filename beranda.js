@@ -20,6 +20,7 @@
   let leads = [];
   let connected = false;
   let firstRender = true;
+  let needKey = false;
 
   /* ---------- waktu, sapaan, kutipan ---------- */
   const dayKey = d => { d = new Date(d); return new Date(d - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10); };
@@ -175,7 +176,7 @@
 
     // kalimat pembuka
     const bits = [];
-    if (!connected) bits.push("Belum tersambung ke n8n — data belum bisa dimuat.");
+    if (!connected) bits.push(needKey ? "Masukkan <b>kode tim</b> di kotak bawah untuk membuka data hari ini." : "Belum tersambung ke n8n — data belum bisa dimuat.");
     else {
       bits.push(fresh.length ? `Raka menemukan <b>${fresh.length} bisnis baru</b> hari ini.` : `Ada <b>${baru.length} bisnis</b> yang menunggu kamu sapa.`);
       if (fu.length) bits.push(`<b>${fu.length} follow-up</b> menunggu${late ? `, ${late} di antaranya telat` : ""}.`);
@@ -280,14 +281,15 @@
     if (!connected) setConn("off", "menyambung…");
     try {
       await fetchLeads();
-      connected = true;
+      connected = true; needKey = false;
       $("#keybox").hidden = true;
       if (backupDate) setConn("warn", "mode cadangan · data " + new Date(backupDate).toLocaleDateString("id-ID", { day: "numeric", month: "short" }));
       else setConn("ok", "terhubung n8n");
       $("#syncInfo").textContent = `sinkron ${new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })} · ${leads.length} leads`;
     } catch (err) {
       connected = false;
-      if (err.message === "kunci") { $("#keybox").hidden = false; setConn("warn", "butuh kunci"); }
+      needKey = err.message === "kunci";
+      if (needKey) { $("#keybox").hidden = false; setConn("warn", "butuh kode"); }
       else setConn("warn", "n8n belum tersambung");
       console.error("[beranda]", err);
     }
