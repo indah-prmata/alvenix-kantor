@@ -411,3 +411,4 @@ kbd { font-family: var(--f-mono); font-size: .65rem; padding: 1px 6px; border-ra
 .prog-find .btn { --h: 54px; }
 .prog-manage { display: inline-block; padding-top: 4px; }
 @media (max-width: 560px) { .prog-find { flex-direction: column; } }
+.prog-frame[hidden] { display: none; }
