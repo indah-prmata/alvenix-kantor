@@ -60,3 +60,19 @@
 @media (max-width: 640px) { .pj-stage { grid-template-columns: 1fr; } }
 .pv-row { display: flex; gap: 8px; }
 .pv-row .sel { flex: 1; min-width: 0; }
+
+/* update progres */
+.up-form { display: grid; gap: 8px; padding: 14px; border-radius: 14px; border: 1px dashed var(--line-2); }
+.up-form .d-note { min-height: 64px; }
+.up-foto { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.up-foto .sel { flex: 1 1 180px; background-image: none; padding-right: 12px; }
+.up-prev { max-height: 160px; width: auto; max-width: 100%; border-radius: 10px; border: 1px solid var(--line); }
+.up-chk { display: flex; align-items: center; gap: 8px; font-size: .8rem; color: var(--muted); }
+.up-list { display: grid; gap: 8px; margin-top: 12px; }
+.up-item { display: grid; grid-template-columns: 64px 1fr auto; gap: 12px; align-items: start; padding: 10px; border-radius: 14px; background: var(--surface); }
+.up-item img, .up-noimg { width: 64px; height: 48px; border-radius: 8px; object-fit: cover; display: grid; place-items: center; background: rgba(255,255,255,.05); }
+.up-item small { display: block; color: var(--muted); font-size: .7rem; }
+.up-item b { display: block; font-size: .88rem; }
+.up-item p { margin: 2px 0 0; font-size: .8rem; color: var(--muted); }
+.up-item .icon-btn { width: 28px; height: 28px; font-size: .7rem; }
+.up-form input.sel { background-image: none; padding-right: 12px; cursor: text; }

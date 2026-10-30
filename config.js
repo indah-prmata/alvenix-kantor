@@ -68,5 +68,6 @@ window.HQ_CONFIG = {
   chatUrl: "https://alvinix.app.n8n.cloud/webhook/alvenix-chat",       // Dina: chat AI
   minatUrl: "https://alvinix.app.n8n.cloud/webhook/alvenix-minat",     // konsumen isi "saya tertarik"
   progresUrl: "https://alvinix.app.n8n.cloud/webhook/alvenix-progres", // portal klien cek progres
-  proyekUrl: "https://alvinix.app.n8n.cloud/webhook/alvenix-proyek"    // Ruang Kerja: simpan proyek
+  proyekUrl: "https://alvinix.app.n8n.cloud/webhook/alvenix-proyek",   // Ruang Kerja: simpan proyek
+  fotoUrl: "https://alvinix.app.n8n.cloud/webhook/alvenix-foto"        // foto update progres -> Google Drive
 };

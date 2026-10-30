@@ -67,6 +67,24 @@
   .pv__stage[data-dev="hp"] .pv__device { width: 390px; max-width: 100%; border-radius: 34px; border: 10px solid #1b2428; }
   .pv__stage[data-dev="hp"] .pv__bar { display: none; }
   .pv__stage[data-dev="hp"] iframe { height: 720px; max-height: 75vh; }
+  .tl__list { list-style: none; margin: 22px 0 0; padding: 0; display: grid; }
+  .tl__list li { position: relative; display: grid; grid-template-columns: 22px 1fr; gap: 16px; padding-bottom: 26px; }
+  .tl__list li::before { content: ""; position: absolute; left: 10px; top: 20px; bottom: 0; width: 2px; background: linear-gradient(var(--line-2), transparent); }
+  .tl__list li:last-child::before { display: none; }
+  .tl__dot { width: 22px; height: 22px; margin-top: 2px; border-radius: 50%; border: 2px solid var(--gold); background: #071116; }
+  .is-new .tl__dot { background: var(--gold); box-shadow: 0 0 0 6px rgba(34,184,198,.15), 0 0 18px rgba(34,184,198,.6); }
+  .tl__body time { display: block; font-family: var(--f-mono); font-size: .68rem; letter-spacing: .06em; color: var(--muted); }
+  .tl__body time em { font-style: normal; margin-left: 6px; padding: 2px 8px; border-radius: 999px; background: rgba(239,106,58,.18); color: #ffb88f; }
+  .tl__body b { display: block; font-size: 1.05rem; margin-top: 4px; }
+  .tl__body p { margin: 4px 0 0; color: var(--muted); }
+  .tl__img { position: relative; display: block; width: 100%; margin-top: 12px; padding: 0; border: 1px solid var(--line-2); border-radius: 16px; overflow: hidden; background: #0b1418; cursor: zoom-in; }
+  .tl__img img { display: block; width: 100%; max-height: 420px; object-fit: cover; object-position: top; transition: transform .6s var(--ease); }
+  .tl__img:hover img { transform: scale(1.02); }
+  .tl__img span { position: absolute; right: 12px; bottom: 12px; padding: 6px 12px; border-radius: 999px; background: rgba(3,8,12,.75); font-size: .78rem; color: #fff; }
+  .tl__body .btn { margin-top: 10px; }
+  .zoom { position: fixed; inset: 0; z-index: 950; display: grid; place-items: center; padding: 18px; background: rgba(2,6,8,.88); backdrop-filter: blur(6px); cursor: zoom-out; }
+  .zoom[hidden] { display: none; }
+  .zoom img { max-width: 100%; max-height: 92vh; border-radius: 14px; box-shadow: 0 30px 80px rgba(0,0,0,.6); }
   .upd { margin-top: 18px; font-family: var(--f-mono); font-size: .68rem; color: var(--dim); }
   .help { margin-top: 30px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
   .help div { padding: 16px; border-radius: 16px; border: 1px solid var(--line); font-size: .9rem; color: var(--muted); }
@@ -96,6 +114,7 @@
   </div>
 </div>
 
+<div class="zoom" id="zoom" hidden onclick="this.hidden=true"><img id="zoomImg" alt="Foto progres"></div>
 <script src="config.js?v=20261028"></script>
 <script src="shared.js?v=20261028"></script>
 <script>
@@ -115,6 +134,7 @@
   const MAX = CFG.maksRevisi || 3;
   const fmt = d => d ? new Date(d).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" }) : "—";
 
+  const safeImg = u => { u = String(u || "").trim(); return /^(https?:\/\/|data:image\/(jpeg|png|webp);base64,|contoh\/[\w-]+\.(jpg|png)$)/i.test(u) ? u : ""; };
   const safeUrl = u => /^https?:\/\//i.test(String(u || "").trim()) ? String(u).trim() : "";
   function render(P) {
     const pv = safeUrl(P.pv);
@@ -141,6 +161,20 @@
         </div>
         <p class="upd">Diperbarui ${P.up ? new Date(P.up).toLocaleString("id-ID", { dateStyle: "medium", timeStyle: "short" }) : "—"}</p>
       </section>
+      ${(P.log || []).length ? `
+      <section class="card tl" id="progres-log">
+        <div class="card__head"><div><h2>Update progres</h2><p>Hasil kerja tim kami, langsung dari meja desain.</p></div><span class="kode">${P.log.length} update</span></div>
+        <ol class="tl__list">${P.log.slice().reverse().map((e, i) => `
+          <li class="${i === 0 ? "is-new" : ""}">
+            <span class="tl__dot"></span>
+            <div class="tl__body">
+              <time>${new Date(e.d).toLocaleDateString("id-ID", { weekday: "long", day: "numeric", month: "long" })}${i === 0 ? ` <em>terbaru</em>` : ""}</time>
+              <b>${esc(e.j)}</b>${e.c ? `<p>${esc(e.c)}</p>` : ""}
+              ${safeImg(e.img) ? `<button type="button" class="tl__img" data-zoom="${esc(safeImg(e.img))}"><img src="${esc(safeImg(e.img))}" alt="${esc(e.j)}" loading="lazy"><span>🔍 Perbesar</span></button>` : ""}
+              ${safeUrl(e.u) ? `<a class="btn btn--sm" href="${esc(safeUrl(e.u))}" target="_blank" rel="noopener">Buka ↗</a>` : ""}
+            </div>
+          </li>`).join("")}</ol>
+      </section>` : ""}
       ${pv ? `
       <section class="card pv" id="pratinjau">
         <div class="card__head"><div><h2>Pratinjau website</h2><p>Versi terbaru yang sedang kami kerjakan untuk ${esc(P.n)}.</p></div>
@@ -160,6 +194,7 @@ Saya dari *${P.n}* (kode *${P.kode}*). Revisi untuk pratinjau website:
         </div>
         <p class="upd">Kalau tampilan tidak muncul di sini, tekan “Buka layar penuh”.</p>
       </section>` : ""}`;
+    $$("[data-zoom]", $("#out")).forEach(b => b.onclick = () => { $("#zoomImg").src = b.dataset.zoom; $("#zoom").hidden = false; });
     $$("[data-dev]", $("#out")).forEach(b => b.onclick = () => { $(".pv__stage").dataset.dev = b.dataset.dev; $$(".pv__seg button").forEach(x => x.classList.toggle("is-on", x === b)); });
     requestAnimationFrame(() => setTimeout(() => $("#barFill").style.width = pct + "%", 60));
     window.HQ_CHAT_CTX = { halaman: "klien", usaha: P.n };
@@ -181,12 +216,18 @@ Saya dari *${P.n}* (kode *${P.kode}*). Revisi untuk pratinjau website:
       const p = (JSON.parse(localStorage.getItem("hq.proyek.v1")) || {})[kode];
       if (!p) return null;
       const paid = (p.bayar || []).reduce((s, b) => s + (+b.j || 0), 0);
-      return { kode: p.kode, n: p.n, nm: p.nm, p: p.p, t: p.t, rv: p.rv, pv: p.pv, dl: p.dl, cat: p.cat, up: p.up, by: paid >= p.harga ? "lunas" : paid > 0 ? "dp" : "belum" };
+      return { kode: p.kode, n: p.n, nm: p.nm, p: p.p, t: p.t, rv: p.rv, pv: p.pv, dl: p.dl, cat: p.cat, up: p.up, log: p.log || [], by: paid >= p.harga ? "lunas" : paid > 0 ? "dp" : "belum" };
     } catch { return null; }
   }
   // kode contoh untuk mencoba portal
   const CONTOH = () => { const d = new Date(); d.setDate(d.getDate() + 4);
     return { kode: "ALV-CONTOH", n: "Kopi Senja", nm: "Kak Dimas", p: "landing", t: 3, rv: 1, pv: "", dl: d.toISOString().slice(0, 10), cat: "Ini contoh tampilan portal. Desain sudah jadi — silakan cek pratinjau di bawah dan kirim revisi kalau ada yang ingin diubah.", by: "dp", up: new Date().toISOString(),
+      log: [
+        { id: "c1", d: new Date(Date.now() - 4 * 864e5).toISOString(), j: "Bahan diterima", c: "Logo, foto menu, dan daftar harga dari Kak Dimas sudah kami terima. Terima kasih!" },
+        { id: "c2", d: new Date(Date.now() - 2 * 864e5).toISOString(), j: "Desain halaman utama selesai", c: "Warna hangat khas kopi, tombol pesan langsung ke WhatsApp.", img: "contoh/progres-desain.jpg" },
+        { id: "c3", d: new Date(Date.now() - 864e5).toISOString(), j: "Bagian menu & layanan jadi", c: "Menu andalan, pesan antar, dan pesanan acara.", img: "contoh/progres-layanan.jpg" },
+        { id: "c4", d: new Date().toISOString(), j: "Tampilan HP sudah rapi", c: "Dicek di beberapa ukuran HP — silakan dicoba dan kirim revisi kalau ada.", img: "contoh/progres-hp.jpg" }
+      ],
       pv: S.links.demo({ name: "Kopi Senja", category: "Kedai Kopi", city: "Jambi", address: "Jl. Contoh No. 7, Kota Jambi", rating: 4.8, reviews: 640 }) }; };
 
   async function show(kode, snap) {
@@ -207,6 +248,6 @@ Saya dari *${P.n}* (kode *${P.kode}*). Revisi untuk pratinjau website:
   window.HQ_CHAT_CTX = window.HQ_CHAT_CTX || { halaman: "klien" };
 })();
 </script>
-<script src="chat.js?v=20261029d"></script>
+<script src="chat.js?v=20261030"></script>
 </body>
 </html>

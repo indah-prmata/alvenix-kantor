@@ -35,22 +35,26 @@
       .catch(() => { online = false; A.toast("Proyek tersimpan di browser ini (n8n belum aktif)"); });
   }
   // baris Google Sheet = kolom datar
-  const flat = p => ({ kode: p.kode, usaha: p.n, kontak: p.nm || "", wa: p.wa || "", paket: p.p, harga: p.harga, bayar: JSON.stringify(p.bayar || []), tahap: p.t, revisi: p.rv, preview: p.pv || "", deadline: p.dl || "", catatan: p.cat || "", lead_id: p.lead || "", mulai: p.mulai, online_sejak: p.on || "", updated: p.up });
-  const unflat = r => ({ kode: r.kode, n: r.usaha, nm: r.kontak, wa: r.wa, p: r.paket, harga: +r.harga || S.paket(r.paket).harga, bayar: (() => { try { return JSON.parse(r.bayar || "[]"); } catch { return []; } })(), t: +r.tahap || 0, rv: +r.revisi || 0, pv: r.preview, dl: r.deadline, cat: r.catatan, lead: r.lead_id, mulai: r.mulai, on: r.online_sejak, up: r.updated });
+  const flat = p => ({ kode: p.kode, usaha: p.n, kontak: p.nm || "", wa: p.wa || "", paket: p.p, harga: p.harga, bayar: JSON.stringify(p.bayar || []), tahap: p.t, revisi: p.rv, preview: p.pv || "", deadline: p.dl || "", catatan: p.cat || "", lead_id: p.lead || "", mulai: p.mulai, online_sejak: p.on || "", progres: JSON.stringify(logPublic(p)), updated: p.up });
+  const unflat = r => ({ kode: r.kode, n: r.usaha, nm: r.kontak, wa: r.wa, p: r.paket, harga: +r.harga || S.paket(r.paket).harga, bayar: (() => { try { return JSON.parse(r.bayar || "[]"); } catch { return []; } })(), t: +r.tahap || 0, rv: +r.revisi || 0, pv: r.preview, dl: r.deadline, cat: r.catatan, lead: r.lead_id, mulai: r.mulai, on: r.online_sejak, log: (() => { try { return JSON.parse(r.progres || "[]"); } catch { return []; } })(), up: r.updated });
   async function pull() {
     if (!online) return;
     try {
       const res = await fetch(CFG.proyekUrl + "?key=" + encodeURIComponent(accessKey()), { headers: { Accept: "application/json" } });
       if (!res.ok) throw 0;
       let j = await res.json(); if (Array.isArray(j) && j.length === 1 && j[0].proyek) j = j[0];
-      (j.proyek || j || []).forEach(r => { if (!r.kode) return; const p = unflat(r); if (!proyek[p.kode] || new Date(p.up || 0) > new Date(proyek[p.kode].up || 0)) proyek[p.kode] = p; });
+      (j.proyek || j || []).forEach(r => { if (!r.kode) return; const p = unflat(r); const old = proyek[p.kode]; if (!old || new Date(p.up || 0) > new Date(old.up || 0)) { (p.log || []).forEach(e => { const o = (old?.log || []).find(x => x.id === e.id); if (o && !e.img && o.img) e.img = o.img; }); proyek[p.kode] = p; } });
       save(KEY, proyek); render();
     } catch { online = false; }
   }
 
   /* ---------------- pesan WhatsApp ---------------- */
-  const snap = p => ({ kode: p.kode, n: p.n, nm: p.nm, p: p.p, t: p.t, rv: p.rv, pv: p.pv, dl: p.dl, cat: p.cat, by: statusBayar(p), up: p.up });
+  // update progres yang aman dibagikan: foto hanya yang berupa link (foto unggahan lokal terlalu besar untuk link/Sheet)
+  const logPublic = p => (p.log || []).slice(-15).map(e => ({ id: e.id, d: e.d, j: e.j, c: e.c, img: /^https?:/i.test(e.img || "") ? e.img : "", u: e.u || "" }));
+  const snap = p => ({ kode: p.kode, n: p.n, nm: p.nm, p: p.p, t: p.t, rv: p.rv, pv: p.pv, dl: p.dl, cat: p.cat, by: statusBayar(p), up: p.up, log: logPublic(p).slice(-8) });
+  const lastLog = p => (p.log || [])[(p.log || []).length - 1];
   const msgUpdate = p => `Halo ${p.nm ? "kak " + p.nm : "kak"} 👋\n\nUpdate website *${p.n}*: sekarang di tahap *${TAHAP[p.t]}* (${pctOf(p)}%).` +
+    (lastLog(p) ? `\n\n📸 *${lastLog(p).j}*${lastLog(p).c ? "\n" + lastLog(p).c : ""}` : "") +
     (p.pv ? `\nPratinjau: ${p.pv}` : "") + (+p.t === 3 ? `\nRevisi terpakai ${p.rv}/${MAX} — kumpulkan perubahan dalam satu pesan ya 🙏` : "") +
     `\n\nPantau progres kapan saja di sini:\n${S.links.klien(snap(p))}\n(kode proyek: ${p.kode})`;
   const msgTagih = p => { const sisa = p.harga - dibayar(p), dp = Math.round(p.harga * (CFG.dpPersen || 50) / 100); const awal = dibayar(p) === 0;
@@ -58,6 +62,33 @@
   const msgRenew = p => `Halo ${p.nm ? "kak " + p.nm : "kak"} 👋\n\nWebsite *${p.n}* akan masuk masa perpanjangan tahunan pada *${fmtD(renewDate(p))}*.\nBiaya perpanjangan ${R(CFG.biayaTahunan)}/tahun — sudah termasuk domain, hosting, keamanan & perbaikan error.\n\nBoleh kami proses perpanjangannya? 🙏`;
   const renewDate = p => { if (!p.on) return null; const d = new Date(p.on); d.setFullYear(d.getFullYear() + 1); return d.toISOString(); };
   const wa = (phone, text) => S.waLink(phone, text);
+
+  /* ---------------- foto update progres ---------------- */
+  // link Google Drive "file/d/ID/view" -> gambar yang bisa ditampilkan
+  const driveImg = u => { const m = String(u).match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?.*id=)([\w-]{20,})/); return m ? `https://drive.google.com/thumbnail?id=${m[1]}&sz=w1600` : u; };
+  // kecilkan foto di browser (maks 1200 px, JPEG) supaya ringan
+  function shrink(file) {
+    return new Promise((ok, no) => {
+      const img = new Image(), url = URL.createObjectURL(file);
+      img.onload = () => {
+        const k = Math.min(1, 1200 / Math.max(img.width, img.height)), c = document.createElement("canvas");
+        c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+        c.getContext("2d").drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url);
+        ok(c.toDataURL("image/jpeg", .72));
+      };
+      img.onerror = no; img.src = url;
+    });
+  }
+  // unggah ke Google Drive lewat n8n (kalau aktif) -> link publik; kalau gagal, foto tetap disimpan di perangkat ini
+  async function uploadFoto(dataUrl, p) {
+    if (!CFG.fotoUrl) return "";
+    try {
+      const res = await fetch(CFG.fotoUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ key: accessKey(), kode: p.kode, nama: `${p.kode}-${Date.now()}.jpg`, data: dataUrl.split(",")[1] }) });
+      if (!res.ok) throw 0;
+      let j = await res.json(); if (Array.isArray(j)) j = j[0];
+      return j && j.url || "";
+    } catch { A.toast("n8n belum aktif — foto disimpan di perangkat ini"); return ""; }
+  }
 
   /* ---------------- buat proyek ---------------- */
   function createProject({ n, nm, wa: phone, p, lead }) {
@@ -159,6 +190,25 @@
           ${sisa > 0 && p.wa ? `<button class="btn btn--sm btn--wa" type="button" id="tagih">Tagih via WA</button>` : ""}
         </div>
       </div>
+      <div class="d-sec"><h4>📸 Update progres — tampil di portal klien</h4>
+        <div class="up-form">
+          <input class="sel" id="uJ" placeholder="Judul, mis. Desain halaman utama selesai">
+          <textarea class="d-note" id="uC" placeholder="Keterangan singkat untuk klien (opsional)"></textarea>
+          <div class="up-foto">
+            <label class="btn btn--sm">📷 Pilih foto / screenshot<input type="file" accept="image/*" id="uF" hidden></label>
+            <input class="sel" id="uL" placeholder="atau tempel link gambar / Google Drive">
+          </div>
+          <img class="up-prev" id="uPrev" alt="" hidden>
+          <label class="up-chk"><input type="checkbox" id="uSend" ${p.wa ? "checked" : "disabled"}> Langsung kabari klien via WhatsApp</label>
+          <button class="btn btn--sm btn--gold" type="button" id="uAdd">+ Tambah update</button>
+        </div>
+        <div class="up-list">${(p.log || []).slice().reverse().map(e => `
+          <div class="up-item">
+            ${e.img ? `<img src="${esc(e.img)}" alt="" loading="lazy">` : `<span class="up-noimg">📝</span>`}
+            <div><small>${fmtD(e.d)}${/^data:/.test(e.img || "") ? " · foto tersimpan di perangkat ini" : ""}</small><b>${esc(e.j)}</b>${e.c ? `<p>${esc(e.c)}</p>` : ""}</div>
+            <button type="button" class="icon-btn" data-dellog="${esc(e.id)}" title="Hapus">✕</button>
+          </div>`).join("") || `<p class="tbl__foot">Belum ada update. Tambahkan foto hasil kerja tiap tahap supaya klien ikut merasa progresnya.</p>`}</div>
+      </div>
       <div class="d-sec"><h4>Kabari klien</h4>
         <div class="d-acts" style="margin-top:0">
           <button class="btn btn--sm btn--wa" type="button" id="sendUpd" ${p.wa ? "" : "disabled"}>Kirim update progres</button>
@@ -184,6 +234,21 @@
     $("#tagih", body) && ($("#tagih", body).onclick = () => window.open(wa(p.wa, msgTagih(p)), "_blank", "noopener"));
     $("#sendUpd", body).onclick = () => { window.open(wa(p.wa, msgUpdate(p)), "_blank", "noopener"); A.log?.(`kirim update progres ke ${p.n}`); };
     $("#copyPortal", body).onclick = () => navigator.clipboard?.writeText(S.links.klien(snap(p))).then(() => A.toast("Link portal disalin"));
+    let foto = "";
+    const setPrev = src => { foto = src; const im = $("#uPrev", body); im.hidden = !src; if (src) im.src = src; };
+    $("#uF", body).onchange = async e => { const f = e.target.files[0]; if (!f) return; A.toast("Mengecilkan foto…"); try { setPrev(await shrink(f)); } catch { A.toast("Foto tidak bisa dibaca"); } };
+    $("#uL", body).oninput = e => { const u = driveImg(e.target.value.trim()); setPrev(/^https?:/i.test(u) ? u : ""); };
+    $("#uAdd", body).onclick = async () => {
+      const j = $("#uJ", body).value.trim(); if (!j) { A.toast("Isi judul update dulu"); return; }
+      const btn = $("#uAdd", body); btn.disabled = true; btn.textContent = "Menyimpan…";
+      let img = foto;
+      if (/^data:/.test(img)) img = await uploadFoto(img, p) || img;
+      (p.log ||= []).push({ id: S.kode("UP", 4), d: new Date().toISOString(), j, c: $("#uC", body).value.trim(), img });
+      const kirim = $("#uSend", body).checked && p.wa;
+      A.log?.(`update progres ${p.n}: ${j}`); re(); A.toast("Update progres ditambahkan 📸");
+      if (kirim) window.open(wa(p.wa, msgUpdate(p)), "_blank", "noopener");
+    };
+    $$("[data-dellog]", body).forEach(b => b.onclick = () => { if (confirm("Hapus update ini?")) { p.log = (p.log || []).filter(e => e.id !== b.dataset.dellog); re(); } });
     $("#delPj", body).onclick = () => { if (confirm(`Hapus proyek ${p.n}? Tidak bisa dibatalkan.`)) { delete proyek[p.kode]; save(KEY, proyek); render(); A.closeDrawer(); } };
     A.openDrawer();
   }
