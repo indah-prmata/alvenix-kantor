@@ -16,7 +16,7 @@
     ["butik", "Butik Anggun", "Butik", "Jambi", 4.7, 188, "Website"]
   ];
   $("#porto").innerHTML = WORK.map(([k, n, c, city, r, u, jenis]) => `
-    <a class="work rise" target="_blank" rel="noopener" href="${esc(S.links.demo({ name: n, category: c, city, rating: r, reviews: u }))}">
+    <a class="work rise" data-j="${esc(jenis)}" target="_blank" rel="noopener" href="${esc(S.links.demo({ name: n, category: c, city, rating: r, reviews: u }))}">
       <div class="work__img"><img src="contoh/porto-${k}.jpg" alt="Tampilan website ${esc(n)}" loading="lazy"></div>
       <div class="work__meta"><div><b>${esc(n)}</b><small>${esc(c)} · ${esc(jenis)}</small></div><em>Lihat demo →</em></div>
     </a>`).join("");
@@ -48,6 +48,8 @@
     }
     const pick = e.target.closest("[data-pick]");
     if (pick) { window.HQ_CHAT ? window.HQ_CHAT.ask(`Saya tertarik paket ${pick.dataset.pick}`) : waLangsung(`Halo ${CFG.brand}, saya tertarik paket ${pick.dataset.pick}.`); return; }
+    const f = e.target.closest("[data-f]");
+    if (f) { $$("[data-f]").forEach(x => x.classList.toggle("is-on", x === f)); $$(".work").forEach(w => { w.hidden = !!f.dataset.f && w.dataset.j !== f.dataset.f; }); return; }
     const t = e.target.closest("[data-try]");
     if (t) location.href = "klien.html#k=" + t.dataset.try;
   });
@@ -59,7 +61,7 @@
   /* ---------- navigasi & animasi muncul ---------- */
   const nav = $("#nav");
   addEventListener("scroll", () => nav.classList.toggle("is-scrolled", scrollY > 8), { passive: true });
-  $$(".head, .steps li, .terms div, .facts__in div, .progress > *, .final").forEach(el => el.classList.add("rise"));
+  $$(".head, .steps li, .terms div, .facts__in div, .progress > *, .final, .vs__card, .feat").forEach(el => el.classList.add("rise"));
   const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { x.target.classList.add("in"); io.unobserve(x.target); } }), { threshold: .12, rootMargin: "0px 0px -40px 0px" });
   $$(".rise").forEach(el => io.observe(el));
 })();
