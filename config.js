@@ -12,10 +12,10 @@ window.HQ_CONFIG = {
   targetHarian: 10,
 
   // Webhook n8n (workflow "2 API Leads"). Kosongkan "" untuk kembali ke DATA DEMO.
-  leadsUrl: "https://alvinix.app.n8n.cloud/webhook/alvenix-leads",
+  leadsUrl: "https://webalvinix.app.n8n.cloud/webhook/alvenix-leads",
 
   // (Opsional) Webhook n8n untuk menyimpan perubahan status lead (POST JSON).
-  statusWebhook: "https://alvinix.app.n8n.cloud/webhook/alvenix-status",
+  statusWebhook: "https://webalvinix.app.n8n.cloud/webhook/alvenix-status",
 
   // Staf MANUSIA yang melanjutkan follow-up & negosiasi setelah pesan pertama.
   // Ganti nama & nomornya (format 62...). Tombol "Serahkan" di Ruang Data mengirim detail lead ke nomor ini.
@@ -65,9 +65,9 @@ window.HQ_CONFIG = {
 
   /* ---------------- OTOMATISASI n8n (workflow baru) ----------------
      Kosongkan "" kalau belum dipasang — website tetap jalan dengan cadangan. */
-  chatUrl: "https://alvinix.app.n8n.cloud/webhook/alvenix-chat",       // Dina: chat AI
-  minatUrl: "https://alvinix.app.n8n.cloud/webhook/alvenix-minat",     // konsumen isi "saya tertarik"
-  progresUrl: "https://alvinix.app.n8n.cloud/webhook/alvenix-progres", // portal klien cek progres
-  proyekUrl: "https://alvinix.app.n8n.cloud/webhook/alvenix-proyek",   // Ruang Kerja: simpan proyek
-  fotoUrl: "https://alvinix.app.n8n.cloud/webhook/alvenix-foto"        // foto update progres -> Google Drive
+  chatUrl: "https://webalvinix.app.n8n.cloud/webhook/alvenix-chat",       // Dina: chat AI
+  minatUrl: "https://webalvinix.app.n8n.cloud/webhook/alvenix-minat",     // konsumen isi "saya tertarik"
+  progresUrl: "https://webalvinix.app.n8n.cloud/webhook/alvenix-progres", // portal klien cek progres
+  proyekUrl: "https://webalvinix.app.n8n.cloud/webhook/alvenix-proyek",   // Ruang Kerja: simpan proyek
+  fotoUrl: "https://webalvinix.app.n8n.cloud/webhook/alvenix-foto"        // foto update progres -> Google Drive
 };
