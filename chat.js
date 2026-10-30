@@ -18,40 +18,40 @@
   const css = document.createElement("style");
   css.textContent = `
   .dn-fab{position:fixed;right:18px;bottom:18px;z-index:900;display:flex;align-items:center;gap:10px;padding:7px 18px 7px 7px;border:0;border-radius:999px;cursor:pointer;
-    background:#0A0908;color:#fff;font:600 14px/1.2 "Inter",system-ui,sans-serif;text-align:left;box-shadow:0 14px 34px -12px rgba(10,9,8,.55);transition:transform .2s}
+    background:#0E1730;color:#fff;font:600 14px/1.2 "Plus Jakarta Sans",system-ui,sans-serif;text-align:left;box-shadow:0 14px 34px -12px rgba(14,23,48,.55);transition:transform .2s}
   .dn-fab:hover{transform:translateY(-2px)}
-  .dn-fab__av{position:relative;flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font:800 15px "Inter",system-ui;color:#fff;background:#C8522C}
-  .dn-fab__av::after{content:"";position:absolute;right:0;bottom:1px;width:11px;height:11px;border-radius:50%;background:#22c55e;border:2px solid #0A0908}
+  .dn-fab__av{position:relative;flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font:800 15px "Plus Jakarta Sans",system-ui;color:#fff;background:#2F6BFF}
+  .dn-fab__av::after{content:"";position:absolute;right:0;bottom:1px;width:11px;height:11px;border-radius:50%;background:#22c55e;border:2px solid #0E1730}
   .dn-fab small{display:block;font-weight:500;font-size:11.5px;color:#94a3b8;margin-top:2px}
   .dn-fab__dot{position:absolute;top:2px;left:34px;min-width:18px;height:18px;border-radius:9px;background:#ef4444;color:#fff;font:700 10px/18px system-ui;text-align:center}
   .dn{position:fixed;right:18px;bottom:18px;z-index:901;width:min(380px,calc(100vw - 24px));height:min(600px,calc(100dvh - 36px));display:flex;flex-direction:column;
-    border-radius:20px;overflow:hidden;background:#fff;color:#1e293b;font:14.5px/1.55 "Inter",system-ui,sans-serif;
-    box-shadow:0 30px 70px -20px rgba(10,9,8,.45),0 0 0 1px rgba(10,9,8,.08);transform-origin:bottom right;transition:transform .3s cubic-bezier(.2,.7,.1,1),opacity .25s}
+    border-radius:20px;overflow:hidden;background:#fff;color:#1e293b;font:14.5px/1.55 "Plus Jakarta Sans",system-ui,sans-serif;
+    box-shadow:0 30px 70px -20px rgba(14,23,48,.45),0 0 0 1px rgba(14,23,48,.08);transform-origin:bottom right;transition:transform .3s cubic-bezier(.2,.7,.1,1),opacity .25s}
   .dn[hidden]{display:flex;opacity:0;transform:scale(.9);pointer-events:none}
-  .dn__head{display:flex;align-items:center;gap:12px;padding:14px 16px;background:#0A0908;color:#fff}
+  .dn__head{display:flex;align-items:center;gap:12px;padding:14px 16px;background:#0E1730;color:#fff}
   .dn__head b{display:block;font-size:15px}
   .dn__head span{font-size:12px;color:#86efac}
-  .dn__head .dn-fab__av::after{border-color:#0A0908}
+  .dn__head .dn-fab__av::after{border-color:#0E1730}
   .dn__x{margin-left:auto;width:34px;height:34px;border-radius:10px;border:0;background:rgba(255,255,255,.1);color:#fff;cursor:pointer;font-size:15px}
-  .dn__log{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:#F7F5F1;scroll-behavior:smooth}
+  .dn__log{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:#EEF2FB;scroll-behavior:smooth}
   .dn__m{max-width:86%;padding:10px 13px;border-radius:14px;white-space:pre-line;animation:dnIn .25s ease both}
-  .dn__m--bot{align-self:flex-start;background:#fff;border:1px solid #e5e0d8;border-bottom-left-radius:4px}
-  .dn__m--me{align-self:flex-end;background:#C8522C;color:#fff;border-bottom-right-radius:4px}
-  .dn__m b{color:#0A0908}.dn__m--me b{color:#fff}
+  .dn__m--bot{align-self:flex-start;background:#fff;border:1px solid #DCE3F2;border-bottom-left-radius:4px}
+  .dn__m--me{align-self:flex-end;background:#2F6BFF;color:#fff;border-bottom-right-radius:4px}
+  .dn__m b{color:#0E1730}.dn__m--me b{color:#fff}
   .dn__m s{color:#94a3b8}
-  .dn__m a{color:#C8522C;font-weight:600}
+  .dn__m a{color:#2F6BFF;font-weight:600}
   .dn__m a.dn__wa{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px;padding:11px 14px;border-radius:12px;background:#16a34a;color:#fff;font-weight:700;text-decoration:none}
-  .dn__typing{align-self:flex-start;display:flex;gap:4px;padding:12px 14px;border-radius:14px;background:#fff;border:1px solid #e5e0d8}
+  .dn__typing{align-self:flex-start;display:flex;gap:4px;padding:12px 14px;border-radius:14px;background:#fff;border:1px solid #DCE3F2}
   .dn__typing i{width:6px;height:6px;border-radius:50%;background:#94a3b8;animation:dnDot 1s infinite}
   .dn__typing i:nth-child(2){animation-delay:.15s}.dn__typing i:nth-child(3){animation-delay:.3s}
-  .dn__chips{display:flex;flex-wrap:wrap;gap:6px;padding:10px 16px;background:#F7F5F1}
+  .dn__chips{display:flex;flex-wrap:wrap;gap:6px;padding:10px 16px;background:#EEF2FB}
   .dn__chips:empty{display:none}
-  .dn__chips button{border:1.5px solid #e7c3b5;background:#fff;color:#a8411f;border-radius:999px;padding:6px 12px;font:600 12.5px "Inter",system-ui;cursor:pointer}
-  .dn__chips button:hover{background:#f6e9e3}
-  .dn__form{display:flex;gap:8px;padding:12px;border-top:1px solid #e5e0d8;background:#fff}
-  .dn__form input{flex:1;min-width:0;height:44px;padding:0 14px;border-radius:12px;border:1.5px solid #e5e0d8;background:#F7F5F1;color:#0A0908;font:inherit;outline:none}
-  .dn__form input:focus{border-color:#C8522C;background:#fff}
-  .dn__form button{width:44px;height:44px;border-radius:12px;border:0;background:#C8522C;color:#fff;cursor:pointer;display:grid;place-items:center}
+  .dn__chips button{border:1.5px solid #C9D7FA;background:#fff;color:#1F52E0;border-radius:999px;padding:6px 12px;font:600 12.5px "Plus Jakarta Sans",system-ui;cursor:pointer}
+  .dn__chips button:hover{background:#E3EBFF}
+  .dn__form{display:flex;gap:8px;padding:12px;border-top:1px solid #DCE3F2;background:#fff}
+  .dn__form input{flex:1;min-width:0;height:44px;padding:0 14px;border-radius:12px;border:1.5px solid #DCE3F2;background:#EEF2FB;color:#0E1730;font:inherit;outline:none}
+  .dn__form input:focus{border-color:#2F6BFF;background:#fff}
+  .dn__form button{width:44px;height:44px;border-radius:12px;border:0;background:#2F6BFF;color:#fff;cursor:pointer;display:grid;place-items:center}
   .dn__form svg{width:18px;height:18px}
   .dn__foot{padding:0 0 10px;text-align:center;font-size:11px;color:#94a3b8;background:#fff}
   @media (max-width:560px){.dn-fab{padding:6px;right:12px;bottom:12px}.dn-fab>span:nth-child(2){display:none}.dn-fab__dot{left:30px}}

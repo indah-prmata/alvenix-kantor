@@ -3,19 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>alvenix — Studio Website untuk Usaha Lokal</title>
+<title>alvenix — Website Premium, Harga Spesial</title>
 <meta name="description" content="alvenix membuat website dan landing page untuk usaha di Jambi dan Jakarta. Landing page mulai Rp950 ribu, sudah termasuk domain, hosting, dan keamanan tahun pertama.">
-<meta name="theme-color" content="#F7F5F1">
+<meta name="theme-color" content="#EEF2FB">
 <link rel="icon" href="logo.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="site.css?v=20261030r">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css?v=20261030f">
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/" } }</script>
 </head>
 <body>
-<div class="noise" aria-hidden="true"></div>
 
-<!-- MASTHEAD -->
 <header class="nav" id="nav">
   <div class="wrap nav__in">
     <a class="logo" href="#top" aria-label="alvenix — beranda">
@@ -23,198 +22,153 @@
       <span>alveni<b>x</b></span>
     </a>
     <nav class="nav__links" aria-label="Menu">
-      <a href="#karya">Karya</a>
-      <a href="#layanan">Layanan</a>
       <a href="#harga">Harga</a>
+      <a href="#karya">Karya</a>
+      <a href="#kenapa">Keunggulan</a>
       <a href="klien.html">Cek progres</a>
     </nav>
     <div class="nav__cta">
-      <a class="nav__team" href="kantor.html" title="Ruang Kerja (khusus tim)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg><span>Ruang Kerja</span></a>
-      <button class="pill pill--dark" type="button" data-konsul>Konsultasi gratis</button>
+      <span class="nav__promo">Promo terbatas</span>
+      <a class="nav__team" href="kantor.html" title="Ruang Kerja (khusus tim)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg><span>Ruang Kerja</span></a>
+      <button class="btn btn--blue btn--sm" type="button" data-konsul>Konsultasi gratis</button>
     </div>
   </div>
 </header>
 
 <main id="top">
-  <!-- HERO — kinetic mask -->
+  <!-- HERO — seperti flyer -->
   <section class="hero">
-    <span class="hero__x" id="heroX" aria-hidden="true">x</span>
-    <div class="hero__3d" aria-hidden="true"><div class="hero__tilt" id="tilt"><div class="office" id="office"></div><div class="hero__floor"></div></div></div>
     <div class="wrap hero__in">
-      <p class="kicker reveal">Studio website · Jambi &amp; Jakarta</p>
-      <h1 class="display">
-        <span class="mask"><span>Website yang</span></span>
-        <span class="mask"><span>membuat usahamu</span></span>
-        <span class="mask"><span><em>dipercaya.</em></span></span>
-      </h1>
-      <div class="hero__foot">
-        <p class="hero__lead reveal">Kami merancang website dan landing page untuk usaha lokal — rapi di HP, mudah ditemukan di Google, dan langsung tersambung ke WhatsApp.</p>
-        <div class="hero__cta reveal">
-          <a class="pill pill--accent" href="#harga">Lihat harga</a>
-          <button class="ulink" type="button" data-konsul>Konsultasi gratis <span aria-hidden="true">→</span></button>
+      <div class="hero__copy">
+        <p class="eyebrow up">Jasa pembuatan website</p>
+        <h1 class="up">Website premium,<br><span>harga spesial.</span></h1>
+        <p class="hero__lead up">Desain custom yang bikin bisnismu dipercaya — gampang ditemukan di Google dan langsung mendatangkan chat WhatsApp.</p>
+        <ul class="checks up">
+          <li>Online 5–7 hari</li>
+          <li>Rapi di semua HP</li>
+          <li>Terhubung WhatsApp</li>
+        </ul>
+        <div class="hero__cta up">
+          <a class="btn btn--blue" href="#harga">Lihat harga promo</a>
+          <button class="btn btn--ghost" type="button" data-konsul>Konsultasi gratis</button>
         </div>
-        <div class="hero__meta reveal">
-          <span>Mulai dari</span>
-          <b>Rp950<i>rb</i></b>
-          <small><s>Rp1.500.000</s> · promo terbatas</small>
-        </div>
+      </div>
+      <div class="hero__art">
+        <div class="logo3d" id="logo3d"><img class="logo3d__fallback" src="logo.svg" alt=""></div>
+        <div class="tagcard tagcard--a"><b>Rp950<small>rb</small></b><span>landing page · hemat 37%</span></div>
+        <div class="tagcard tagcard--b"><i></i><span>4,9 <em>★★★★★</em></span><small>rating usaha klien</small></div>
       </div>
     </div>
   </section>
 
-  <!-- SHOWCASE — terbuka saat di-scroll -->
-  <section class="showcase" aria-label="Contoh hasil kerja">
-    <div class="showcase__frame" id="showcase">
-      <img src="contoh/porto-salon.jpg" alt="Website Salon Ayu buatan alvenix">
-      <div class="showcase__phone"><img src="contoh/porto-kopi-hp.jpg" alt="Tampilan HP website Kopi Senja"></div>
-    </div>
-    <p class="wrap showcase__cap"><span>Salon Ayu</span><em>Landing page · Jakarta</em></p>
-  </section>
-
-  <!-- ANGKA -->
-  <section class="numbers">
-    <div class="wrap numbers__in">
-      <div class="reveal"><b>5–7</b><span>hari sampai website online</span></div>
-      <div class="reveal"><b>3<i>×</i></b><span>revisi — boleh ubah total atau ganti konsep</span></div>
-      <div class="reveal"><b>1<i>th</i></b><span>domain, hosting &amp; keamanan sudah termasuk</span></div>
-      <div class="reveal"><b>24<i>/7</i></b><span>website bekerja, bahkan saat tokomu tutup</span></div>
-    </div>
-  </section>
-
-  <!-- KARYA — editorial work index -->
-  <section class="section" id="karya">
+  <!-- HARGA — kartu seperti flyer -->
+  <section class="block" id="harga">
     <div class="wrap">
-      <div class="sec-head">
-        <p class="kicker reveal">Karya</p>
-        <h2 class="display-md"><span class="mask"><span>Setiap usaha punya</span></span><span class="mask"><span><em>karakternya sendiri.</em></span></span></h2>
-        <p class="sec-head__note reveal">Warna, huruf, dan isinya kami sesuaikan dengan bisnisnya. Klik karya mana pun untuk membuka demonya.</p>
+      <div class="head head--center">
+        <span class="pill-label" id="promoBadge">Promo terbatas</span>
+        <h2>Pilih paketmu</h2>
+        <p>Sudah termasuk domain, hosting, dan keamanan untuk tahun pertama.</p>
+      </div>
+      <div class="prices" id="prices"></div>
+      <button class="bigcta" type="button" data-konsul>
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.1.1.6-.1 1.2Z"/></svg>
+        Chat sekarang via WhatsApp <span aria-hidden="true">→</span>
+      </button>
+      <div class="terms">
+        <p><b>Revisi maks. 3×</b>boleh ubah total / ganti konsep</p>
+        <p><b>Error dikerjakan</b>langsung, tanpa biaya</p>
+        <p><b>Tahun ke-2</b><span id="renew">Rp1.500.000</span>/tahun</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- KARYA -->
+  <section class="block block--soft" id="karya">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Karya</span>
+        <h2>Website yang kami buat</h2>
+        <p>Setiap usaha dapat desain sendiri. Klik untuk membuka demonya.</p>
       </div>
       <div class="works" id="porto"></div>
     </div>
   </section>
 
-  <!-- MANIFESTO -->
-  <section class="section section--tint" id="kenapa">
-    <div class="wrap manifesto">
-      <p class="kicker reveal">Kenapa website</p>
-      <blockquote class="manifesto__quote">
-        <span class="mask"><span>Pelangganmu sudah mencari di Google.</span></span>
-        <span class="mask"><span>Pastikan yang mereka temukan</span></span>
-        <span class="mask"><span><em>layak dipercaya.</em></span></span>
-      </blockquote>
-      <div class="manifesto__cols">
-        <div class="reveal">
-          <h3>Hanya profil Google Maps</h3>
-          <ul class="dim"><li>Tampil sama seperti puluhan pesaing</li><li>Info layanan dan harga tidak lengkap</li><li>Pelanggan menanyakan hal yang sama berulang kali</li></ul>
-        </div>
-        <div class="reveal">
-          <h3>Website dari alvenix</h3>
-          <ul><li>Tampil resmi dengan nama usaha sendiri</li><li>Layanan, harga, foto, dan lokasi dalam satu halaman</li><li>Satu ketukan, pelanggan langsung chat WhatsApp</li></ul>
-        </div>
+  <!-- KEUNGGULAN -->
+  <section class="block" id="kenapa">
+    <div class="wrap why">
+      <div class="why__intro">
+        <span class="eyebrow">Kenapa website?</span>
+        <h2>Pelanggan sudah mencarimu di Google.</h2>
+        <p>Tanpa website, kamu cuma satu dari puluhan profil di Maps. Dengan website, bisnismu tampil resmi — dan pelanggan bisa langsung pesan.</p>
+        <button class="btn btn--blue" type="button" data-konsul>Konsultasi gratis</button>
+      </div>
+      <div class="feats">
+        <div class="feat"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span><h3>Desain custom</h3><p>Mengikuti karakter usahamu, bukan template pasaran.</p></div>
+        <div class="feat"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18h2"/></svg></span><h3>Rapi di HP</h3><p>Tampil sempurna di layar tempat pelanggan membuka.</p></div>
+        <div class="feat"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5Z"/></svg></span><h3>Tombol WhatsApp</h3><p>Satu klik, pelanggan langsung chat dengan pesan terisi.</p></div>
+        <div class="feat"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 4 6 4 9.5s-1.4 6.7-4 9.5c-2.6-2.8-4-6-4-9.5s1.4-6.7 4-9.5Z"/></svg></span><h3>Domain sendiri</h3><p>.com atau .id dengan nama usahamu.</p></div>
+        <div class="feat"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 2.5 4 6v6c0 4.8 3.3 8.4 8 9.5 4.7-1.1 8-4.7 8-9.5V6Z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></span><h3>Aman & dirawat</h3><p>SSL, cadangan data, error langsung kami perbaiki.</p></div>
+        <div class="feat"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg></span><h3>Pantau progres</h3><p>Kode proyek pribadi untuk lihat foto & tahapnya.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- LAYANAN — editorial index -->
-  <section class="section" id="layanan">
-    <div class="wrap index">
-      <div class="index__head">
-        <p class="kicker reveal">Yang kamu dapat</p>
-        <h2 class="display-md"><span class="mask"><span>Semua urusan teknis,</span></span><span class="mask"><span><em>kami yang kerjakan.</em></span></span></h2>
-      </div>
-      <ol class="index__list">
-        <li class="reveal"><span>01</span><h3>Desain custom</h3><p>Bukan template pasaran. Tampilan mengikuti karakter dan pelanggan usahamu.</p></li>
-        <li class="reveal"><span>02</span><h3>Rapi di setiap HP</h3><p>Kebanyakan pelanggan membuka dari HP — di sanalah website harus sempurna.</p></li>
-        <li class="reveal"><span>03</span><h3>Tersambung WhatsApp</h3><p>Tombol chat dengan pesan yang sudah terisi. Pelanggan tinggal kirim.</p></li>
-        <li class="reveal"><span>04</span><h3>Domain atas nama usahamu</h3><p>.com atau .id — resmi, mudah diingat, dan sudah termasuk di tahun pertama.</p></li>
-        <li class="reveal"><span>05</span><h3>Aman dan dirawat</h3><p>SSL, cadangan data, dan error apa pun langsung kami perbaiki tanpa biaya.</p></li>
-        <li class="reveal"><span>06</span><h3>Progres yang bisa dipantau</h3><p>Kode proyek pribadi untuk melihat tahap pengerjaan dan foto hasil kerja.</p></li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- HARGA — editorial asymmetric -->
-  <section class="section section--tint" id="harga">
+  <!-- CARA KERJA -->
+  <section class="block block--soft" id="cara-kerja">
     <div class="wrap">
-      <div class="sec-head">
-        <p class="kicker reveal">Harga <span class="kicker__badge" id="promoBadge">Promo terbatas</span></p>
-        <h2 class="display-md"><span class="mask"><span>Harga jelas,</span></span><span class="mask"><span><em>tanpa biaya tersembunyi.</em></span></span></h2>
-      </div>
-      <div class="plans" id="prices"></div>
-      <div class="plans__terms reveal">
-        <p><b>Revisi maksimal 3 kali</b> — setiap revisi boleh ubah total dari awal atau ganti konsep.</p>
-        <p><b>Error langsung dikerjakan</b> — tanpa biaya, tidak mengurangi jatah revisi.</p>
-        <p><b>Tahun ke-2 <span id="renew">Rp1.500.000</span>/tahun</b> — domain, hosting, keamanan, dan perbaikan error.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROSES -->
-  <section class="section" id="cara-kerja">
-    <div class="wrap">
-      <div class="sec-head">
-        <p class="kicker reveal">Proses</p>
-        <h2 class="display-md"><span class="mask"><span>Dari chat pertama</span></span><span class="mask"><span><em>sampai online.</em></span></span></h2>
+      <div class="head head--center">
+        <span class="eyebrow">Cara kerja</span>
+        <h2>Empat langkah, tanpa ribet</h2>
       </div>
       <ol class="steps">
-        <li class="reveal"><i>i.</i><h3>Ceritakan bisnismu</h3><p>Konsultasi gratis lewat chat. Kami tanya usahanya, pelanggannya, dan apa yang mau ditonjolkan.</p></li>
-        <li class="reveal"><i>ii.</i><h3>Lihat demo dulu</h3><p>Kami buatkan contoh website khusus untukmu. Cocok dulu, baru lanjut.</p></li>
-        <li class="reveal"><i>iii.</i><h3>Revisi sampai pas</h3><p>Maksimal tiga kali, boleh ubah total. Pantau progresnya dengan kode proyek.</p></li>
-        <li class="reveal"><i>iv.</i><h3>Online &amp; dirawat</h3><p>Website tayang dengan domain sendiri. Error apa pun langsung kami tangani.</p></li>
+        <li><span>01</span><h3>Konsultasi gratis</h3><p>Ceritakan usahamu lewat chat.</p></li>
+        <li><span>02</span><h3>Lihat demo dulu</h3><p>Cocok dulu, baru lanjut.</p></li>
+        <li><span>03</span><h3>Revisi sampai pas</h3><p>Maksimal 3×, boleh ubah total.</p></li>
+        <li><span>04</span><h3>Online & dirawat</h3><p>Domain sendiri, error kami tangani.</p></li>
       </ol>
     </div>
   </section>
 
   <!-- CEK PROGRES -->
-  <section class="section section--tint section--slim" id="progres">
-    <div class="wrap check">
-      <div>
-        <p class="kicker reveal">Portal klien</p>
-        <h2 class="display-sm reveal">Websitemu sudah sampai mana?</h2>
-      </div>
-      <form class="check__form reveal" id="progForm" autocomplete="off">
-        <input id="progCode" placeholder="Kode proyek — ALV-XXXXX" aria-label="Kode proyek" required>
-        <button class="pill pill--dark" type="submit">Cek progres</button>
-        <p class="check__try">Ingin melihat contoh? Gunakan kode <button type="button" data-try="ALV-CONTOH">ALV-CONTOH</button></p>
-      </form>
-    </div>
-  </section>
-
-  <!-- MOMENT CTA -->
-  <section class="moment">
-    <div class="wrap moment__in">
-      <p class="kicker kicker--light reveal">Slot promo terbatas setiap bulan</p>
-      <h2 class="display moment__title"><span class="mask"><span>Mari buat usahamu</span></span><span class="mask"><span><em>tampil lebih baik.</em></span></span></h2>
-      <div class="moment__cta reveal">
-        <button class="pill pill--light" type="button" data-konsul>Mulai konsultasi gratis</button>
-        <a class="ulink ulink--light" href="#harga">Lihat paket <span aria-hidden="true">→</span></a>
+  <section class="block" id="progres">
+    <div class="wrap">
+      <div class="progress">
+        <div>
+          <span class="eyebrow eyebrow--light">Portal klien</span>
+          <h2>Websitemu sudah sampai mana?</h2>
+          <p>Masukkan kode proyek dari tim kami untuk melihat tahap pengerjaan, foto progres, dan sisa revisi.</p>
+        </div>
+        <form class="progress__form" id="progForm" autocomplete="off">
+          <input id="progCode" placeholder="Kode proyek, mis. ALV-XXXXX" aria-label="Kode proyek" required>
+          <button class="btn btn--white" type="submit">Cek progres</button>
+          <p class="progress__try">Coba contohnya: <button type="button" data-try="ALV-CONTOH">ALV-CONTOH</button></p>
+        </form>
       </div>
     </div>
   </section>
 </main>
 
-<!-- FOOTER -->
+<!-- FOOTER — seperti bagian bawah flyer -->
 <footer class="foot">
   <div class="wrap">
-    <div class="foot__top">
-      <p class="foot__line">Studio website untuk usaha lokal — <em>Jambi &amp; Jakarta.</em></p>
-      <div class="foot__cols">
-        <div><b>Kontak</b><button type="button" data-konsul>0822 6411 6532</button></div>
-        <div><b>Menu</b><a href="#karya">Karya</a><a href="#harga">Harga</a><a href="klien.html">Cek progres</a></div>
-        <div><b>Tim</b><a href="kantor.html">Ruang Kerja</a></div>
-      </div>
+    <div class="foot__contact">
+      <button class="foot__item" type="button" data-konsul><span class="foot__ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Z"/></svg></span><span><small>WhatsApp</small><b>0822 6411 6532</b></span></button>
+      <a class="foot__item" href="#top"><span class="foot__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 4 6 4 9.5s-1.4 6.7-4 9.5c-2.6-2.8-4-6-4-9.5s1.4-6.7 4-9.5Z"/></svg></span><span><small>Website</small><b>alvenix</b></span></a>
     </div>
-    <p class="foot__word" aria-hidden="true">alveni<b>x</b></p>
-    <div class="foot__bottom"><span>© <span id="year">2026</span> alvenix</span><span>Harga promo berlaku untuk slot terbatas.</span></div>
+    <div class="foot__bottom">
+      <a class="logo" href="#top"><svg viewBox="0 0 100 100" aria-hidden="true"><g stroke="currentColor" stroke-width="11" stroke-linecap="round" fill="none"><path d="M52 54 L18 58"/><path d="M52 54 Q58 34 80 20"/><path d="M52 54 Q60 72 77 84"/></g><g fill="currentColor"><circle cx="52" cy="54" r="15"/><circle cx="15" cy="58" r="12"/><circle cx="82" cy="18" r="12"/><circle cx="78" cy="86" r="12"/></g></svg><span>alveni<b>x</b></span></a>
+      <nav><a href="#harga">Harga</a><a href="#karya">Karya</a><a href="klien.html">Cek progres</a><a href="kantor.html">Ruang Kerja</a></nav>
+      <span>© <span id="year">2026</span> · *Promo berlaku untuk slot terbatas</span>
+    </div>
   </div>
 </footer>
 
-<script src="config.js?v=20261030p"></script>
-<script src="shared.js?v=20261030p"></script>
-<script src="agents.js?v=20261030q"></script>
-<script src="office.js?v=20261030q"></script>
-<script src="site.js?v=20261030q"></script>
+<script src="config.js?v=20261030f"></script>
+<script src="shared.js?v=20261030f"></script>
+<script src="site.js?v=20261030f"></script>
+<script type="module" src="logo3d.js?v=20261030f"></script>
 <script>window.HQ_CHAT_CTX = { halaman: "beranda" };</script>
-<script src="chat.js?v=20261030p"></script>
+<script src="chat.js?v=20261030f"></script>
 </body>
 </html>
