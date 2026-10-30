@@ -17,40 +17,43 @@
   /* ---------------- tampilan ---------------- */
   const css = document.createElement("style");
   css.textContent = `
-  .dn-fab{position:fixed;right:18px;bottom:18px;z-index:900;display:flex;align-items:center;gap:10px;padding:8px 18px 8px 8px;border:0;border-radius:999px;cursor:pointer;
-    background:#0b1a20;color:#eef5f6;font:600 14px/1 "Manrope",system-ui,sans-serif;box-shadow:0 14px 40px -10px rgba(0,0,0,.55),0 0 0 1px rgba(34,184,198,.45);transition:transform .3s}
+  .dn-fab{position:fixed;right:18px;bottom:18px;z-index:900;display:flex;align-items:center;gap:10px;padding:7px 18px 7px 7px;border:0;border-radius:999px;cursor:pointer;
+    background:#0f172a;color:#fff;font:600 14px/1.2 "Plus Jakarta Sans","Manrope",system-ui,sans-serif;text-align:left;box-shadow:0 14px 34px -12px rgba(15,23,42,.55);transition:transform .2s}
   .dn-fab:hover{transform:translateY(-2px)}
-  .dn-fab__av{position:relative;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font:700 15px "Outfit",system-ui;color:#fff;
-    background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.5),transparent 40%),linear-gradient(140deg,#7ff0fb,#22b8c6 55%,#0a4f5a)}
-  .dn-fab__av::after{content:"";position:absolute;right:0;bottom:1px;width:11px;height:11px;border-radius:50%;background:#5ee69a;border:2px solid #0b1a20}
-  .dn-fab small{display:block;font-weight:500;font-size:11px;color:#84959b;margin-top:3px}
-  .dn-fab__dot{position:absolute;top:2px;left:34px;min-width:18px;height:18px;border-radius:9px;background:#ef6a3a;color:#fff;font:700 10px/18px system-ui;text-align:center}
+  .dn-fab__av{position:relative;flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font:800 15px "Plus Jakarta Sans",system-ui;color:#fff;background:#2f6bff}
+  .dn-fab__av::after{content:"";position:absolute;right:0;bottom:1px;width:11px;height:11px;border-radius:50%;background:#22c55e;border:2px solid #0f172a}
+  .dn-fab small{display:block;font-weight:500;font-size:11.5px;color:#94a3b8;margin-top:2px}
+  .dn-fab__dot{position:absolute;top:2px;left:34px;min-width:18px;height:18px;border-radius:9px;background:#ef4444;color:#fff;font:700 10px/18px system-ui;text-align:center}
   .dn{position:fixed;right:18px;bottom:18px;z-index:901;width:min(380px,calc(100vw - 24px));height:min(600px,calc(100dvh - 36px));display:flex;flex-direction:column;
-    border-radius:22px;overflow:hidden;background:#071116;color:#e8f2f4;font:14px/1.5 "Manrope",system-ui,sans-serif;
-    box-shadow:0 30px 80px -20px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.08);transform-origin:bottom right;transition:transform .35s cubic-bezier(.2,.7,.1,1),opacity .3s}
-  .dn[hidden]{display:flex;opacity:0;transform:scale(.85);pointer-events:none}
-  .dn__head{display:flex;align-items:center;gap:12px;padding:14px 16px;background:linear-gradient(120deg,rgba(34,184,198,.22),rgba(239,106,58,.1));border-bottom:1px solid rgba(255,255,255,.07)}
+    border-radius:20px;overflow:hidden;background:#fff;color:#1e293b;font:14.5px/1.55 "Plus Jakarta Sans","Manrope",system-ui,sans-serif;
+    box-shadow:0 30px 70px -20px rgba(15,23,42,.45),0 0 0 1px rgba(15,23,42,.08);transform-origin:bottom right;transition:transform .3s cubic-bezier(.2,.7,.1,1),opacity .25s}
+  .dn[hidden]{display:flex;opacity:0;transform:scale(.9);pointer-events:none}
+  .dn__head{display:flex;align-items:center;gap:12px;padding:14px 16px;background:#0f172a;color:#fff}
   .dn__head b{display:block;font-size:15px}
-  .dn__head span{font-size:12px;color:#8fd9a8}
-  .dn__x{margin-left:auto;width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.12);background:transparent;color:#cfe;cursor:pointer;font-size:16px}
-  .dn__log{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
-  .dn__m{max-width:86%;padding:10px 13px;border-radius:16px;white-space:pre-line;animation:dnIn .3s ease both}
-  .dn__m--bot{align-self:flex-start;background:rgba(255,255,255,.06);border-bottom-left-radius:5px}
-  .dn__m--me{align-self:flex-end;background:linear-gradient(140deg,#22b8c6,#13879a);color:#021417;font-weight:500;border-bottom-right-radius:5px}
-  .dn__m b{color:#fff}.dn__m--me b{color:#021417}
-  .dn__m a.dn__wa{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px;padding:11px 14px;border-radius:12px;background:#1faa59;color:#fff;font-weight:700;text-decoration:none}
-  .dn__typing{align-self:flex-start;display:flex;gap:4px;padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.06)}
-  .dn__typing i{width:6px;height:6px;border-radius:50%;background:#84959b;animation:dnDot 1s infinite}
+  .dn__head span{font-size:12px;color:#86efac}
+  .dn__head .dn-fab__av::after{border-color:#0f172a}
+  .dn__x{margin-left:auto;width:34px;height:34px;border-radius:10px;border:0;background:rgba(255,255,255,.1);color:#fff;cursor:pointer;font-size:15px}
+  .dn__log{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:#f6f8fc;scroll-behavior:smooth}
+  .dn__m{max-width:86%;padding:10px 13px;border-radius:14px;white-space:pre-line;animation:dnIn .25s ease both}
+  .dn__m--bot{align-self:flex-start;background:#fff;border:1px solid #e2e8f0;border-bottom-left-radius:4px}
+  .dn__m--me{align-self:flex-end;background:#2f6bff;color:#fff;border-bottom-right-radius:4px}
+  .dn__m b{color:#0f172a}.dn__m--me b{color:#fff}
+  .dn__m s{color:#94a3b8}
+  .dn__m a{color:#2f6bff;font-weight:600}
+  .dn__m a.dn__wa{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px;padding:11px 14px;border-radius:12px;background:#16a34a;color:#fff;font-weight:700;text-decoration:none}
+  .dn__typing{align-self:flex-start;display:flex;gap:4px;padding:12px 14px;border-radius:14px;background:#fff;border:1px solid #e2e8f0}
+  .dn__typing i{width:6px;height:6px;border-radius:50%;background:#94a3b8;animation:dnDot 1s infinite}
   .dn__typing i:nth-child(2){animation-delay:.15s}.dn__typing i:nth-child(3){animation-delay:.3s}
-  .dn__chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 10px}
-  .dn__chips button{border:1px solid rgba(34,184,198,.45);background:rgba(34,184,198,.08);color:#bff4fa;border-radius:999px;padding:7px 12px;font:600 12.5px "Manrope",system-ui;cursor:pointer}
-  .dn__chips button:hover{background:rgba(34,184,198,.2)}
-  .dn__form{display:flex;gap:8px;padding:12px;border-top:1px solid rgba(255,255,255,.07)}
-  .dn__form input{flex:1;min-width:0;height:44px;padding:0 14px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:inherit;font:inherit;outline:none}
-  .dn__form input:focus{border-color:#22b8c6}
-  .dn__form button{width:44px;height:44px;border-radius:50%;border:0;background:#22b8c6;color:#021417;cursor:pointer;display:grid;place-items:center}
+  .dn__chips{display:flex;flex-wrap:wrap;gap:6px;padding:10px 16px;background:#f6f8fc}
+  .dn__chips:empty{display:none}
+  .dn__chips button{border:1.5px solid #c9d6f7;background:#fff;color:#1f54d6;border-radius:999px;padding:6px 12px;font:600 12.5px "Plus Jakarta Sans",system-ui;cursor:pointer}
+  .dn__chips button:hover{background:#e8efff}
+  .dn__form{display:flex;gap:8px;padding:12px;border-top:1px solid #e2e8f0;background:#fff}
+  .dn__form input{flex:1;min-width:0;height:44px;padding:0 14px;border-radius:12px;border:1.5px solid #e2e8f0;background:#f6f8fc;color:#0f172a;font:inherit;outline:none}
+  .dn__form input:focus{border-color:#2f6bff;background:#fff}
+  .dn__form button{width:44px;height:44px;border-radius:12px;border:0;background:#2f6bff;color:#fff;cursor:pointer;display:grid;place-items:center}
   .dn__form svg{width:18px;height:18px}
-  .dn__foot{padding:0 0 10px;text-align:center;font-size:10.5px;color:#52636a}
+  .dn__foot{padding:0 0 10px;text-align:center;font-size:11px;color:#94a3b8;background:#fff}
   @media (max-width:560px){.dn-fab{padding:6px;right:12px;bottom:12px}.dn-fab>span:nth-child(2){display:none}.dn-fab__dot{left:30px}}
   @keyframes dnIn{from{opacity:0;transform:translateY(6px)}}
   @keyframes dnDot{50%{opacity:.25;transform:translateY(-2px)}}`;
@@ -62,7 +65,7 @@
   const box = document.createElement("section");
   box.className = "dn"; box.hidden = true; box.setAttribute("aria-label", "Chat dengan Dina");
   box.innerHTML = `
-    <header class="dn__head"><span class="dn-fab__av">D</span><div><b>Dina · alvenix</b><span>● online — asisten otomatis</span></div><button class="dn__x" type="button" aria-label="Tutup">✕</button></header>
+    <header class="dn__head"><span class="dn-fab__av">D</span><div><b>Dina · alvenix</b><span>● online · biasanya membalas langsung</span></div><button class="dn__x" type="button" aria-label="Tutup">✕</button></header>
     <div class="dn__log" role="log" aria-live="polite"></div>
     <div class="dn__chips"></div>
     <form class="dn__form" autocomplete="off"><input placeholder="Tulis pertanyaan…" aria-label="Pesan"><button type="submit" aria-label="Kirim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button></form>

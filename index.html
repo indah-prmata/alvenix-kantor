@@ -3,209 +3,162 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>alvenix — Jasa Website &amp; Landing Page</title>
-<meta name="description" content="alvenix — kantor digital yang membangun website dan landing page untuk bisnis & UMKM. Desain custom, mobile-first, konsultasi gratis via WhatsApp.">
-<meta name="theme-color" content="#03080c">
+<title>alvenix — Jasa Pembuatan Website &amp; Landing Page</title>
+<meta name="description" content="alvenix membuat website dan landing page untuk usaha di Jambi dan Jakarta. Landing page mulai Rp950 ribu, sudah termasuk domain, hosting, dan keamanan tahun pertama.">
+<meta name="theme-color" content="#f4f6fb">
 <link rel="icon" href="logo.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="hq.css?v=20261030h">
-<link rel="stylesheet" href="home.css?v=20261030h">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css?v=20261030s">
 </head>
 <body>
-<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
-<div class="grain" aria-hidden="true"></div>
-<div class="spot" id="spot" aria-hidden="true"></div>
 
-<!-- NAV -->
 <header class="nav" id="nav">
-  <a class="brand" href="#top" aria-label="Beranda">
-    <span class="wordmark"><img src="logo.svg" alt=""><span>alveni<b>x</b></span></span>
-  </a>
-  <nav class="nav__links" aria-label="Menu utama">
-    <a href="#harga">Harga</a>
-    <a href="#karya">Contoh</a>
-    <a href="#cara-kerja">Cara Kerja</a>
-    <a href="klien.html">Cek Progres</a>
-  </nav>
-  <div class="nav__cta">
-    <a class="btn btn--sm btn--ghost" href="kantor.html" title="Khusus tim alvenix">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
-      Ruang Kerja
+  <div class="wrap nav__in">
+    <a class="logo" href="#top" aria-label="alvenix — beranda">
+      <svg viewBox="0 0 100 100" aria-hidden="true"><g stroke="currentColor" stroke-width="11" stroke-linecap="round" fill="none"><path d="M52 54 L18 58"/><path d="M52 54 Q58 34 80 20"/><path d="M52 54 Q60 72 77 84"/></g><g fill="currentColor"><circle cx="52" cy="54" r="15"/><circle cx="15" cy="58" r="12"/><circle cx="82" cy="18" r="12"/><circle cx="78" cy="86" r="12"/></g></svg>
+      <span>alveni<b>x</b></span>
     </a>
-    <a class="btn btn--sm btn--gold js-wa" href="#">Konsultasi gratis</a>
+    <nav class="nav__links" aria-label="Menu">
+      <a href="#harga">Harga</a>
+      <a href="#portofolio">Portofolio</a>
+      <a href="#cara-kerja">Cara kerja</a>
+      <a href="klien.html">Cek progres</a>
+    </nav>
+    <div class="nav__cta">
+      <a class="nav__team" href="kantor.html">Ruang Kerja</a>
+      <button class="btn btn--blue btn--sm" type="button" data-konsul>Konsultasi gratis</button>
+    </div>
   </div>
 </header>
 
 <main id="top">
-
-  <!-- ============ HERO ============ -->
-  <section class="tour hero2" id="tour">
-    <div class="tour__stage"><div class="office" id="office"></div></div>
-    <div class="tour__hero" id="tourHero">
-      <p class="eyebrow">Jasa pembuatan website</p>
-      <h1 class="hero__title">
-        <span class="line"><span>Website premium,</span></span>
-        <span class="line"><span><em class="serif gold-text">harga spesial.</em></span></span>
-      </h1>
-      <p class="hero__lead">Desain custom yang bikin bisnismu dipercaya, gampang ditemukan di Google, dan mendatangkan pesanan lewat WhatsApp.</p>
-      <div class="hero__ctas">
-        <a class="btn btn--gold" href="#harga">Lihat harga promo</a>
-        <a class="btn btn--ghost js-wa" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.1.1.6-.1 1.2Z"/></svg> Konsultasi gratis</a>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero__in">
+      <div class="hero__copy">
+        <p class="tag">Jasa pembuatan website · Jambi &amp; Jakarta</p>
+        <h1>Website premium,<br><span>harga spesial.</span></h1>
+        <p class="hero__lead">Desain custom yang bikin bisnismu dipercaya, gampang ditemukan di Google, dan mendatangkan pesanan lewat WhatsApp.</p>
+        <div class="hero__cta">
+          <a class="btn btn--blue" href="#harga">Lihat harga promo</a>
+          <button class="btn btn--line" type="button" data-konsul>Konsultasi gratis</button>
+        </div>
+        <ul class="checks">
+          <li>Online 5–7 hari</li>
+          <li>Rapi di semua HP</li>
+          <li>Terhubung WhatsApp</li>
+        </ul>
       </div>
-      <ul class="trust">
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9.5"/><path d="m8 12.3 2.6 2.6L16 9.5"/></svg>Online 5–7 hari</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9.5"/><path d="m8 12.3 2.6 2.6L16 9.5"/></svg>Rapi di semua HP</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9.5"/><path d="m8 12.3 2.6 2.6L16 9.5"/></svg>Terhubung WhatsApp</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- MARQUEE -->
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee__track">
-      <span>Website</span><i>✦</i><span class="o">Landing Page</span><i>✦</i><span>Toko Online</span><i>✦</i><span class="o">Company Profile</span><i>✦</i><span>Katalog</span><i>✦</i>
-      <span>Website</span><i>✦</i><span class="o">Landing Page</span><i>✦</i><span>Toko Online</span><i>✦</i><span class="o">Company Profile</span><i>✦</i><span>Katalog</span><i>✦</i>
-    </div>
-  </div>
-
-  <!-- ============ CARA KERJA ============ -->
-  <section class="section steps4" id="cara-kerja">
-    <div class="section__head">
-      <p class="eyebrow reveal">Cara kerja</p>
-      <h2 class="h2 reveal">Dari chat pertama sampai <em class="serif gold-text">website online.</em></h2>
-    </div>
-    <ol class="steps4__list">
-      <li class="reveal"><span class="steps4__n">01</span><h3>Ceritakan bisnismu</h3><p>Chat lewat WhatsApp atau tanya Dina. Konsultasi gratis, tanpa komitmen.</p></li>
-      <li class="reveal"><span class="steps4__n">02</span><h3>Lihat demo gratis</h3><p>Kami buatkan contoh website khusus untuk bisnismu. Cocok dulu, baru lanjut.</p></li>
-      <li class="reveal"><span class="steps4__n">03</span><h3>Revisi sampai pas</h3><p>Maksimal 3 kali revisi — boleh ubah total atau ganti konsep. Progresnya bisa kamu pantau sendiri.</p></li>
-      <li class="reveal"><span class="steps4__n">04</span><h3>Online &amp; kami rawat</h3><p>Website tayang dengan domain sendiri. Error apa pun langsung kami perbaiki.</p></li>
-    </ol>
-  </section>
-
-  <!-- ============ CONTOH (horizontal) ============ -->
-  <section class="work" id="karya">
-    <div class="work__head">
-      <p class="eyebrow">Contoh konsep</p>
-      <h2 class="h2">Seperti ini bisnismu <em class="serif gold-text">bisa tampil.</em></h2>
-      <p class="work__hint mono">klik kartu untuk lihat demo · ← geser →</p>
-    </div>
-    <div class="work__viewport">
-      <div class="work__track" id="workTrack">
-        <figure class="mock" data-demo='{"n":"Kopi Senja","c":"Kedai Kopi","k":"Jambi","r":4.8,"u":640}' style="--a:#c98a4b;--b:#2a1a10">
-          <div class="mock__bar"><i></i><i></i><i></i><span>kopisenja.id</span></div>
-          <div class="mock__body">
-            <div class="mock__nav"><b>Kopi Senja</b><span></span><span></span><span></span></div>
-            <div class="mock__hero"><h4>Kopi enak,<br>tempat nyaman.</h4><p></p><em>Pesan via WA</em></div>
-            <div class="mock__cards"><span></span><span></span><span></span></div>
-          </div>
-          <figcaption><b>Kedai Kopi</b><span>Landing page · menu &amp; lokasi</span></figcaption>
-        </figure>
-        <figure class="mock" data-demo='{"n":"Klinik Senyum","c":"Klinik Gigi","k":"Jakarta","r":4.9,"u":410}' style="--a:#4f9dff;--b:#0d1a33">
-          <div class="mock__bar"><i></i><i></i><i></i><span>kliniksenyum.co.id</span></div>
-          <div class="mock__body">
-            <div class="mock__nav"><b>Klinik Senyum</b><span></span><span></span><span></span></div>
-            <div class="mock__hero"><h4>Senyum sehat<br>untuk keluarga.</h4><p></p><em>Buat janji</em></div>
-            <div class="mock__cards"><span></span><span></span><span></span></div>
-          </div>
-          <figcaption><b>Klinik</b><span>Website bisnis · reservasi</span></figcaption>
-        </figure>
-        <figure class="mock" data-demo='{"n":"Bengkel Maju","c":"Bengkel Sepeda Motor","k":"Jambi","r":4.8,"u":359}' style="--a:#ff6b3d;--b:#1e0f0a">
-          <div class="mock__bar"><i></i><i></i><i></i><span>bengkelmaju.com</span></div>
-          <div class="mock__body">
-            <div class="mock__nav"><b>Bengkel Maju</b><span></span><span></span><span></span></div>
-            <div class="mock__hero"><h4>Servis cepat,<br>harga jujur.</h4><p></p><em>Booking servis</em></div>
-            <div class="mock__cards"><span></span><span></span><span></span></div>
-          </div>
-          <figcaption><b>Bengkel</b><span>Landing page · booking</span></figcaption>
-        </figure>
-        <figure class="mock" data-demo='{"n":"Salon Ayu","c":"Salon Kecantikan","k":"Jakarta","r":4.9,"u":812}' style="--a:#ff7aa8;--b:#2a0f1c">
-          <div class="mock__bar"><i></i><i></i><i></i><span>salonayu.id</span></div>
-          <div class="mock__body">
-            <div class="mock__nav"><b>Salon Ayu</b><span></span><span></span><span></span></div>
-            <div class="mock__hero"><h4>Tampil cantik<br>setiap hari.</h4><p></p><em>Reservasi</em></div>
-            <div class="mock__cards"><span></span><span></span><span></span></div>
-          </div>
-          <figcaption><b>Salon</b><span>Landing page · paket &amp; harga</span></figcaption>
-        </figure>
-        <figure class="mock" data-demo='{"n":"Dapur Mama","c":"Katering","k":"Jambi","r":4.8,"u":275}' style="--a:#3fcf86;--b:#0a1f15">
-          <div class="mock__bar"><i></i><i></i><i></i><span>dapurmama.com</span></div>
-          <div class="mock__body">
-            <div class="mock__nav"><b>Dapur Mama</b><span></span><span></span><span></span></div>
-            <div class="mock__hero"><h4>Katering rumahan<br>untuk acaramu.</h4><p></p><em>Lihat menu</em></div>
-            <div class="mock__cards"><span></span><span></span><span></span></div>
-          </div>
-          <figcaption><b>Katering</b><span>Website bisnis · katalog menu</span></figcaption>
-        </figure>
+      <div class="hero__shot" aria-hidden="true">
+        <div class="frame frame--laptop"><div class="frame__bar"><i></i><i></i><i></i><span>salonayu.id</span></div><img src="contoh/porto-salon.jpg" alt=""></div>
+        <div class="frame frame--phone"><img src="contoh/porto-kopi-hp.jpg" alt=""></div>
       </div>
     </div>
   </section>
 
-  <!-- ============ HARGA ============ -->
-  <section class="section pricing" id="harga">
-    <div class="section__head">
-      <p class="eyebrow reveal">Harga · <span class="promo-chip">Promo terbatas · hemat 37%</span></p>
-      <h2 class="h2 reveal">Harga jelas, <em class="serif gold-text">tanpa biaya tersembunyi.</em></h2>
-      <p class="pricing__lead reveal">Semua paket sudah termasuk domain, hosting, dan keamanan untuk tahun pertama.</p>
-    </div>
-    <div class="pricing__grid" id="pricing"></div>
-    <div class="addons reveal" id="included"></div>
-    <div class="pricing__terms reveal">
-      <div><b>✏️ Revisi maksimal 3 kali</b><span>Setiap revisi boleh ubah total dari awal atau ganti konsep.</span></div>
-      <div><b>🛠️ Error &amp; bug langsung dikerjakan</b><span>Tanpa biaya, tidak mengurangi jatah revisi.</span></div>
-      <div><b>🔁 Tahun ke-2 cukup <span id="renewPrice">Rp1.500.000</span>/tahun</b><span>Domain, hosting, keamanan &amp; perbaikan error.</span></div>
+  <!-- ANGKA -->
+  <section class="facts">
+    <div class="wrap facts__in">
+      <div><b>Rp950rb</b><span>landing page, harga promo</span></div>
+      <div><b>5–7 hari</b><span>sampai website online</span></div>
+      <div><b>3×</b><span>revisi, boleh ganti konsep</span></div>
+      <div><b>Tahun ke-1</b><span>domain, hosting &amp; keamanan sudah termasuk</span></div>
     </div>
   </section>
 
-  <!-- ============ CEK PROGRES ============ -->
-  <section class="section progress-band" id="progres">
-    <div class="progress-band__box reveal">
+  <!-- PORTOFOLIO -->
+  <section class="block" id="portofolio">
+    <div class="wrap">
+      <div class="head">
+        <h2>Contoh website yang kami buat</h2>
+        <p>Setiap usaha dapat desain sendiri — warna, huruf, dan isinya mengikuti karakter bisnisnya. Klik untuk melihat demonya.</p>
+      </div>
+      <div class="porto" id="porto"></div>
+    </div>
+  </section>
+
+  <!-- HARGA -->
+  <section class="block block--tint" id="harga">
+    <div class="wrap">
+      <div class="head head--center">
+        <span class="badge" id="promoBadge">Promo terbatas</span>
+        <h2>Harga jelas, tanpa biaya tersembunyi</h2>
+        <p>Semua paket sudah termasuk domain, hosting, dan keamanan untuk tahun pertama.</p>
+      </div>
+      <div class="prices" id="prices"></div>
+      <div class="terms">
+        <div><b>Revisi maksimal 3 kali</b><span>Setiap revisi boleh ubah total dari awal atau ganti konsep.</span></div>
+        <div><b>Error langsung dikerjakan</b><span>Bug apa pun kami perbaiki tanpa biaya, tidak mengurangi jatah revisi.</span></div>
+        <div><b>Tahun ke-2 <span id="renew">Rp1.500.000</span>/tahun</b><span>Perpanjangan domain, hosting, keamanan, dan perbaikan error.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARA KERJA -->
+  <section class="block" id="cara-kerja">
+    <div class="wrap">
+      <div class="head">
+        <h2>Dari chat pertama sampai website online</h2>
+      </div>
+      <ol class="steps">
+        <li><span>1</span><h3>Ceritakan bisnismu</h3><p>Konsultasi gratis lewat chat. Kami tanya usahanya apa, pelanggannya siapa, dan apa yang mau ditonjolkan.</p></li>
+        <li><span>2</span><h3>Lihat demo dulu</h3><p>Kami buatkan contoh website khusus untuk bisnismu. Cocok dulu, baru lanjut.</p></li>
+        <li><span>3</span><h3>Revisi sampai pas</h3><p>Maksimal 3 kali, boleh ubah total. Progresnya bisa kamu pantau sendiri dengan kode proyek.</p></li>
+        <li><span>4</span><h3>Online &amp; kami rawat</h3><p>Website tayang dengan domain sendiri. Kalau ada error, langsung kami perbaiki.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- CEK PROGRES -->
+  <section class="block block--tint" id="progres">
+    <div class="wrap progress">
       <div>
-        <p class="eyebrow">Cek progres · real-time</p>
-        <h2 class="h2">Websitemu sudah sampai mana? <em class="serif gold-text">Intip di sini.</em></h2>
-        <p>Klien alvenix dapat kode proyek. Ketik di sini untuk melihat tahap pengerjaan, sisa revisi, dan pratinjau website — kapan saja, dari HP.</p>
+        <h2>Websitemu sudah sampai mana?</h2>
+        <p>Klien alvenix mendapat kode proyek. Masukkan di sini untuk melihat tahap pengerjaan, foto progres, dan sisa revisi.</p>
       </div>
-      <form class="progress-band__form" action="klien.html" id="progForm">
-        <input id="progCode" placeholder="ALV-XXXXX" aria-label="Kode proyek" required>
-        <button class="btn btn--gold" type="submit">Cek progres →</button>
-        <p class="progress-band__try">Mau coba dulu? Pakai kode <button type="button" data-try="ALV-CONTOH">ALV-CONTOH</button></p>
+      <form class="progress__form" id="progForm" autocomplete="off">
+        <input id="progCode" placeholder="Kode proyek, mis. ALV-XXXXX" aria-label="Kode proyek" required>
+        <button class="btn btn--blue" type="submit">Cek progres</button>
+        <p class="progress__try">Mau lihat contohnya? Coba kode <button type="button" data-try="ALV-CONTOH">ALV-CONTOH</button></p>
       </form>
     </div>
   </section>
 
-  <!-- ============ AJAKAN PENUTUP ============ -->
-  <section class="section final" id="kontak">
-    <div class="final__box reveal">
-      <p class="eyebrow">Mulai hari ini</p>
-      <h2 class="h2">Bisnismu layak tampil <em class="serif gold-text">lebih dipercaya.</em></h2>
-      <p>Slot promo terbatas setiap bulan. Chat sekarang — kami kirim demo website untuk bisnismu, gratis.</p>
-      <div class="hero__ctas">
-        <a class="btn btn--gold js-wa" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.1.1.6-.1 1.2Z"/></svg> Konsultasi sekarang</a>
+  <!-- PENUTUP -->
+  <section class="block">
+    <div class="wrap">
+      <div class="final">
+        <div>
+          <h2>Siap punya website yang bikin bisnismu dipercaya?</h2>
+          <p>Slot promo terbatas setiap bulan. Konsultasi dulu, gratis — kami bantu pilih paket yang pas.</p>
+        </div>
+        <button class="btn btn--white" type="button" data-konsul>Konsultasi gratis</button>
       </div>
     </div>
   </section>
-
 </main>
 
 <footer class="foot">
-  <div class="foot__big" aria-hidden="true">alveni<b>x</b></div>
-  <div class="foot__row">
-    <span class="wordmark"><img src="logo.svg" alt=""><span>alveni<b>x</b></span></span>
-    <span class="mono">Jasa Website &amp; Landing Page · © <span id="year"></span></span>
-    <a href="klien.html">Cek progres</a> · <a href="kantor.html">Ruang Kerja →</a>
+  <div class="wrap foot__in">
+    <div>
+      <a class="logo" href="#top"><svg viewBox="0 0 100 100" aria-hidden="true"><g stroke="currentColor" stroke-width="11" stroke-linecap="round" fill="none"><path d="M52 54 L18 58"/><path d="M52 54 Q58 34 80 20"/><path d="M52 54 Q60 72 77 84"/></g><g fill="currentColor"><circle cx="52" cy="54" r="15"/><circle cx="15" cy="58" r="12"/><circle cx="82" cy="18" r="12"/><circle cx="78" cy="86" r="12"/></g></svg><span>alveni<b>x</b></span></a>
+      <p>Jasa pembuatan website &amp; landing page untuk usaha di Jambi dan Jakarta.</p>
+    </div>
+    <div class="foot__cols">
+      <div><b>WhatsApp</b><a href="#" data-konsul>0822 6411 6532</a></div>
+      <div><b>Menu</b><a href="#harga">Harga</a><a href="#portofolio">Portofolio</a><a href="klien.html">Cek progres</a></div>
+      <div><b>Tim</b><a href="kantor.html">Ruang Kerja</a></div>
+    </div>
   </div>
+  <div class="wrap foot__bottom"><span>© <span id="year">2026</span> alvenix</span><span>Harga promo berlaku untuk slot terbatas.</span></div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="config.js?v=20261030h"></script>
-<script src="shared.js?v=20261030h"></script>
-<script src="agents.js?v=20261030h"></script>
-<script src="office.js?v=20261030h"></script>
-<script src="home.js?v=20261030h"></script>
+<script src="config.js?v=20261030s"></script>
+<script src="shared.js?v=20261030s"></script>
+<script src="site.js?v=20261030s"></script>
 <script>window.HQ_CHAT_CTX = { halaman: "beranda" };</script>
-<script src="chat.js?v=20261030h"></script>
+<script src="chat.js?v=20261030s"></script>
 </body>
 </html>
