@@ -69,5 +69,8 @@ window.HQ_CONFIG = {
   minatUrl: "https://webalvinix.app.n8n.cloud/webhook/alvenix-minat",     // konsumen isi "saya tertarik"
   progresUrl: "https://webalvinix.app.n8n.cloud/webhook/alvenix-progres", // portal klien cek progres
   proyekUrl: "https://webalvinix.app.n8n.cloud/webhook/alvenix-proyek",   // Ruang Kerja: simpan proyek
-  fotoUrl: "https://webalvinix.app.n8n.cloud/webhook/alvenix-foto"        // foto update progres -> Google Drive
+  fotoUrl: "https://webalvinix.app.n8n.cloud/webhook/alvenix-foto",       // foto update progres -> Google Drive
+  dinaUrl: "https://webalvinix.app.n8n.cloud/webhook/alvenix-dina",           // riwayat chat Dina
+  dinaCekUrl: "https://webalvinix.app.n8n.cloud/webhook/alvenix-dina-cek",    // baca riwayat & kontrol
+  dinaAdminUrl: "https://webalvinix.app.n8n.cloud/webhook/alvenix-dina-admin" // saklar AI, ambil alih, balas
 };

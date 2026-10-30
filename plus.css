@@ -77,3 +77,35 @@
 .up-item .icon-btn { width: 28px; height: 28px; font-size: .7rem; }
 .up-form input.sel { background-image: none; padding-right: 12px; cursor: text; }
 .pj__acts { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
+
+/* label status di kartu Cuan tidak menimpa nama */
+#cuanTagih .toplist__row, #cuanHot .toplist__row, #cuanRenew .toplist__row { grid-template-columns: auto 1fr auto auto; }
+
+/* Chat Dina */
+.dn-wrap { display: grid; grid-template-columns: minmax(260px, 340px) 1fr; gap: 16px; }
+.dn-list, .dn-detail { padding: 10px; min-height: 480px; max-height: 70vh; overflow-y: auto; }
+.dn-detail { display: flex; flex-direction: column; overflow: hidden; }
+.dn-row { display: grid; gap: 4px; width: 100%; padding: 12px; border: 0; border-bottom: 1px solid var(--line); border-radius: 10px; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.dn-row:hover, .dn-row.is-on { background: rgba(255,255,255,.05); }
+.dn-row span { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.dn-row b { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: .9rem; }
+.dn-row em { flex: none; color: var(--amber); font: .62rem var(--f-mono); }
+.dn-row time { margin-left: auto; flex: none; color: var(--muted); font: .64rem var(--f-mono); }
+.dn-row small { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; color: var(--muted); }
+.dn-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 8px 14px; border-bottom: 1px solid var(--line); }
+.dn-head small { display: block; color: var(--muted); font-size: .76rem; }
+.dn-log { flex: 1; display: flex; flex-direction: column; gap: 8px; padding: 14px 6px; overflow-y: auto; }
+.dn-msg { align-self: flex-start; max-width: 80%; padding: 9px 12px; border-radius: 12px; background: rgba(255,255,255,.06); white-space: pre-line; font-size: .88rem; }
+.dn-msg small { display: block; color: var(--muted); font: .6rem var(--f-mono); margin-bottom: 2px; }
+.dn-msg--user { align-self: flex-end; background: rgba(34,184,198,.16); }
+.dn-msg--admin { background: rgba(255,177,92,.14); }
+.dn-reply { display: flex; gap: 8px; padding-top: 10px; }
+.dn-reply input { flex: 1; min-width: 0; }
+.dn-switch { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 600; }
+.dn-switch input { position: absolute; opacity: 0; }
+.dn-switch i { position: relative; width: 40px; height: 22px; border-radius: 999px; background: rgba(255,255,255,.14); transition: background .2s; }
+.dn-switch i::after { content: ""; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: #fff; transition: transform .2s; }
+.dn-switch input:checked + i { background: var(--gold); }
+.dn-switch input:checked + i::after { transform: translateX(18px); }
+.dn-switch input:focus-visible + i { outline: 2px solid var(--gold); outline-offset: 2px; }
+@media (max-width: 760px) { .dn-wrap { grid-template-columns: 1fr; } .dn-list { min-height: 0; max-height: 280px; } .dn-detail { min-height: 420px; } }

@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Outfit:wght@600;700&family=Manrope:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="hq.css?v=20261028">
 <link rel="stylesheet" href="app.css?v=20261028">
-<link rel="stylesheet" href="plus.css?v=20261030c">
+<link rel="stylesheet" href="plus.css?v=20261030y">
 </head>
 <body>
 <div class="bg-mesh" aria-hidden="true"></div>
@@ -44,6 +44,10 @@
       <a href="#cuan" data-nav="cuan">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg>
         <span>Cuan</span>
+      </a>
+      <a href="#dina" data-nav="dina">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5h16v11H9l-5 4V5Z"/><path d="M8 10h8M8 13h5"/></svg>
+        <span>Chat Dina</span><em class="side__badge" id="navDina">0</em>
       </a>
     </nav>
     <div class="side__conn" id="connCard">
@@ -185,6 +189,16 @@
       </div>
       <article class="panel"><header class="panel__head"><h3>🔥 Lead hangat — kejar sekarang</h3><a href="#leads" class="panel__link">Ruang Data →</a></header><div class="toplist" id="cuanHot"></div></article>
     </section>
+
+    <!-- ============ CHAT DINA ============ -->
+    <section class="view" data-view="dina" hidden>
+      <div class="plus-head"><label class="dn-switch"><input type="checkbox" id="dnAi" checked><i></i><span id="dnAiText">Dina AI aktif</span></label>
+        <div class="plus-head__r"><span class="mono plus-count" id="dnCount"></span></div></div>
+      <div class="dn-wrap">
+        <div class="panel dn-list" id="dnList"></div>
+        <div class="panel dn-detail" id="dnDetail"></div>
+      </div>
+    </section>
   </main>
 </div>
 
@@ -195,6 +209,7 @@
   <a href="#leads" data-nav="leads">Data</a>
   <a href="#proyek" data-nav="proyek">Proyek</a>
   <a href="#cuan" data-nav="cuan">Cuan</a>
+  <a href="#dina" data-nav="dina">Dina</a>
 </nav>
 
 <!-- Lead drawer -->
@@ -208,7 +223,7 @@
 
 <div class="toast" id="toast" role="status"></div>
 
-<script src="config.js?v=20261030w"></script>
-<script src="lock.js?v=20261028" data-load="agents.js demo-data.js data/leads.enc.js snapshot.js shared.js app.js app-plus.js" data-v="20261031"></script>
+<script src="config.js?v=20261030y"></script>
+<script src="lock.js?v=20261028" data-load="agents.js demo-data.js data/leads.enc.js snapshot.js shared.js app.js app-plus.js dina-admin.js" data-v="20261030y"></script>
 </body>
 </html>

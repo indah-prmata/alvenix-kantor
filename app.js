@@ -523,7 +523,7 @@
   }
 
   /* ---------- routing ---------- */
-  const TITLES = { overview: "Ringkasan", agents: "Tim", leads: "Ruang Data", proyek: "Proyek", cuan: "Cuan" };
+  const TITLES = { overview: "Ringkasan", agents: "Tim", leads: "Ruang Data", proyek: "Proyek", cuan: "Cuan", dina: "Chat Dina" };
   function route() {
     const v = (location.hash.slice(1) || "overview");
     const view = TITLES[v] ? v : "overview";

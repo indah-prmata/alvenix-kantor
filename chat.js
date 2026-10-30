@@ -75,7 +75,7 @@
 
   const history = [];   // {role:"user"|"bot", text}
   const ctx = { paket: "", nama: "", usaha: PAGE.usaha || "", step: "", wantYes: "" };
-  let aiDown = !CFG.chatUrl;
+  let aiDown = !CFG.chatUrl, aiOff = false;
 
   function add(role, html, text) {
     const m = document.createElement("div");
@@ -180,7 +180,7 @@
 
   /* ---------------- AI (n8n) ---------------- */
   async function askAI(text) {
-    if (aiDown) return null;
+    if (aiDown || aiOff) return null;
     try {
       const ctrl = new AbortController(); setTimeout(() => ctrl.abort(), 15000);
       const res = await fetch(CFG.chatUrl, { method: "POST", signal: ctrl.signal, headers: { "Content-Type": "application/json" },
@@ -193,9 +193,11 @@
   }
 
   /* ---------------- otak percakapan ---------------- */
-  async function handle(raw) {
+  async function jawab(raw) {
     const text = raw.trim(); if (!text) return;
     add("user", esc(text), text);
+    lastMsg = Date.now();
+    if (manual) return;   // tim sedang membalas sendiri
     const t = norm(text);
 
     // sedang mengisi data serah-terima
@@ -265,12 +267,46 @@ Sudah termasuk domain, hosting & keamanan tahun pertama, revisi sampai ${CFG.mak
     return say("Hmm, Dina belum yakin paham maksudnya 🙏 Mau saya sambungkan langsung ke tim kami di WhatsApp supaya dijawab lebih tepat?", ["Ya, sambungkan", "Berapa harganya?", "Apa bedanya paket?"]);
   }
 
+  /* ---------------- pantauan tim (Ruang Kerja -> Chat Dina) ---------------- */
+  const SESI = S.kode("CHT", 10), MULAI = new Date().toISOString();
+  let manual = false, shown = 0, pollT = 0, lastMsg = 0;
+  function terima(j) {
+    if (Array.isArray(j)) j = j[0];
+    if (!j) return;
+    aiOff = j.ai === false;
+    const was = manual; manual = !!j.manual;
+    if (manual && !was) add("bot", "Tim kami sudah bergabung di chat ini 🙏", "Tim bergabung");
+    (j.balas || []).slice(shown).forEach(b => add("admin", esc(b.text), b.text));
+    shown = (j.balas || []).length;
+  }
+  // balasan tim dicek hanya sebentar setelah konsumen mengetik, atau selama tim mengambil alih
+  function jadwal() {
+    clearTimeout(pollT);
+    pollT = setTimeout(async () => {
+      if (!document.hidden) await cek();
+      if (manual || Date.now() - lastMsg < 120000) jadwal();
+    }, 30000);
+  }
+  async function cek() {
+    if (!CFG.dinaCekUrl) return;
+    try { const r = await fetch(CFG.dinaCekUrl + "?sesi=" + SESI); if (r.ok) terima(await r.json()); } catch {}
+  }
+  async function lapor() {
+    if (!CFG.dinaUrl || !history.length) return;
+    try {
+      const r = await fetch(CFG.dinaUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ sesi: SESI, mulai: MULAI, halaman: PAGE.halaman || "", usaha: ctx.usaha, nama: ctx.nama, sumber: location.href.split("#")[0], pesan: history.slice(-40) }) });
+      if (r.ok) terima(await r.json());
+    } catch {}
+    jadwal();
+  }
+  async function handle(raw) { await jawab(raw); lapor(); }
+
   /* ---------------- events ---------------- */
   let opened = false;
   function open() {
     box.hidden = false; fab.style.display = "none";
     if (!opened) {
-      opened = true;
+      opened = true; cek();
       const pembuka = PAGE.halaman === "demo" && ctx.usaha
         ? `Halo! 👋 Saya Dina dari ${esc(CFG.brand)}. Ini contoh website yang kami siapkan untuk <b>${esc(ctx.usaha)}</b>. Ada yang ingin ditanyakan?`
         : PAGE.halaman === "klien" ? `Halo! 👋 Saya Dina. Ada yang bisa dibantu soal proyek website Ibu/Bapak?`
