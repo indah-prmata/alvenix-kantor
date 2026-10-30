@@ -75,6 +75,15 @@
   });
 
   /* ---------- gerakan terikat scroll (satu per bagian) ---------- */
+  /* kantor 3D: ikut gerak mouse, lembut */
+  const tilt = $("#tilt");
+  window.Office?.focus(null);
+  if (tilt && !calm && matchMedia("(pointer: fine)").matches) {
+    let tx = 0, ty = 0, cx = 0, cy = 0;
+    addEventListener("pointermove", e => { tx = e.clientX / innerWidth - .5; ty = e.clientY / innerHeight - .5; }, { passive: true });
+    (function loop() { cx += (tx - cx) * .05; cy += (ty - cy) * .05; tilt.style.transform = `rotateY(${cx * 12}deg) rotateX(${-cy * 9}deg)`; requestAnimationFrame(loop); })();
+  }
+
   const nav = $("#nav"), heroX = $("#heroX"), show = $("#showcase");
   let ticking = false;
   function onScroll() {

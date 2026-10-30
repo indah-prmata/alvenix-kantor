@@ -295,3 +295,51 @@ em { font-style: italic; }
   .showcase__frame { clip-path: none; } .showcase__frame > img { transform: none; }
   html { scroll-behavior: auto; }
 }
+
+
+/* =================== unsur 3D + warna latar =================== */
+/* latar hero lebih kaya: cahaya terakota hangat + semburat teal (warna asli logo) */
+.hero { background:
+  radial-gradient(ellipse 60% 70% at 12% 0%, rgba(200,82,44,.16), transparent 60%),
+  radial-gradient(ellipse 55% 65% at 92% 70%, rgba(34,184,198,.16), transparent 62%),
+  radial-gradient(ellipse 40% 40% at 60% 20%, rgba(232,180,140,.22), transparent 70%),
+  linear-gradient(180deg, #F7F5F1 0%, #F2EDE5 100%); }
+.section--tint { background:
+  radial-gradient(ellipse 50% 60% at 100% 0%, rgba(200,82,44,.07), transparent 60%),
+  radial-gradient(ellipse 50% 60% at 0% 100%, rgba(34,184,198,.07), transparent 60%), var(--bg-2); }
+.moment { background-image:
+  radial-gradient(ellipse at 85% 110%, rgba(200,82,44,.32), transparent 55%),
+  radial-gradient(ellipse at 10% -10%, rgba(34,184,198,.18), transparent 55%); }
+
+/* kantor 3D di hero */
+.hero__3d { position: absolute; z-index: 0; right: max(-30px, calc((100vw - 90rem) / 2)); top: 42%; width: min(46vw, 680px); transform: translateY(-58%); perspective: 1400px; pointer-events: none; }
+.hero__tilt { position: relative; transform-style: preserve-3d; will-change: transform; }
+.hero__floor { position: absolute; left: 12%; right: 12%; bottom: 4%; height: 22%; z-index: -1; border-radius: 50%; background: radial-gradient(ellipse, rgba(10,9,8,.28), transparent 70%); filter: blur(22px); }
+.office { position: relative; width: 100%; aspect-ratio: 820 / 730; animation: float3d 9s ease-in-out infinite; }
+.office svg { width: 100%; height: 100%; display: block; overflow: visible; filter: drop-shadow(0 40px 50px rgba(10,9,8,.28)); }
+.office .o-bubble { display: none; }
+@keyframes float3d { 50% { transform: translateY(-12px); } }
+.hero .display { max-width: 11ch; font-size: clamp(3rem, 7.4vw, 7.6rem); }
+.hero__foot { position: relative; z-index: 1; }
+.o-code { transform-box: fill-box; transform-origin: left center; animation: typing 2.8s var(--ease) infinite; }
+@keyframes typing { 0% { transform: scaleX(0); } 45%, 80% { transform: scaleX(1); } 100% { transform: scaleX(1); opacity: 0; } }
+.o-led { animation: led 1.4s steps(2) infinite; }
+@keyframes led { 50% { opacity: .2; } }
+.o-win { animation: win 7s ease-in-out infinite; }
+@keyframes win { 50% { opacity: .15; } }
+.o-bar { transform-box: fill-box; transform-origin: left; animation: bar 4s var(--ease) infinite; }
+@keyframes bar { 0% { transform: scaleX(.1); } 60%, 100% { transform: scaleX(1); } }
+.o-chart { transform-box: fill-box; transform-origin: bottom; animation: chart 3s var(--ease) infinite alternate; }
+@keyframes chart { from { transform: scaleY(.35); } }
+.o-flow { animation: flow 1.2s linear infinite; }
+@keyframes flow { to { stroke-dashoffset: -24; } }
+.o-led-strip { animation: strip 4s ease-in-out infinite; }
+@keyframes strip { 50% { opacity: .55; } }
+.o-agent { animation: bob 3.2s ease-in-out infinite; animation-delay: var(--d); }
+@keyframes bob { 50% { transform: translateY(-2px); } }
+@media (max-width: 1080px) {
+  .hero__3d { position: relative; right: auto; top: auto; transform: none; width: min(100%, 560px); margin: 8px auto -20px; }
+  .hero { display: flex; flex-direction: column; }
+  .hero__in { order: -1; }
+}
+@media (prefers-reduced-motion: reduce) { .office { animation: none; } }
