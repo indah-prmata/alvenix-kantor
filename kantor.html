@@ -187,16 +187,6 @@
       <a href="app.html#proyek" class="card__link prog-manage">Tambah progres di Ruang Kerja <span>→</span></a>
     </div>
   </section>
-
-  <!-- KUNCI -->
-  <form class="keybox" id="keybox" hidden>
-    <div>
-      <b>Masukkan kunci Ruang Kerja</b>
-      <span>Ada di file <code>n8n/.kunci</code>. Cukup sekali, nanti disimpan di browser ini.</span>
-    </div>
-    <input id="keyInput" type="password" placeholder="alv-…" autocomplete="off" required>
-    <button class="btn btn--sm btn--gold" type="submit">Buka</button>
-  </form>
 </main>
 
 <footer class="foot mono">
@@ -206,14 +196,6 @@
 </footer>
 
 <script src="config.js?v=20261030w"></script>
-<script>
-  // tanpa layar kunci: data tetap butuh kode (kotak kode muncul di beranda kalau belum diisi)
-  window.HQ_LOGOUT = () => { try { localStorage.setItem("hq.key", '""'); } catch {} location.reload(); };
-</script>
-<script src="agents.js?v=20261030g"></script>
-<script src="office.js?v=20261030g"></script>
-<script src="data/leads.enc.js?v=20261030g"></script>
-<script src="snapshot.js?v=20261030g"></script>
-<script src="beranda.js?v=20261030g"></script>
+<script src="lock.js?v=20261028" data-load="agents.js office.js data/leads.enc.js snapshot.js beranda.js" data-v="20261030x"></script>
 </body>
 </html>

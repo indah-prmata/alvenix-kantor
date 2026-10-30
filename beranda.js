@@ -20,7 +20,6 @@
   let leads = [];
   let connected = false;
   let firstRender = true;
-  let needKey = false;
 
   /* ---------- waktu, sapaan, kutipan ---------- */
   const dayKey = d => { d = new Date(d); return new Date(d - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10); };
@@ -176,7 +175,7 @@
 
     // kalimat pembuka
     const bits = [];
-    if (!connected) bits.push(needKey ? "Masukkan <b>kode tim</b> di kotak bawah untuk membuka data hari ini." : "Belum tersambung ke n8n — data belum bisa dimuat.");
+    if (!connected) bits.push("Belum tersambung ke n8n — data belum bisa dimuat.");
     else {
       bits.push(fresh.length ? `Raka menemukan <b>${fresh.length} bisnis baru</b> hari ini.` : `Ada <b>${baru.length} bisnis</b> yang menunggu kamu sapa.`);
       if (fu.length) bits.push(`<b>${fu.length} follow-up</b> menunggu${late ? `, ${late} di antaranya telat` : ""}.`);
@@ -281,16 +280,14 @@
     if (!connected) setConn("off", "menyambung…");
     try {
       await fetchLeads();
-      connected = true; needKey = false;
-      $("#keybox").hidden = true;
+      connected = true;
       if (backupDate) setConn("warn", "mode cadangan · data " + new Date(backupDate).toLocaleDateString("id-ID", { day: "numeric", month: "short" }));
       else setConn("ok", "terhubung n8n");
       $("#syncInfo").textContent = `sinkron ${new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })} · ${leads.length} leads`;
     } catch (err) {
+      if (err.message === "kunci") return window.HQ_LOGOUT();   // kode sudah tidak berlaku -> kembali ke layar kunci
       connected = false;
-      needKey = err.message === "kunci";
-      if (needKey) { $("#keybox").hidden = false; setConn("warn", "butuh kode"); }
-      else setConn("warn", "n8n belum tersambung");
+      setConn("warn", "n8n belum tersambung");
       console.error("[beranda]", err);
     }
     btn.classList.remove("is-spin");
@@ -364,11 +361,6 @@
   }), { threshold: .12 });
 
   /* ---------- events ---------- */
-  $("#keybox").addEventListener("submit", e => {
-    e.preventDefault();
-    accessKey = $("#keyInput").value.trim(); save("hq.key", accessKey);
-    sync();
-  });
   $("#syncBtn").addEventListener("click", sync);
   $("#todo").addEventListener("click", e => {
     const a = e.target.closest("[data-wa]");
