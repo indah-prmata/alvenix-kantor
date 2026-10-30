@@ -285,3 +285,52 @@ h1, h2, h3 { color: var(--ink); margin: 0; letter-spacing: -.025em; }
   .filter { margin-top: -14px; }
 }
 @media (prefers-reduced-motion: reduce) { .chip, .kinds__run { animation: none; } }
+
+/* =================== tampilan HP dipoles =================== */
+.swipe { display: none; }
+@media (max-width: 640px) {
+  .ring { display: none; }
+  .hero { padding: 28px 0 40px; }
+  .hero h1 { font-size: 2.55rem; }
+  .hero__lead { font-size: 1.02rem; margin: 18px 0 24px; }
+  .checks { gap: 8px 18px; font-size: .9rem; margin-top: 22px; }
+
+  /* portofolio: geser ke samping */
+  .porto { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 16px; margin: 0 -16px; padding: 4px 16px 10px; scrollbar-width: none; }
+  .porto::-webkit-scrollbar { display: none; }
+  .work { flex: 0 0 84%; scroll-snap-align: start; }
+  .work__meta { padding: 14px 16px; }
+  .work__meta em { font-size: .8rem; }
+  .swipe { display: block; margin: 10px 0 0; font-size: .85rem; font-weight: 600; color: var(--muted); }
+  .filter { display: flex; width: 100%; }
+  .filter button { flex: 1; padding: 9px 6px; }
+
+  /* maps vs website lebih ringkas */
+  .vs li { font-size: .94rem; }
+
+  /* ketentuan harga: satu kartu */
+  .terms { gap: 0; border: 1px solid var(--line); border-radius: 18px; background: #fff; overflow: hidden; }
+  .terms div { border: 0; border-radius: 0; background: transparent; padding: 15px 18px; }
+  .terms div + div { border-top: 1px solid var(--line); }
+
+  /* yang kamu dapat: 2 kolom padat */
+  .feats { grid-template-columns: 1fr 1fr; }
+  .feat { padding: 20px 16px; }
+  .feat span { width: 38px; height: 38px; border-radius: 10px; }
+  .feat span svg { width: 19px; height: 19px; }
+  .feat h3 { margin: 12px 0 4px; font-size: .95rem; }
+  .feat p { font-size: .8rem; line-height: 1.45; }
+
+  /* cara kerja: garis waktu ringkas */
+  .steps { gap: 0; }
+  .steps li { display: grid; grid-template-columns: 34px 1fr; column-gap: 14px; padding: 18px 0; border-top: 1px solid var(--line); }
+  .steps li:first-child { border-top: 2px solid var(--blue); }
+  .steps span { grid-row: span 2; }
+  .steps h3 { margin: 5px 0 4px; font-size: 1.02rem; }
+  .steps p { font-size: .9rem; }
+
+  .head { margin-bottom: 30px; }
+  .head h2 { font-size: 1.85rem; }
+  .progress__form { padding: 16px; }
+  .progress__form .btn { width: 100%; }
+}
