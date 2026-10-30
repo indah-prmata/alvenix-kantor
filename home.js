@@ -10,6 +10,11 @@
     a.href = wa(a.dataset.waText || `Halo ${CFG.brand || "alvenix"}, saya mau konsultasi bikin website / landing page untuk bisnis saya.`);
     a.target = "_blank"; a.rel = "noopener";
   });
+  // konsultasi dulu dengan Dina; Dina yang menyambungkan ke WhatsApp tim saat konsumen sudah berminat
+  document.addEventListener("click", e => {
+    const b = e.target.closest(".js-wa");
+    if (b && window.HQ_CHAT) { e.preventDefault(); window.HQ_CHAT.ask("Halo, saya mau konsultasi dulu"); }
+  });
   $("#year").textContent = new Date().getFullYear();
   const NEGO = CFG.negotiator || {};
   $$(".js-nego").forEach(el => el.textContent = NEGO.name || "Tim Negosiasi");

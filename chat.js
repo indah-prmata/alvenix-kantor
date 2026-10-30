@@ -115,6 +115,7 @@
 
   // basis jawaban: [pola, fungsi jawaban -> [html, chips]]
   const KB = [
+    [/\b(konsultasi|konsul|mau tanya|tanya tanya|bingung mulai)\b/, () => [`Siap, dengan senang hati! 😊 Konsultasi di sini gratis.\n\nBoleh cerita sedikit: <b>usahanya apa</b> dan <b>di kota mana</b>? Atau pilih yang mau ditanyakan dulu. Kalau sudah mantap, Dina langsung sambungkan ke WhatsApp tim kami.`, ["Berapa harganya?", "Apa bedanya paket?", "Bisa revisi?", "Saya tertarik"], "usaha"]],
     [/\b(halo|hai|hi|hello|pagi|siang|sore|malam|assalamualaikum|permisi|salam)\b/, () => [`Halo! 👋 Saya Dina dari ${esc(CFG.brand)}. Ada yang bisa saya bantu soal website ${ctx.usaha ? "untuk <b>" + esc(ctx.usaha) + "</b>" : "untuk usaha Ibu/Bapak"}?`, ["Berapa harganya?", "Apa bedanya paket?", "Saya tertarik"]]],
     [/\b(terima kasih)\b/, () => ["Sama-sama 😊 Kalau nanti ada yang ingin ditanyakan lagi, Dina ada di sini ya.", ["Saya tertarik", "Lihat paket"]]],
     [/\b(beda|bedanya|perbedaan|pilih|cocok|sarankan|rekomendasi|mana yang)\b/, () => {
@@ -197,7 +198,7 @@
     // sedang mengisi data serah-terima
     if (ctx.step === "nama") {
       const parts = text.split(/,|\bdari\b|\-|\//).map(s => s.trim()).filter(Boolean);
-      ctx.nama = parts[0] || text; ctx.usaha = ctx.usaha || parts[1] || "";
+      ctx.nama = parts[0] || text; ctx.usaha = parts[1] || ctx.usaha || "";
       if (!ctx.usaha) { ctx.step = "usaha"; return say(`Salam kenal, ${esc(ctx.nama)}! Nama usahanya apa?`, []); }
       return ctx.paket ? confirmHandoff() : askPaket();
     }
@@ -208,12 +209,14 @@
     }
 
     // jawaban "ya" untuk tawaran sebelumnya
-    if (ctx.wantYes && /\b(ya|iya|boleh|oke|mau|bisa|silakan|lanjut|buatkan|sambungkan)\b/.test(t)) { ctx.wantYes = ""; return startHandoff(); }
+    if (ctx.wantYes && ctx.wantYes !== "usaha" && /\b(ya|iya|boleh|oke|mau|bisa|silakan|lanjut|buatkan|sambungkan)\b/.test(t)) { ctx.wantYes = ""; return startHandoff(); }
 
     const p = paketFrom(t);
     if (p) ctx.paket = p;
     if (has(t, negoRe)) return startHandoff("nego");
-    if (has(t, minatRe) || /\b(ambil|pilih)\b/.test(t) && p) return startHandoff();
+    // "mau konsultasi" bukan tanda minat beli — biarkan Dina konsultasi dulu
+    const konsul = /\b(konsultasi|konsul)\b/.test(t);
+    if (!konsul && (has(t, minatRe) || /\b(ambil|pilih)\b/.test(t) && p)) return startHandoff();
     if (has(t, humanRe) || /\bsambungkan\b/.test(t)) return startHandoff();
 
     // tanya satu paket tertentu
@@ -241,6 +244,15 @@
       if (m && m.length > bestScore) { best = fn; bestScore = m.length; }
     });
     if (!best && KB[KB.length - 1][0].test(t)) best = KB[KB.length - 1][1];
+    // jawaban atas "usahanya apa & di kota mana?" -> rekomendasi paket
+    if (!best && ctx.wantYes === "usaha") {
+      ctx.wantYes = ""; ctx.usaha = ctx.usaha || text;
+      const j = S.jenis(text), k = PK.find(p => p.id === saranJenis[j]) || PK[0];
+      return say(`Mantap! Untuk <b>${esc(text)}</b>, Dina sarankan <b>${esc(k.nama)}</b> — ${R(k.harga)}${k.hargaNormal > k.harga ? ` <s>${R(k.hargaNormal)}</s>` : ""}.
+${esc(k.ringkas)}.
+
+Sudah termasuk domain, hosting & keamanan tahun pertama, revisi sampai ${CFG.maksRevisi || 3} kali. Mau lanjut ngobrol dengan tim kami di WhatsApp?`, [`Ya, ambil ${k.nama}`, "Apa bedanya paket?", "Bisa revisi?"]);
+    }
     if (best) {
       const [html, list, yes] = best();
       if (yes) ctx.wantYes = yes;
