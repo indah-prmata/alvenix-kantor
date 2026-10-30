@@ -303,26 +303,20 @@
     try { list = Object.values(JSON.parse(localStorage.getItem("hq.proyek.v1")) || {}); } catch {}
     list.sort((a, b) => (a.t === 5) - (b.t === 5) || new Date(b.up || 0) - new Date(a.up || 0));
     const tabs = list.length ? list : [{ kode: "ALV-CONTOH", n: "Contoh: Kopi Senja" }];
-    const cur = { kode: $("#progKode").dataset.shown || "" };
+    const cur = { kode: "" };
     $("#progTabs").innerHTML = (list.length ? "" : `<p class="prog-empty">Belum ada proyek klien — ini contohnya. Proyek dibuat dari Ruang Kerja (Deal! Mulai proyek).</p>`) +
       tabs.map(p => `<button type="button" data-prog="${esc(p.kode)}" class="${p.kode === cur.kode ? "is-on" : ""}">${esc(p.n)} <b>${esc(p.kode)}</b></button>`).join("");
   }
-  function showKode(kode) {
-    $("#progKode").value = kode; $("#progKode").dataset.shown = kode;
-    $(".prog-frame").hidden = false;
-    const src = `klien.html?embed=1#k=${encodeURIComponent(kode)}`;
-    const f = $("#progFrame");
-    if (!f.dataset.src || f.dataset.src !== src) { f.dataset.src = src; f.src = src; }
-  }
-  addEventListener("message", e => { if (e.data && e.data.alvenixH) $("#progFrame").style.height = Math.max(300, e.data.alvenixH + 8) + "px"; });
+  // buka progres klien di halaman baru (Portal Klien)
+  function showKode(kode) { location.href = `klien.html#k=${encodeURIComponent(kode)}`; }
+
   document.addEventListener("click", e => {
     const b = e.target.closest("[data-prog]");
-    if (b) { $$("[data-prog]").forEach(x => x.classList.toggle("is-on", x === b)); showKode(b.dataset.prog); }
+    if (b) showKode(b.dataset.prog);
   });
   $("#progFind").addEventListener("submit", e => {
     e.preventDefault();
     const k = $("#progKode").value.trim().toUpperCase(); if (!k) return;
-    $$("[data-prog]").forEach(x => x.classList.toggle("is-on", x.dataset.prog === k));
     showKode(k);
   });
 
