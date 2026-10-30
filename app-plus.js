@@ -52,6 +52,10 @@
   // update progres yang aman dibagikan: foto hanya yang berupa link (foto unggahan lokal terlalu besar untuk link/Sheet)
   const logPublic = p => (p.log || []).slice(-15).map(e => ({ id: e.id, d: e.d, j: e.j, c: e.c, img: /^https?:/i.test(e.img || "") ? e.img : "", u: e.u || "" }));
   const snap = p => ({ kode: p.kode, n: p.n, nm: p.nm, p: p.p, t: p.t, rv: p.rv, pv: p.pv, dl: p.dl, cat: p.cat, by: statusBayar(p), up: p.up, log: logPublic(p).slice(-8) });
+  // pesan pertama untuk klien yang baru deal: kode proyek + cara cek progres
+  const msgKode = p => `Halo ${p.nm ? "kak " + p.nm : "kak"} 🙏 Terima kasih sudah mempercayakan website *${p.n}* ke ${CFG.brand}!\n\n` +
+    `Ini *kode proyek* kakak: *${p.kode}*\nProgres pengerjaan bisa dipantau kapan saja di:\n${S.base()}klien.html#k=${p.kode}\n\n` +
+    `Atau langsung buka link ini (sudah berisi data terbaru):\n${S.links.klien(snap(p))}\n\nSetiap ada kemajuan, foto hasil kerjanya kami tambahkan di sana 📸`;
   const lastLog = p => (p.log || [])[(p.log || []).length - 1];
   const msgUpdate = p => `Halo ${p.nm ? "kak " + p.nm : "kak"} 👋\n\nUpdate website *${p.n}*: sekarang di tahap *${TAHAP[p.t]}* (${pctOf(p)}%).` +
     (lastLog(p) ? `\n\n📸 *${lastLog(p).j}*${lastLog(p).c ? "\n" + lastLog(p).c : ""}` : "") +
@@ -153,7 +157,12 @@
       return `<article class="pj" data-pj="${esc(p.kode)}">
         <header><div><b>${esc(p.n)}</b><small>${esc(S.paket(p.p).nama)} · <span class="mono">${esc(p.kode)}</span></small></div><span class="pj__pct">${pctOf(p)}%</span></header>
         <div class="pj__steps">${TAHAP.map((t, i) => `<i class="${i < p.t ? "done" : i === p.t ? "now" : ""}" title="${t}"></i>`).join("")}</div>
-        <div class="pj__meta"><span>${esc(TAHAP[p.t])}</span><span class="${late ? "is-late" : ""}">🎯 ${fmtD(p.dl)}${late ? " · telat" : ""}</span><span>✏️ ${p.rv}/${MAX}</span><span class="pay pay--${sb}">${{ lunas: "Lunas", dp: "DP masuk", belum: "Belum bayar" }[sb]}</span></div>
+        <div class="pj__meta"><span>${esc(TAHAP[p.t])}</span><span class="${late ? "is-late" : ""}">🎯 ${fmtD(p.dl)}${late ? " · telat" : ""}</span><span>✏️ ${p.rv}/${MAX}</span><span>📸 ${(p.log || []).length} update</span><span class="pay pay--${sb}">${{ lunas: "Lunas", dp: "DP masuk", belum: "Belum bayar" }[sb]}</span></div>
+        <div class="pj__acts">
+          <button type="button" class="btn btn--xs btn--gold" data-addprog="${esc(p.kode)}">📸 Tambah progres</button>
+          <button type="button" class="btn btn--xs" data-copykode="${esc(p.kode)}">🔑 Salin kode klien</button>
+          ${p.wa ? `<button type="button" class="btn btn--xs btn--wa" data-sendkode="${esc(p.kode)}">Kirim kode ke klien</button>` : ""}
+        </div>
       </article>`;
     }).join("") : `<div class="empty plus-empty"><b>Belum ada proyek.</b><p>Buka detail lead → <b>Deal! Mulai proyek</b>, atau klik <b>+ Proyek baru</b>.</p></div>`;
   }
@@ -304,6 +313,13 @@
 
   /* ---------------- events ---------------- */
   document.addEventListener("click", e => {
+    // tombol di kartu proyek
+    const add = e.target.closest("[data-addprog]");
+    if (add) { openProject(add.dataset.addprog); setTimeout(() => { const f = $("#uJ"); if (f) { f.scrollIntoView({ behavior: "smooth", block: "center" }); f.focus(); } }, 350); return; }
+    const cp = e.target.closest("[data-copykode]");
+    if (cp) { navigator.clipboard?.writeText(cp.dataset.copykode).then(() => A.toast(`Kode ${cp.dataset.copykode} disalin — kirim ke klien`)); return; }
+    const sk = e.target.closest("[data-sendkode]");
+    if (sk) { const p = proyek[sk.dataset.sendkode]; if (p) window.open(wa(p.wa, msgKode(p)), "_blank", "noopener"); return; }
     const pj = e.target.closest("[data-pj]");
     if (pj && !e.target.closest("a")) { openProject(pj.dataset.pj); return; }
     if (e.target.closest("#newProj")) newProjectDialog();
