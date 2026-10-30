@@ -153,7 +153,7 @@
 <div class="ribbon"><div class="wrap">
   <span class="ribbon__mark"><svg viewBox="0 0 100 100"><g stroke="#22b8c6" stroke-width="11" stroke-linecap="round" fill="none"><path d="M52 54 L18 58"/><path d="M52 54 Q58 34 80 20"/><path d="M52 54 Q60 72 77 84"/></g><g fill="#22b8c6"><circle cx="52" cy="54" r="15"/><circle cx="15" cy="58" r="12"/><circle cx="82" cy="18" r="12"/><circle cx="78" cy="86" r="12"/></g></svg><span>alveni<b>x</b></span></span>
   <p id="ribbonText">Contoh demo website</p>
-  <button type="button" data-go-offer>Lihat harga</button>
+  <button type="button" data-go-offer>Tanya harga</button>
 </div></div>
 
 <nav class="nav"><div class="wrap">
@@ -215,14 +215,7 @@
   <footer class="biz"><div class="wrap"><span id="footName">© Nama Usaha</span><span>Website oleh alvenix</span></div></footer>
 </main>
 
-<!-- PENAWARAN ALVENIX -->
-<section class="offer" id="offer"><div class="wrap">
-  <span class="eyebrow">Untuk pemilik <span id="offerName">usaha ini</span></span>
-  <h2>Suka dengan demonya? <em>Website ini bisa jadi milik Anda.</em></h2>
-  <p>Foto, warna, layanan, dan harga kami sesuaikan dengan usaha asli. Anda cukup kirim bahan lewat WhatsApp — semua urusan teknis kami yang kerjakan.</p>
-  <div class="pk" id="pk"></div>
-  <div class="incl" id="incl"></div>
-</div></section>
+
 
 <div class="modal" id="waModal" hidden><div>
   <b>Ini tombol WhatsApp untuk pelanggan Anda 💬</b>
@@ -269,7 +262,7 @@
   document.title = `${name} — demo website`;
   $("#ribbonText").innerHTML = `Demo website untuk <strong>${esc(name)}</strong> — bisa jadi milik Anda`;
   ["#navName", "#heroName", "#visualName"].forEach(s => $(s).textContent = name);
-  $("#offerName").textContent = name;
+  if ($("#offerName")) $("#offerName").textContent = name;
   $("#heroEyebrow").textContent = `${D.c || "Usaha"}${city ? " · " + city : ""}`;
   $("#heroLead").textContent = T.lead;
   $("#heroIcon").textContent = T.icon;
@@ -305,21 +298,21 @@
       $("#waModal").hidden = false;
     }
     if (e.target.closest("[data-close-modal]") || e.target.id === "waModal") $("#waModal").hidden = true;
-    if (e.target.closest("[data-go-offer]")) $("#offer").scrollIntoView({ behavior: "smooth" });
+    if (e.target.closest("[data-go-offer]") && window.HQ_CHAT) window.HQ_CHAT.ask("Berapa harganya?");
     const pick = e.target.closest("[data-pick]");
     if (pick && window.HQ_CHAT) window.HQ_CHAT.ask(`Saya tertarik paket ${pick.dataset.pick}`);
   });
 
   // paket alvenix
   const saran = { salon: "landing", bengkel: "landing", laundry: "landing", kuliner: "profil", katering: "profil", klinik: "profil", butik: "profil", umum: "landing" }[J];
-  $("#pk").innerHTML = (CFG.paket || []).map(p => `
+  if ($("#pk")) $("#pk").innerHTML = (CFG.paket || []).map(p => `
     <div class="pk__c ${p.id === saran ? "pk__c--hi" : ""}">
       <small>${p.id === saran ? "Disarankan untuk " + esc(name) : "&nbsp;"}</small>
       <h3>${esc(p.nama)}</h3>${p.hargaNormal > p.harga ? `<s class="was">${S.rupiah(p.hargaNormal)}</s>` : ""}<div class="price">${S.rupiah(p.harga)}${S.hemat(p) ? ` <span class="save">Hemat ${S.hemat(p)}%</span>` : ""}</div><p>${esc(p.ringkas)}</p>
       <ul>${p.isi.map(i => `<li>${esc(i)}</li>`).join("")}</ul>
       <button class="btn" type="button" data-pick="${esc(p.nama)}">Saya mau paket ini</button>
     </div>`).join("");
-  $("#incl").innerHTML = (CFG.termasuk || []).map(t => `<span>${esc(t)}</span>`).join("") + `<span>Mulai tahun ke-2 ${S.rupiah(CFG.biayaTahunan)}/tahun</span>`;
+  if ($("#incl")) $("#incl").innerHTML = (CFG.termasuk || []).map(t => `<span>${esc(t)}</span>`).join("") + `<span>Mulai tahun ke-2 ${S.rupiah(CFG.biayaTahunan)}/tahun</span>`;
 
   // animasi muncul
   const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { x.target.classList.add("in"); io.unobserve(x.target); } }), { threshold: .12 });
@@ -328,6 +321,6 @@
   window.HQ_CHAT_CTX = { halaman: "demo", usaha: name, jenis: J };
 })();
 </script>
-<script src="chat.js?v=20261030"></script>
+<script src="chat.js?v=20261030c"></script>
 </body>
 </html>
