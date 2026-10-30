@@ -173,6 +173,22 @@
     </article>
   </section>
 
+  <!-- PROGRES KLIEN (tampilan konsumen) -->
+  <section class="card prog-card" id="progKlien">
+    <div class="prog-hero">
+      <p class="card__kicker mono">Portal klien · tampilan konsumen</p>
+      <h2 class="prog-title">Pantau website Anda,<br><span class="serif shine">kapan saja.</span></h2>
+      <p class="prog-lead">Masukkan kode proyek dari tim kami untuk melihat sampai mana pengerjaan website Anda.</p>
+      <form class="prog-find" id="progFind" autocomplete="off">
+        <input id="progKode" placeholder="ALV-XXXXX" aria-label="Kode proyek" required>
+        <button class="btn btn--gold" type="submit">Cek progres</button>
+      </form>
+      <div class="prog-tabs" id="progTabs"></div>
+      <a href="app.html#proyek" class="card__link prog-manage">Tambah progres di Ruang Kerja <span>→</span></a>
+    </div>
+    <div class="prog-frame"><iframe id="progFrame" title="Progres klien seperti yang dilihat konsumen" loading="lazy"></iframe></div>
+  </section>
+
   <!-- KUNCI -->
   <form class="keybox" id="keybox" hidden>
     <div>
@@ -190,15 +206,15 @@
   <span id="syncInfo">—</span>
 </footer>
 
-<script src="config.js?v=20261030d"></script>
+<script src="config.js?v=20261030e"></script>
 <script>
   // tanpa layar kunci: data tetap butuh kode (kotak kode muncul di beranda kalau belum diisi)
   window.HQ_LOGOUT = () => { try { localStorage.setItem("hq.key", '""'); } catch {} location.reload(); };
 </script>
-<script src="agents.js?v=20261030d"></script>
-<script src="office.js?v=20261030d"></script>
-<script src="data/leads.enc.js?v=20261030d"></script>
-<script src="snapshot.js?v=20261030d"></script>
-<script src="beranda.js?v=20261030d"></script>
+<script src="agents.js?v=20261030e"></script>
+<script src="office.js?v=20261030e"></script>
+<script src="data/leads.enc.js?v=20261030e"></script>
+<script src="snapshot.js?v=20261030e"></script>
+<script src="beranda.js?v=20261030e"></script>
 </body>
 </html>

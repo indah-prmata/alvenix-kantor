@@ -297,6 +297,36 @@
     render();
   }
 
+  /* ---------- progres klien: tampilan yang dilihat konsumen ---------- */
+  function renderProg() {
+    let list = [];
+    try { list = Object.values(JSON.parse(localStorage.getItem("hq.proyek.v1")) || {}); } catch {}
+    list.sort((a, b) => (a.t === 5) - (b.t === 5) || new Date(b.up || 0) - new Date(a.up || 0));
+    const tabs = list.length ? list : [{ kode: "ALV-CONTOH", n: "Contoh: Kopi Senja" }];
+    const pilih = load("hq.progPick", "");
+    const cur = tabs.find(p => p.kode === pilih) || tabs[0];
+    $("#progTabs").innerHTML = (list.length ? "" : `<p class="prog-empty">Belum ada proyek klien — ini contohnya. Proyek dibuat dari Ruang Kerja (Deal! Mulai proyek).</p>`) +
+      tabs.map(p => `<button type="button" data-prog="${esc(p.kode)}" class="${p.kode === cur.kode ? "is-on" : ""}">${esc(p.n)} <b>${esc(p.kode)}</b></button>`).join("");
+    showKode(cur.kode);
+  }
+  function showKode(kode) {
+    $("#progKode").value = kode;
+    const src = `klien.html?embed=1#k=${encodeURIComponent(kode)}`;
+    const f = $("#progFrame");
+    if (!f.dataset.src || f.dataset.src !== src) { f.dataset.src = src; f.src = src; }
+  }
+  addEventListener("message", e => { if (e.data && e.data.alvenixH) $("#progFrame").style.height = Math.max(300, e.data.alvenixH + 8) + "px"; });
+  document.addEventListener("click", e => {
+    const b = e.target.closest("[data-prog]");
+    if (b) { save("hq.progPick", b.dataset.prog); renderProg(); }
+  });
+  $("#progFind").addEventListener("submit", e => {
+    e.preventDefault();
+    const k = $("#progKode").value.trim().toUpperCase(); if (!k) return;
+    $$("[data-prog]").forEach(x => x.classList.toggle("is-on", x.dataset.prog === k));
+    showKode(k);
+  });
+
   /* ---------- efek: konfeti ---------- */
   function confetti() {
     if (calm) return;
@@ -365,7 +395,7 @@
 
   /* ---------- mulai ---------- */
   greet(); tick(); setInterval(tick, 1000); setInterval(greet, 60000);
-  render();
+  render(); renderProg();
   const started = performance.now();
   let opened = false;
   function open() {
