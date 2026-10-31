@@ -49,8 +49,8 @@ h1, h2, h3 { margin: 0; color: var(--ink); letter-spacing: -.03em; }
 .logo b { color: var(--blue); }
 .nav__links { display: flex; gap: 28px; font-weight: 600; font-size: .94rem; color: var(--muted); white-space: nowrap; }
 .nav__links a:hover { color: var(--ink); }
-.ulasan { display: grid; grid-template-columns: minmax(220px, 1fr) 2.4fr; gap: 28px; margin-top: 56px; align-items: start; }
-.ulasan[hidden] { display: none; }
+.ulasan { display: grid; grid-template-columns: minmax(220px, 1fr) 2.4fr; gap: 28px; align-items: start; }
+#ulasan[hidden] { display: none; }
 .ulasan__skor h3 { font-size: 1.5rem; }
 .ulasan__skor b { display: block; margin-top: 14px; font-size: 4.2rem; font-weight: 800; letter-spacing: -.05em; line-height: 1; color: var(--ink); }
 .ulasan__bintang, .ulasan__kartu span { color: #F5A524; letter-spacing: .08em; }
@@ -58,7 +58,7 @@ h1, h2, h3 { margin: 0; color: var(--ink); letter-spacing: -.03em; }
 .ulasan__skor p { margin: 6px 0 14px; color: var(--muted); }
 .ulasan__skor a { color: var(--blue-2); font-weight: 700; }
 .ulasan__list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-.ulasan__kartu { margin: 0; padding: 22px; border-radius: 22px; background: #fff; box-shadow: 0 18px 40px -30px rgba(11,18,32,.5); min-width: 0; }
+.ulasan__kartu { margin: 0; padding: 22px; border-radius: 22px; background: #F1F5FF; min-width: 0; }
 .ulasan__kartu p { margin: 10px 0 14px; color: var(--ink); overflow-wrap: anywhere; }
 .ulasan__kartu footer { color: var(--muted); font-size: .9rem; }
 .ulasan__kartu footer b { color: var(--ink); }
