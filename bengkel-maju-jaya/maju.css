@@ -265,7 +265,7 @@ h1 em { white-space: nowrap; }
   .bar { min-height: 56px; }
   html { scroll-padding-top: 64px; }
   .bar__keranjang { display: none; }
-  .bongkar h2 { font-size: clamp(2.8rem, 13vw, 4.5rem); }
+  .bongkar h2 { bottom: 92px; font-size: clamp(2.8rem, 13vw, 4.5rem); }
   .bongkar h2 em { display: block; }
   .apung { display: grid; }
   .hero { min-height: calc(100svh - 96px); align-items: flex-end; }
