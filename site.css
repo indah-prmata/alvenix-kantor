@@ -47,7 +47,7 @@ h1, h2, h3 { margin: 0; color: var(--ink); letter-spacing: -.03em; }
 .logo svg { width: 32px; height: 32px; }
 .logo span { font-size: 1.55rem; font-weight: 800; letter-spacing: -.045em; color: var(--ink); }
 .logo b { color: var(--blue); }
-.nav__links { display: flex; gap: 28px; font-weight: 600; font-size: .94rem; color: var(--muted); }
+.nav__links { display: flex; gap: 28px; font-weight: 600; font-size: .94rem; color: var(--muted); white-space: nowrap; }
 .nav__links a:hover { color: var(--ink); }
 .nav__cta { margin-left: auto; display: flex; align-items: center; gap: 14px; }
 .nav__promo { padding: 9px 16px; border-radius: 999px; border: 1.5px solid #C9D7FA; color: var(--blue-2); font-weight: 700; font-size: .74rem; letter-spacing: .14em; text-transform: uppercase; }
@@ -180,6 +180,7 @@ h1, h2, h3 { margin: 0; color: var(--ink); letter-spacing: -.03em; }
 .progress__form .btn { height: 56px; }
 .progress__try { flex-basis: 100%; margin: 4px 0 0 !important; font-size: .88rem; }
 .progress__try button { border: 0; background: none; padding: 0; color: #fff; font-weight: 700; cursor: pointer; border-bottom: 1.5px solid var(--blue-3); }
+.progress__try a { color: #fff; font-weight: 700; border-bottom: 1.5px solid var(--blue-3); }
 
 /* ---------- footer (seperti flyer) ---------- */
 .foot { padding: 20px 0 40px; }
@@ -205,6 +206,7 @@ h1, h2, h3 { margin: 0; color: var(--ink); letter-spacing: -.03em; }
 @media (prefers-reduced-motion: reduce) { .up, .rise { opacity: 1 !important; transform: none !important; animation: none; } .tagcard { animation: none; } }
 
 /* ---------- layar sedang ---------- */
+@media (max-width: 1180px) { .nav__promo { display: none; } }
 @media (max-width: 1020px) {
   .nav__links, .nav__promo { display: none; }
   .hero { padding-top: 30px; }

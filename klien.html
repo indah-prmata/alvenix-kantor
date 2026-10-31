@@ -108,6 +108,9 @@
   .pilih { display: flex; flex-wrap: wrap; gap: 8px; }
   .pilih span { display: block; padding: 10px 18px; border-radius: 999px; border: 1px solid var(--line-2); color: var(--muted); cursor: pointer; }
   .pilih input:checked + span { background: var(--gold-grad); border-color: transparent; color: #021417; font-weight: 700; }
+  .nilai__gmail { width: 100%; height: 52px; padding: 0 16px; border-radius: 16px; border: 1px solid var(--line-2); background: rgba(255,255,255,.04); color: var(--text); font: 400 1rem var(--f-body); outline: none; box-sizing: border-box; }
+  .nilai__gmail:focus { border-color: var(--gold); }
+  .nilai__lbl:first-child { margin-top: 14px; }
   .nilai textarea { width: 100%; min-height: 110px; padding: 14px 16px; border-radius: 16px; border: 1px solid var(--line-2); background: rgba(255,255,255,.04); color: var(--text); font: 400 1rem var(--f-body); resize: vertical; outline: none; box-sizing: border-box; }
   .nilai textarea:focus { border-color: var(--gold); }
   .nilai__izin { display: flex; gap: 10px; align-items: flex-start; margin-top: 14px; color: var(--muted); cursor: pointer; }
@@ -160,6 +163,8 @@
     ["Selesai & serah terima", "Website resmi diserahkan. Terima kasih!"]
   ];
   const MAX = CFG.maksRevisi || 3;
+  const keNilai = location.hash === "#nilai"; // datang dari menu "Beri nilai"
+  if (keNilai) $(".lead").textContent = "Masukkan kode proyek dari tim kami, lalu beri nilai memakai Gmail Anda.";
   const fmt = d => d ? new Date(d).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" }) : "—";
 
   const safeImg = u => { u = String(u || "").trim(); return /^(https?:\/\/|data:image\/(jpeg|png|webp);base64,|contoh\/[\w-]+\.(jpg|png)$)/i.test(u) ? u : ""; };
@@ -188,6 +193,8 @@
     host.innerHTML = `
       <div class="card__head"><div><h2>Nilai kinerja kami</h2><p>Jujur saja. Nilai Anda membantu kami bekerja lebih baik.</p></div></div>
       <form id="nilaiForm" novalidate>
+        <label class="nilai__lbl" for="nilaiGmail">Gmail Anda</label>
+        <input class="nilai__gmail" id="nilaiGmail" type="email" autocomplete="email" inputmode="email" placeholder="nama@gmail.com" value="${esc(a.email || "")}">
         ${ASPEK.map(([k, l]) => `<fieldset class="nilai__baris"><legend>${l}</legend><div class="bintang">${[1, 2, 3, 4, 5].map(n => `<label class="${n <= +a[k] ? "is-on" : ""}"><input type="radio" name="${k}" value="${n}" ${n === +a[k] ? "checked" : ""} aria-label="${l}: ${n} dari 5"><span aria-hidden="true">★</span></label>`).join("")}</div></fieldset>`).join("")}
         <span class="nilai__lbl">Mau merekomendasikan kami ke teman?</span>
         <div class="pilih">${["Ya", "Mungkin", "Tidak"].map(x => `<label><input type="radio" name="rekomendasi" value="${x}" ${a.rekomendasi === x ? "checked" : ""}><span>${x}</span></label>`).join("")}</div>
@@ -203,6 +210,8 @@
       const f = new FormData(e.target), d = { kode: P.kode };
       ASPEK.forEach(([k]) => d[k] = +f.get(k) || 0);
       const m = $("#nilaiMsg"), tb = $("#nilaiKirim");
+      d.email = $("#nilaiGmail").value.trim().toLowerCase();
+      if (!/^[a-z0-9.+_-]+@gmail\.com$/.test(d.email)) { m.textContent = "Isi Gmail Anda dulu ya, contohnya nama@gmail.com."; return; }
       if (ASPEK.some(([k]) => !d[k])) { m.textContent = "Beri bintang untuk keempat bagian dulu ya."; return; }
       d.rekomendasi = f.get("rekomendasi") || ""; d.komentar = $("#nilaiKom").value.trim(); d.izin = $("#nilaiIzin").checked;
       m.textContent = ""; tb.disabled = true; tb.textContent = "Mengirim…";
@@ -320,7 +329,9 @@ Revisi bagian mana:
     $("#msg").textContent = "";
     const fresh = await live(kode) || local(kode) || (kode === "ALV-CONTOH" ? CONTOH() : null);
     const P = fresh && (!snap || new Date(fresh.up || 0) >= new Date(snap.up || 0)) ? fresh : snap;
-    if (P) { render(P); history.replaceState(null, "", "#k=" + encodeURIComponent(P.kode) + (snap ? "&p=" + location.hash.match(/p=([^&]+)/)?.[1] : "")); return; }
+    if (P) { render(P); history.replaceState(null, "", "#k=" + encodeURIComponent(P.kode) + (snap ? "&p=" + location.hash.match(/p=([^&]+)/)?.[1] : ""));
+      if (keNilai) { const n = $("#nilai"); if (n) n.scrollIntoView({ behavior: "smooth" }); else $("#msg").textContent = "Penilaian terbuka setelah proyek sampai tahap Revisi."; }
+      return; }
     $("#out").innerHTML = "";
     $("#msg").textContent = "Kode tidak ditemukan. Cek lagi, atau buka link progres yang dikirim tim kami lewat WhatsApp 🙏 (mau coba? pakai kode ALV-CONTOH)";
   }

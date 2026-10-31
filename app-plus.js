@@ -188,7 +188,7 @@
     const n = nilai[p.kode];
     if (n) return `<div class="d-sec"><h4>Penilaian klien — ⭐ ${titik(rataN(n))}</h4>
         <div class="nilai-grid">${ASPEK.map(([k, l]) => `<div><span>${l}</span><b>${esc(n[k])} / 5</b></div>`).join("")}</div>
-        <p class="tbl__foot">Rekomendasi: ${esc(n.rekomendasi || "—")} · Testimoni: ${n.izin === true || n.izin === "ya" ? "boleh ditampilkan" : "tidak boleh ditampilkan"}${n.waktu ? " · " + fmtD(n.waktu) : ""}</p>
+        <p class="tbl__foot">${n.email ? esc(n.email) + " · " : ""}Rekomendasi: ${esc(n.rekomendasi || "—")} · Testimoni: ${n.izin === true || n.izin === "ya" ? "boleh ditampilkan" : "tidak boleh ditampilkan"}${n.waktu ? " · " + fmtD(n.waktu) : ""}</p>
         ${n.komentar ? `<p class="nilai-kom">${esc(n.komentar)}</p>` : ""}</div>`;
     return +p.t >= 3 && p.wa ? `<div class="d-sec"><h4>Penilaian klien</h4><p class="tbl__foot">Belum ada penilaian.</p><div class="d-acts"><button class="btn btn--sm btn--wa" type="button" id="mintaNilai">⭐ Minta penilaian via WA</button></div></div>` : "";
   }
