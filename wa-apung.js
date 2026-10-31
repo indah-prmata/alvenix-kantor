@@ -6,7 +6,7 @@
   // bottom 80px: di atas bar bawah tiap halaman, yang tingginya sampai 66px
   css.textContent = `.wa-apung { display: none; position: fixed; right: 14px; bottom: calc(80px + env(safe-area-inset-bottom)); z-index: 24; width: 56px; height: 56px; border-radius: 50%; place-items: center; background: #25d366; color: #04240f; box-shadow: 0 12px 30px -6px rgba(37, 211, 102, .6); }
 .wa-apung svg { width: 28px; height: 28px; fill: currentColor; }
-@media (max-width: 860px) { .wa-apung { display: grid; } body > footer, main ~ footer { padding-bottom: 150px !important; } }`;
+@media (max-width: 860px) { .wa-apung { display: grid; } body > footer, main ~ footer { padding-bottom: 150px !important; } .ribbon a { display: inline-block; margin: -10px 0; padding: 12px 4px; } }`;
   document.head.appendChild(css);
   const a = document.createElement("a");
   a.className = "wa-apung"; a.target = "_blank"; a.rel = "noopener"; a.setAttribute("aria-label", "Chat WhatsApp");

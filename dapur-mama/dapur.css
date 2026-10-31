@@ -253,3 +253,4 @@ h1 { font-size: clamp(4.2rem, 8.8vw, 9rem); }
   .cincin.isi img { animation: none; }
   .apung { transition: none; }
 }
+@media (max-width: 720px) { .tautan { display: inline-flex; align-items: center; min-height: 44px; } .cek { min-height: 44px; } }

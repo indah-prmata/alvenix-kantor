@@ -280,3 +280,7 @@ h2 em { font: italic 400 .54em/1 var(--serif); letter-spacing: 0; text-transform
   .qris { grid-template-columns: 96px minmax(0, 1fr); }
   .akun li { grid-template-columns: 76px minmax(0, 1fr) auto; }
 }
+@media (max-width: 760px) {
+  .sorot { grid-template-columns: 84px minmax(0, 1fr); gap: 12px; padding: 8px 0; }
+  .sorot .tombol { padding: 8px 14px; }
+}

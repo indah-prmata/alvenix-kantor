@@ -236,3 +236,4 @@ h1 { font-size: clamp(3.2rem, 4.9vw, 5.6rem); }
   html { scroll-behavior: auto; }
   .warna__foto img, .apung { transition: none; }
 }
+@media (max-width: 720px) { .apung { filter: drop-shadow(0 6px 14px rgba(40,10,50,.3)); } }

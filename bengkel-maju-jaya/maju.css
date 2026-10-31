@@ -307,3 +307,8 @@ h1 em { white-space: nowrap; }
   .bongkar { height: auto; }
   .bongkar__panggung { position: static; height: auto; padding: 40px 0; }
 }
+@media (max-width: 720px) {
+  .pin::after { content: ""; position: absolute; inset: -9px; }
+  .apung { filter: drop-shadow(0 6px 14px rgba(0,0,0,.45)); }
+  .apung .tombol { box-shadow: 0 0 0 2px #0a0a0a; }
+}

@@ -246,3 +246,4 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .kasir__ok { margin-top: 20px; }
 .kasir__ok h3 { margin: 0 0 6px; font-size: 1.5rem; color: var(--hijau); }
 .kasir__ok .tombol, .kasir__ok .btn { margin-top: 18px; }
+@media (max-width: 760px) { .buka__akhir { right: var(--m); font-size: clamp(1.8rem, 8vw, 2.4rem); } }
