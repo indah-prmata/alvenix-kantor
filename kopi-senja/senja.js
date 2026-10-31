@@ -20,8 +20,8 @@
     { id: "es-kopi-senja", n: "Es Kopi Senja", f: "Kopi susu, gula aren, andalan kedai", h: 24000, l: "senja", b: "gelas", besar: true },
     { id: "es-kopi-pandan", n: "Es Kopi Pandan", f: "Kopi susu, sirup pandan asli", h: 25000, l: "senja", b: "gelas" },
     { id: "cokelat-aren", n: "Es Cokelat Aren", f: "Cokelat pekat, gula aren", h: 23000, l: "senja", b: "gelas" },
-    { id: "wedang-jahe-susu", n: "Wedang Jahe Susu", f: "Jahe merah, susu, hangat", h: 18000, l: "malam", b: "cangkir" },
-    { id: "kopi-susu-panas", n: "Kopi Susu Panas", f: "Kerinci, susu kental manis", h: 18000, l: "malam", b: "cangkir" },
+    { id: "teh-tarik-rempah", n: "Teh Tarik Rempah", f: "Teh, kapulaga, kayu manis, hangat", h: 18000, l: "malam", b: "cangkir" },
+    { id: "kopi-kayu-manis", n: "Kopi Kayu Manis", f: "Kerinci, kayu manis Kerinci, hangat", h: 20000, l: "malam", b: "cangkir" },
     { id: "srikayo-pandan", n: "Srikayo Pandan", f: "Kue srikaya khas Jambi", h: 12000, l: "teman", b: "piring" },
     { id: "pisang-goreng-keju", n: "Pisang Goreng Keju", f: "Pisang kepok, keju parut", h: 18000, l: "teman", b: "piring" },
     { id: "nasi-gemuk", n: "Nasi Gemuk Jambi", f: "Nasi santan, teri, sambal", h: 25000, l: "teman", b: "piring" },
@@ -33,9 +33,9 @@
     piring: '<path d="M10 52h80a40 26 0 0 1-80 0z"/>'
   };
   const GALERI = [
-    ["suasana-sungai", "Sungai Batanghari saat senja", "lebar"], ["suasana-seduh", "Kopi tubruk diseduh di meja kayu", ""],
-    ["suasana-bangku", "Bangku kayu menghadap sungai", ""], ["suasana-biji", "Biji kopi Kerinci selesai disangrai", ""],
-    ["suasana-lampu", "Lampu kedai menyala setelah gelap", ""], ["suasana-tangan", "Dua cangkir di meja saat sore", "lebar"]
+    ["suasana-sungai", "Sungai Batanghari saat senja", "lebar"], ["suasana-seduh", "Kopi tubruk dituang ke cangkir biru", ""],
+    ["suasana-bangku", "Kursi rotan di dek menghadap sungai", ""], ["suasana-biji", "Biji kopi Kerinci selesai disangrai", ""],
+    ["suasana-lampu", "Lampu kedai menyala setelah gelap", ""], ["suasana-tangan", "Dua cangkir biru saat sore", "lebar"]
   ];
   const BAYAR = {
     "QRIS": () => `<div class="qris"><svg viewBox="0 0 21 21" role="img" aria-label="Contoh kode QRIS">${qr()}</svg><div><b>Kopi Senja</b><p>Pindai dengan aplikasi bank atau e-wallet apa pun, lalu masukkan ${S.rupiah(total())}.</p><p>Kode ini contoh. Di website asli diganti QRIS milik toko.</p></div></div>`,
@@ -94,7 +94,7 @@
   $("#galeri").innerHTML = GALERI.map(([f, alt, c]) => `<figure class="${c}"><img src="img/${f}.jpg" alt="${alt}" width="1200" height="900" loading="lazy" onerror="this.parentElement.classList.add('kosong')"></figure>`).join("");
 
   /* ---------- hero: menu berjajar di lengkung ---------- */
-  const PILIH = ["es-kopi-senja", "kopi-tubruk-kerinci", "wedang-jahe-susu", "es-kopi-pandan", "liberika-tungkal", "srikayo-pandan", "cokelat-aren"].map(item);
+  const PILIH = ["es-kopi-senja", "kopi-tubruk-kerinci", "teh-tarik-rempah", "es-kopi-pandan", "liberika-tungkal", "srikayo-pandan", "cokelat-aren"].map(item);
   let cur = 0;
   $("#arc").innerHTML = PILIH.map((m, i) => `<button type="button" class="arc__item" data-arc="${i}" aria-label="Lihat ${esc(m.n)}">${gambar(m)}</button>`).join("");
   function hero() {
