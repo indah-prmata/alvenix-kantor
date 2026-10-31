@@ -23,11 +23,11 @@
     makeup: { a: "sebelum-makeup", b: "sesudah-makeup", z: 1.12, ket: "Rias tipis yang tetap kelihatan seperti wajahmu sendiri, hanya lebih segar." }
   };
   const BAYAR = {
-    "QRIS": () => `<div class="qris"><svg viewBox="0 0 21 21" role="img" aria-label="Contoh kode QRIS">${qr()}</svg><div><b>Salon Ayu</b><p>Pindai dengan aplikasi bank atau e-wallet apa pun, lalu masukkan ${S.rupiah(dp())}.</p><p>Kode ini contoh. Di website asli diganti QRIS milik salon.</p></div></div>`,
+    "QRIS": () => `<div class="qris"><svg viewBox="0 0 21 21" role="img" aria-label="Contoh kode QRIS">${qr()}</svg><div><b>Salon Ayu</b><p>Pindai dengan aplikasi bank atau e-wallet apa pun, lalu masukkan ${S.rupiah(kini())}.</p><p>Kode ini contoh. Di website asli diganti QRIS milik salon.</p></div></div>`,
     "E-wallet": () => akun([["GoPay", "0812 0000 0000"], ["OVO", "0812 0000 0000"], ["DANA", "0812 0000 0000"], ["ShopeePay", "0812 0000 0000"]]),
     "M-banking": () => akun([["BCA", "000 000 0000"], ["Mandiri", "000 000 000 0000"], ["BRI", "0000 00 000000 00 0"], ["BNI", "000 000 0000"]])
   };
-  const akun = rows => `<ul class="akun">${rows.map(([n, no]) => `<li><span>${n}</span><b>${no}</b><button type="button" data-salin="${no.replace(/\s/g, "")}">Salin</button></li>`).join("")}</ul><p class="catat">a.n. Salon Ayu. Nomor ini contoh. Transfer tepat ${S.rupiah(dp())}.</p>`;
+  const akun = rows => `<ul class="akun">${rows.map(([n, no]) => `<li><span>${n}</span><b>${no}</b><button type="button" data-salin="${no.replace(/\s/g, "")}">Salin</button></li>`).join("")}</ul><p class="catat">a.n. Salon Ayu. Nomor ini contoh. Transfer tepat ${S.rupiah(kini())}.</p>`;
   function qr() { // pola tetap, bukan kode yang bisa dipindai
     let out = "";
     const kotak = (x, y) => `<path d="M${x} ${y}h7v7h-7zM${x + 1} ${y + 1}v5h5v-5zM${x + 2} ${y + 2}h3v3h-3z" fill-rule="evenodd"/>`;
@@ -46,6 +46,8 @@
   const dipilih = () => LAYANAN.filter(l => J.pilih.includes(l.id));
   const total = () => dipilih().reduce((s, l) => s + l.h, 0);
   const dp = () => Math.ceil(total() * .3 / 5000) * 5000;
+  const lunas = () => $('[name="jenis"]:checked').value === "lunas";
+  const kini = () => lunas() ? total() : dp();
   const durasi = () => dipilih().reduce((s, l) => s + l.d, 0);
   const lama = m => [m >= 60 ? `${Math.floor(m / 60)} jam` : "", m % 60 ? `${m % 60} menit` : ""].filter(Boolean).join(" ");
   const harga = l => (l.mulai ? "mulai " : "") + S.rupiah(l.h);
@@ -87,7 +89,8 @@
     $("#kPenata").textContent = PENATA.find(p => p.id === J.penata)?.n || "Siapa saja";
     $("#kList").innerHTML = r.length ? r.map(l => `<li><span>${esc(l.n)}</span><b>${harga(l)}</b><button type="button" data-layanan="${l.id}" aria-label="Hapus ${esc(l.n)}">×</button></li>`).join("") : `<li class="kosong">Belum ada layanan. <a href="#layanan">Pilih di papan harga</a>.</li>`;
     $("#kTotal").textContent = S.rupiah(total());
-    $("#kDp").textContent = S.rupiah(dp());
+    $("#kBayarLabel").textContent = lunas() ? "Bayar lunas" : "DP 30%";
+    $("#kDp").textContent = S.rupiah(kini());
     $("#apung").hidden = !r.length;
     $("#apungTeks").textContent = `${r.length} layanan · ${S.rupiah(total())}`;
     bayar(); simpan();
@@ -143,6 +146,7 @@
     if (c) navigator.clipboard?.writeText(c.dataset.salin).then(() => { c.textContent = "Tersalin"; setTimeout(() => c.textContent = "Salin", 1500); });
   });
   $$('[name="bayar"]').forEach(r => r.onchange = bayar);
+  $$('[name="jenis"]').forEach(r => r.onchange = render);
   $("#fNama").addEventListener("input", () => { $("#kNama").textContent = $("#fNama").value.trim() || "—"; });
 
   /* ---------- kirim ke salon ---------- */
@@ -151,13 +155,38 @@
     const nama = $("#fNama").value.trim(), r = dipilih(), g = $("#galat");
     g.textContent = !r.length ? "Pilih layanan dulu di papan harga." : !J.hari ? "Pilih hari dulu." : !J.jam ? "Pilih jam dulu." : !nama ? "Isi nama dulu." : "";
     if (g.textContent) return;
-    const cat = $("#fCatatan").value.trim(), kel = $('[name="bayar"]:checked').value;
-    const teks = `Halo Salon Ayu, saya mau buat janji.\n\nNo. janji: *${S.kode("SA", 4)}*\nNama: ${nama}\nHari: ${fmtHari(J.hari)}\nJam: ${J.jam} WIB (${lama(durasi())})\nPenata: ${PENATA.find(p => p.id === J.penata)?.n || "Siapa saja"}\n\n` +
-      r.map(l => `- ${l.n}: ${harga(l)}`).join("\n") + `\n\n*Perkiraan total: ${S.rupiah(total())}*\n*DP 30%: ${S.rupiah(dp())}*\nBayar DP: ${kel}` +
-      (cat ? `\nCatatan: ${cat}` : "") + "\n\nBukti DP saya kirim setelah ini.";
+    bukaKasir();
+  });
+
+  /* ---------- kasir: batas waktu menjaga jam yang dipilih selama membayar ---------- */
+  const kasir = $("#kasir"); let kode = "", detik = 0, timer = 0;
+  function tik() {
+    const habis = detik <= 0;
+    $("#kasirWaktu").textContent = habis ? "Waktu habis" : `Bayar dalam ${String(Math.floor(detik / 60)).padStart(2, "0")}:${String(detik % 60).padStart(2, "0")}`;
+    $("#sudahBayar").disabled = habis;
+    if (habis) { clearInterval(timer); $("#kasirCatat").textContent = "Waktu bayar habis. Tutup jendela ini, lalu tekan Lanjut bayar lagi."; }
+    detik--;
+  }
+  function bukaKasir() {
+    kode = S.kode("SA", 4); detik = 900;
+    $("#kasirKode").textContent = kode;
+    $("#kasirJenis").textContent = lunas() ? "lunas" : "DP 30%";
+    $("#kasirNilai").textContent = S.rupiah(kini());
+    $("#kasirCatat").textContent = "Lalu kirim bukti bayar di WhatsApp. Admin mengecek pembayaran dan jadwal penata, baru janji dikonfirmasi. Ini contoh, tidak ada uang yang diproses.";
+    bayar(); clearInterval(timer); tik(); timer = setInterval(tik, 1000);
+    kasir.showModal();
+  }
+  kasir.addEventListener("close", () => clearInterval(timer));
+  $("#kasirTutup").onclick = () => kasir.close();
+  $("#sudahBayar").onclick = () => {
+    const r = dipilih(), cat = $("#fCatatan").value.trim(), kel = $('[name="bayar"]:checked').value, sisa = total() - kini();
+    const teks = `Halo Salon Ayu, saya sudah bayar untuk janji ini.\n\nNo. janji: *${kode}*\nNama: ${$("#fNama").value.trim()}\nHari: ${fmtHari(J.hari)}\nJam: ${J.jam} WIB (${lama(durasi())})\nPenata: ${PENATA.find(p => p.id === J.penata)?.n || "Siapa saja"}\n\n` +
+      r.map(l => `- ${l.n}: ${harga(l)}`).join("\n") + `\n\n*Perkiraan total: ${S.rupiah(total())}*\n*Dibayar (${lunas() ? "lunas" : "DP 30%"}): ${S.rupiah(kini())}*\nLewat: ${kel}${sisa ? `\nSisa di salon: ${S.rupiah(sisa)}` : ""}` +
+      (cat ? `\nCatatan: ${cat}` : "") + "\n\nBukti bayar saya kirim setelah ini.";
     // contoh: tanpa nomor tujuan, di website asli diganti nomor salon
     window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(teks)}`, "_blank", "noopener");
-  });
+    kasir.close();
+  };
 
   /* ---------- cermin membuka saat digulir ---------- */
   const buka = $("#buka"), kecil = matchMedia("(prefers-reduced-motion: reduce)");

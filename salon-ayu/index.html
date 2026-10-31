@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Salon Ayu — salon rambut dan rias di Menteng, Jakarta</title>
-<meta name="description" content="Contoh website salon buatan alvenix: pilih layanan dan penata, atur jam, bayar DP dengan QRIS, e-wallet, atau m-banking, janji langsung masuk WhatsApp salon.">
+<meta name="description" content="Contoh website salon buatan alvenix: pilih layanan dan penata, atur jam, bayar DP atau lunas dengan QRIS, e-wallet, atau m-banking, janji langsung masuk WhatsApp salon.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" href="img/logo.png" type="image/png">
-<link rel="stylesheet" href="ayu.css?v=5">
+<link rel="stylesheet" href="ayu.css?v=7">
 </head>
 <body>
 <p class="ribbon">Contoh website buatan alvenix. <a href="../">Bikin seperti ini</a></p>
@@ -89,15 +89,13 @@
       <fieldset class="seg"><legend>Jam</legend><div id="jam" class="grid-jam"></div></fieldset>
       <label class="f"><span>Nama</span><input id="fNama" autocomplete="name" required></label>
       <label class="f"><span>Catatan</span><input id="fCatatan" placeholder="Rambut sebahu, mau warna cokelat"></label>
-      <fieldset class="seg"><legend>Bayar DP pakai</legend><div>
-        <label><input type="radio" name="bayar" value="QRIS" checked><span>QRIS</span></label>
-        <label><input type="radio" name="bayar" value="E-wallet"><span>E-wallet</span></label>
-        <label><input type="radio" name="bayar" value="M-banking"><span>M-banking</span></label>
+      <fieldset class="seg"><legend>Mau bayar berapa sekarang?</legend><div>
+        <label><input type="radio" name="jenis" value="dp" checked><span>DP 30%</span></label>
+        <label><input type="radio" name="jenis" value="lunas"><span>Lunas</span></label>
       </div></fieldset>
-      <div class="bayar" id="bayarBox"></div>
       <p class="galat" id="galat" role="alert"></p>
-      <button class="tombol tombol--penuh" type="submit">Kirim janji ke WhatsApp salon</button>
-      <p class="catat">Kirim bukti DP di chat yang sama. Admin mengecek jadwal penata, lalu membalas konfirmasi. Sisa bayar di salon.</p>
+      <button class="tombol tombol--penuh" id="keBayar" type="submit">Lanjut bayar</button>
+      <p class="catat">Layanan dengan harga "mulai" bisa berubah setelah konsultasi. Selisihnya dibayar di salon.</p>
     </form>
 
     <aside class="kartu" aria-label="Kartu janji">
@@ -111,7 +109,7 @@
       </dl>
       <ul id="kList"></ul>
       <p class="kartu__total"><span>Perkiraan total</span><b id="kTotal">Rp0</b></p>
-      <p class="kartu__dp"><span>DP 30%</span><b id="kDp">Rp0</b></p>
+      <p class="kartu__dp"><span id="kBayarLabel">DP 30%</span><b id="kDp">Rp0</b></p>
       </div>
     </aside>
   </section>
@@ -141,8 +139,23 @@
 
 <a class="apung" id="apung" href="#janji" hidden><span id="apungTeks"></span><b>Atur janji</b></a>
 
+<dialog class="kasir" id="kasir" tabindex="-1" autofocus aria-labelledby="kasirJudul">
+  <button class="kasir__tutup" type="button" id="kasirTutup" aria-label="Tutup pembayaran">×</button>
+  <h2 id="kasirJudul">Bayar <em id="kasirJenis">DP</em></h2>
+  <p class="kasir__nilai"><b id="kasirNilai">Rp0</b><span id="kasirWaktu"></span></p>
+  <p class="kasir__kode">No. janji <b id="kasirKode"></b></p>
+  <fieldset class="seg"><legend>Bayar pakai</legend><div>
+    <label><input type="radio" name="bayar" value="QRIS" checked><span>QRIS</span></label>
+    <label><input type="radio" name="bayar" value="E-wallet"><span>E-wallet</span></label>
+    <label><input type="radio" name="bayar" value="M-banking"><span>M-banking</span></label>
+  </div></fieldset>
+  <div class="bayar" id="bayarBox"></div>
+  <button class="tombol tombol--penuh" type="button" id="sudahBayar">Saya sudah bayar</button>
+  <p class="catat" id="kasirCatat">Lalu kirim bukti bayar di WhatsApp. Admin mengecek pembayaran dan jadwal penata, baru janji dikonfirmasi. Ini contoh, tidak ada uang yang diproses.</p>
+</dialog>
+
 <script src="../config.js?v=20261030y"></script>
 <script src="../shared.js?v=20261030f"></script>
-<script src="ayu.js?v=4"></script>
+<script src="ayu.js?v=5"></script>
 </body>
 </html>

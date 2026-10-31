@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600&display=swap" rel="stylesheet">
 <link rel="icon" href="img/logo-kopi-senja.svg" type="image/svg+xml">
-<link rel="stylesheet" href="senja.css?v=14">
+<link rel="stylesheet" href="senja.css?v=16">
 </head>
 <body>
 <p class="ribbon">Ini contoh website buatan alvenix, pesanan di sini tidak diproses kedai. <a href="../">Bikin seperti ini</a></p>
@@ -65,15 +65,8 @@
         </fieldset>
         <label class="f" id="wrapAlamat" hidden><span>Alamat antar</span><input id="fAlamat" autocomplete="street-address"></label>
         <label class="f"><span>Catatan</span><input id="fCatatan" placeholder="Kurang manis, tanpa es"></label>
-        <fieldset class="seg"><legend>Bayar pakai</legend>
-          <label><input type="radio" name="bayar" value="QRIS" checked><span>QRIS</span></label>
-          <label><input type="radio" name="bayar" value="E-wallet"><span>E-wallet</span></label>
-          <label><input type="radio" name="bayar" value="M-banking"><span>M-banking</span></label>
-        </fieldset>
-        <div class="pay" id="payBox"></div>
         <p class="err" id="err" role="alert"></p>
-        <button class="btn btn--wide" type="submit">Kirim pesanan ke WhatsApp kedai</button>
-        <p class="note">Setelah transfer, kirim bukti bayar di chat yang sama. Pesanan dibuat setelah pemilik mengecek pembayaran.</p>
+        <button class="btn btn--wide" type="submit">Lanjut bayar</button>
       </form>
 
       <aside class="struk" aria-label="Bon pesanan">
@@ -106,8 +99,23 @@
 
 <a class="floatbon" id="floatbon" href="#bon" hidden><span id="floatText"></span><b>Lihat bon</b></a>
 
+<dialog class="kasir" id="kasir" tabindex="-1" autofocus aria-labelledby="kasirJudul">
+  <button class="kasir__tutup" type="button" id="kasirTutup" aria-label="Tutup pembayaran">×</button>
+  <h2 id="kasirJudul">Bayar pesanan</h2>
+  <p class="kasir__nilai"><b id="kasirNilai">Rp0</b><span id="kasirWaktu"></span></p>
+  <p>No. pesanan <b id="kasirKode"></b></p>
+  <fieldset class="seg"><legend>Bayar pakai</legend>
+    <label><input type="radio" name="bayar" value="QRIS" checked><span>QRIS</span></label>
+    <label><input type="radio" name="bayar" value="E-wallet"><span>E-wallet</span></label>
+    <label><input type="radio" name="bayar" value="M-banking"><span>M-banking</span></label>
+  </fieldset>
+  <div class="pay" id="payBox"></div>
+  <button class="btn btn--wide" type="button" id="sudahBayar">Saya sudah bayar</button>
+  <p class="note" id="kasirCatat">Lalu kirim bukti bayar di WhatsApp. Pesanan dibuat setelah pemilik mengecek pembayaran. Ini contoh, tidak ada uang yang diproses.</p>
+</dialog>
+
 <script src="../config.js?v=20261030y"></script>
 <script src="../shared.js?v=20261030f"></script>
-<script src="senja.js?v=9"></script>
+<script src="senja.js?v=10"></script>
 </body>
 </html>

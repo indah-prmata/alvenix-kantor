@@ -133,15 +133,38 @@
   $("#form").addEventListener("submit", e => {
     e.preventDefault();
     const nama = $("#fNama").value.trim(), terima = document.querySelector('[name="terima"]:checked').value, alamat = $("#fAlamat").value.trim();
-    const bayar = document.querySelector('[name="bayar"]:checked').value, r = baris(), err = $("#err");
+    const r = baris(), err = $("#err");
     err.textContent = !r.length ? "Bon masih kosong. Pilih menu dulu." : !nama ? "Isi nama dulu." : terima === "Antar" && !alamat ? "Isi alamat antar dulu." : "";
     if (err.textContent) return;
-    const teks = `Halo Kopi Senja, saya mau pesan.\n\nNo. pesanan: *${S.kode("KS", 4)}*\nNama: ${nama}\nTerima: ${terima}${terima === "Antar" ? `\nAlamat: ${alamat}` : ""}\n\n` +
-      r.map(m => `${m.q}x ${m.n} = ${S.rupiah(m.h * m.q)}`).join("\n") + `\n\n*Total: ${S.rupiah(total())}*\nBayar: ${bayar}` +
-      ($("#fCatatan").value.trim() ? `\nCatatan: ${$("#fCatatan").value.trim()}` : "") + "\n\nBukti bayar saya kirim setelah ini.";
+    bukaKasir();
+  });
+
+  /* ---------- kasir: batas waktu supaya pesanan lama tidak menggantung ---------- */
+  const kasir = $("#kasir"), CATAT = $("#kasirCatat").textContent; let kode = "", detik = 0, timer = 0;
+  function tik() {
+    const habis = detik <= 0;
+    $("#kasirWaktu").textContent = habis ? "Waktu habis" : `Bayar dalam ${String(Math.floor(detik / 60)).padStart(2, "0")}:${String(detik % 60).padStart(2, "0")}`;
+    $("#sudahBayar").disabled = habis;
+    if (habis) { clearInterval(timer); $("#kasirCatat").textContent = "Waktu bayar habis. Tutup jendela ini, lalu tekan Lanjut bayar lagi."; }
+    detik--;
+  }
+  function bukaKasir() {
+    kode = S.kode("KS", 4); detik = 900;
+    $("#kasirKode").textContent = kode; $("#kasirNilai").textContent = S.rupiah(total()); $("#kasirCatat").textContent = CATAT;
+    renderPay(); clearInterval(timer); tik(); timer = setInterval(tik, 1000);
+    kasir.showModal();
+  }
+  kasir.addEventListener("close", () => clearInterval(timer));
+  $("#kasirTutup").onclick = () => kasir.close();
+  $("#sudahBayar").onclick = () => {
+    const terima = document.querySelector('[name="terima"]:checked').value, alamat = $("#fAlamat").value.trim(), cat = $("#fCatatan").value.trim();
+    const teks = `Halo Kopi Senja, saya sudah bayar pesanan ini.\n\nNo. pesanan: *${kode}*\nNama: ${$("#fNama").value.trim()}\nTerima: ${terima}${terima === "Antar" ? `\nAlamat: ${alamat}` : ""}\n\n` +
+      baris().map(m => `${m.q}x ${m.n} = ${S.rupiah(m.h * m.q)}`).join("\n") + `\n\n*Dibayar: ${S.rupiah(total())}*\nLewat: ${document.querySelector('[name="bayar"]:checked').value}` +
+      (cat ? `\nCatatan: ${cat}` : "") + "\n\nBukti bayar saya kirim setelah ini.";
     // contoh: tanpa nomor tujuan, di website asli diganti nomor kedai
     window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(teks)}`, "_blank", "noopener");
-  });
+    kasir.close();
+  };
 
   /* ---------- muncul saat di-scroll ---------- */
   const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { x.target.classList.add("in"); io.unobserve(x.target); } }), { threshold: .1 });

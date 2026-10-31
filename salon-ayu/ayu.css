@@ -125,7 +125,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .f { display: block; margin-bottom: 20px; }
 .f input { width: 100%; padding: 14px; border: 0; border-radius: 10px; background: var(--kertas); color: var(--tinta); font: inherit; }
 .f input::placeholder { color: var(--redup); }
-.bayar { margin-top: -10px; padding: 16px; border-radius: 12px; background: var(--kertas); }
+.bayar { padding: 16px; border-radius: 12px; background: var(--kertas); }
 .qris { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 16px; align-items: center; }
 .qris p { margin-top: 4px; font-size: 1rem; line-height: 1.4; }
 .akun li { display: grid; grid-template-columns: 90px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 7px 0; }
@@ -148,6 +148,19 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .kartu__total, .kartu__dp { display: flex; justify-content: space-between; gap: 12px; }
 .kartu__total { padding-top: 12px; border-top: 2px solid var(--hijau); font-weight: 600; }
 .kartu__dp b { font-size: 1.5rem; font-weight: 600; color: var(--hijau); }
+
+/* kasir */
+.kasir { width: min(560px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); padding: 28px; border: 0; border-radius: 16px; background: var(--krem); color: var(--tinta); }
+.kasir::backdrop { background: rgba(6, 24, 18, .72); }
+.kasir h2 { font-size: 2.6rem; padding-right: 40px; }
+.kasir__tutup { position: absolute; top: 16px; right: 16px; width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--kertas); font-size: 1.4rem; }
+.kasir__nilai { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
+.kasir__nilai b { font-size: 2rem; font-weight: 700; color: var(--hijau); }
+.kasir__nilai span { font-weight: 600; font-variant-numeric: tabular-nums; }
+.kasir__kode { margin-bottom: 20px; }
+.kasir .seg { margin-bottom: 14px; }
+.kasir .tombol { margin-top: 16px; }
+.tombol:disabled { opacity: .45; cursor: not-allowed; }
 
 /* lokasi */
 .lokasi { --aksen: var(--mawar); position: relative; display: flex; align-items: flex-end; min-height: calc(100svh - 64px); padding: var(--m); background: url(img/depan.jpg) center 62% / cover; color: #fff; }
@@ -213,6 +226,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .grid-jam button { padding-inline: 0; text-align: center; }
   .kartu { position: static; transform: none; grid-row: 1; }
   .qris { grid-template-columns: 96px minmax(0, 1fr); }
+  .kasir { padding: 22px 18px; }
+  .kasir h2 { font-size: 2.2rem; }
 
   .lokasi__isi { display: block; }
   .kontak { margin-top: 20px; }
@@ -225,3 +240,5 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .buka__akhir { display: none; }
   .js .baris, .js .ruang figure, .js .ruang__teks, .js .orang { opacity: 1; transform: none; transition: none; }
 }
+
+.kasir:focus { outline: 0; }
