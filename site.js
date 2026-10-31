@@ -30,7 +30,7 @@
     ["salon-ayu", "Salon Ayu", "Salon Kecantikan", "Jakarta", 0, 0, "Website", "salon-ayu/"],
     ["bengkel", "Bengkel Maju Jaya", "Bengkel Sepeda Motor", "Jambi", 0, 0, "Website", "bengkel-maju-jaya/"],
     ["klinik", "Klinik Senyum", "Klinik Gigi", "Jakarta", 0, 0, "Website", "klinik-senyum/"],
-    ["katering", "Dapur Mama", "Katering", "Jambi", 4.8, 275, "Website"],
+    ["katering", "Dapur Mama", "Katering", "Jakarta", 0, 0, "Website", "dapur-mama/"],
     ["butik", "Butik Anggun", "Butik", "Jambi", 4.7, 188, "Website"]
   ];
   $("#porto").innerHTML = WORK.map(([img, n, c, city, r, u, jenis, asli]) => `

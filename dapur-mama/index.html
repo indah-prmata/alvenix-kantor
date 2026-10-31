@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dapur Mama — katering rumahan di Jakarta</title>
+<meta name="description" content="Contoh website katering buatan alvenix: susun rantang sendiri, hitung porsi acara, langganan makan siang kantor, pilih tanggal antar, bayar, dan lacak pesanan.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<link rel="icon" href="img/logo.png" type="image/png">
+<link rel="stylesheet" href="dapur.css?v=2">
+</head>
+<body>
+<p class="ribbon">Contoh website buatan alvenix. <a href="../">Bikin seperti ini</a></p>
+
+<header class="bar">
+  <a class="bar__nama" href="#top"><img src="img/logo.png" alt="" width="28" height="38">Dapur Mama</a>
+  <nav aria-label="Menu halaman"><a href="#rantang">Susun rantang</a><a href="#paket">Paket</a><a href="#acara">Acara</a><a href="#langganan">Langganan</a><a href="#dapur">Dapur</a><a href="#lacak">Lacak</a></nav>
+  <a class="tombol tombol--kecil" href="#pesan">Pesanan <b data-jumlah>0</b></a>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <img src="img/hero.jpg" alt="Meja penuh masakan Indonesia di atas daun pisang" width="2200" height="1650" fetchpriority="high">
+    <div class="hero__isi">
+      <h1>Masakan Mama,<br>sampai ke meja.</h1>
+      <p>Katering rumahan di Jakarta untuk makan siang kantor, rapat, dan acara keluarga. Dimasak pagi itu juga.</p>
+      <div class="hero__aksi"><a class="tombol tombol--nasi" href="#rantang">Susun rantangmu</a><a class="tombol tombol--garis" href="#acara">Hitung porsi acara</a></div>
+    </div>
+  </section>
+
+  <section class="rantang" id="rantang">
+    <div class="rantang__kepala">
+      <h2>Isi rantangmu sendiri</h2>
+      <p>Tiga tingkat, kamu yang pilih. Harganya berubah langsung.</p>
+    </div>
+    <div class="tingkat" id="tingkat" aria-live="polite"></div>
+    <div class="pilihan" id="pilihan"></div>
+    <div class="rantang__kaki">
+      <label class="cek"><input type="checkbox" id="fSambal" checked><span>Tambah sambal terasi, gratis</span></label>
+      <p class="qty" aria-label="Jumlah rantang"><button type="button" id="kurangR" aria-label="Kurangi">−</button><b id="jumlahR">1</b><button type="button" id="tambahR" aria-label="Tambah">+</button></p>
+      <p class="rantang__harga"><b id="hargaR">Rp0</b><span>Pesan paling lambat sehari sebelumnya</span></p>
+      <button class="tombol tombol--nasi" type="button" id="masukR">Masukkan pesanan</button>
+    </div>
+  </section>
+
+  <section class="paket" id="paket">
+    <h2>Paket siap pesan</h2>
+    <ul id="daftarPaket"></ul>
+  </section>
+
+  <section class="acara" id="acara">
+    <div class="acara__isi">
+      <h2>Tamunya berapa?</h2>
+      <div class="pilih" id="jenisAcara" role="group" aria-label="Jenis acara"></div>
+      <label class="geser">Jumlah tamu <b id="tamuNilai">50 orang</b>
+        <input type="range" id="fTamu" min="10" max="300" step="5" value="50">
+      </label>
+      <div class="hasil-acara" aria-live="polite">
+        <p class="hasil-acara__besar"><b id="acaraPorsi">0</b> porsi</p>
+        <p id="acaraSaran"></p>
+        <p class="hasil-acara__harga" id="acaraHarga"></p>
+      </div>
+      <button class="tombol" type="button" id="masukA">Masukkan pesanan</button>
+      <p class="kecil">Porsi sudah ditambah cadangan supaya tamu tambahan tetap kebagian.</p>
+    </div>
+    <img src="img/prasmanan.jpg" alt="Sajian lengkap dengan nasi, sate, dan lauk di atas daun pisang" loading="lazy" width="1500" height="1001">
+  </section>
+
+  <section class="langganan" id="langganan">
+    <div class="langganan__kepala">
+      <h2>Makan siang kantor, beres</h2>
+      <p>Menu berganti tiap hari. Tiba sebelum jam 11.30.</p>
+    </div>
+    <ol class="minggu" id="minggu"></ol>
+    <div class="langganan__hitung">
+      <img src="img/kantor.jpg" alt="Karyawan menikmati makan siang rantang di meja kerja" loading="lazy" width="1400" height="1045">
+      <div>
+        <div class="pilih pilih--terang" id="lamaLangganan" role="group" aria-label="Lama langganan"></div>
+        <label class="geser">Jumlah orang <b id="orangNilai">10 orang</b>
+          <input type="range" id="fOrang" min="1" max="100" value="10">
+        </label>
+        <p class="langganan__harga"><b id="hargaL">Rp0</b><span id="rinciL"></span></p>
+        <button class="tombol tombol--nasi" type="button" id="masukL">Masukkan pesanan</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="dapurnya" id="dapur">
+    <img class="dapurnya__mama" src="img/mama-aduk.jpg" alt="Mama mengaduk gulai di dapur" loading="lazy" width="1000" height="1000">
+    <div>
+      <h2>Bumbu diulek sendiri</h2>
+      <p>Mama memasak untuk keluarga besar selama dua puluh tahun, sebelum dapurnya menerima pesanan. Resepnya tidak berubah: bumbu dibuat sendiri, belanja pagi, dimasak hari itu juga.</p>
+      <ul>
+        <li><b>05.00</b> Belanja di pasar</li>
+        <li><b>07.00</b> Bumbu dan masak</li>
+        <li><b>09.30</b> Dikemas selagi hangat</li>
+        <li><b>11.00</b> Dalam perjalanan</li>
+      </ul>
+    </div>
+    <img class="dapurnya__tim" src="img/tim.jpg" alt="Tim dapur mengemas nasi kotak" loading="lazy" width="1500" height="838">
+  </section>
+
+  <section class="pesan" id="pesan">
+    <div class="pesan__kiri">
+      <h2>Pesanan</h2>
+      <ul class="daftar-pesan" id="daftarPesan"></ul>
+      <form id="formPesan" novalidate>
+        <p class="judul-kecil">Tanggal antar</p>
+        <div class="pilih pilih--tanggal" id="pilihTanggal"></div>
+        <p class="kecil" id="catatTanggal"></p>
+        <p class="judul-kecil">Jam tiba</p>
+        <div class="pilih" id="pilihJam"></div>
+        <p class="judul-kecil">Wilayah antar</p>
+        <div class="pilih" id="pilihWilayah"></div>
+        <div class="dua">
+          <label>Nama<input id="fNama" autocomplete="name" required></label>
+          <label>Catatan<input id="fCatatan" autocomplete="off" placeholder="Tidak pedas, tanpa kacang"></label>
+        </div>
+        <label>Alamat lengkap<textarea id="fAlamat" rows="2" autocomplete="street-address" required></textarea></label>
+        <fieldset class="seg"><legend>Bayar sekarang</legend><div>
+          <label><input type="radio" name="jenis" value="dp" checked><span>DP 50%</span></label>
+          <label><input type="radio" name="jenis" value="lunas"><span>Lunas</span></label>
+        </div></fieldset>
+        <p class="galat" id="galat" role="alert"></p>
+        <button class="tombol tombol--penuh" type="submit">Lanjut bayar</button>
+      </form>
+    </div>
+    <aside class="nota">
+      <img src="img/kurir.jpg" alt="Kurir menyerahkan pesanan kepada pelanggan" loading="lazy" width="1200" height="896">
+      <h3>Rincian</h3>
+      <ul id="rincian"></ul>
+    </aside>
+  </section>
+
+  <section class="lacak" id="lacak">
+    <div>
+      <h2>Pesananmu sampai mana?</h2>
+      <form class="lacak__cari" id="formLacak">
+        <label class="sr" for="fLacak">Kode pesanan</label>
+        <input id="fLacak" autocomplete="off" placeholder="DM-XXXX">
+        <button class="tombol tombol--nasi" type="submit">Lacak</button>
+      </form>
+    </div>
+    <div class="lacak__hasil" id="hasilLacak" aria-live="polite"></div>
+  </section>
+</main>
+
+<footer class="kaki">
+  <p class="kaki__nama"><img src="img/logo-terang.png" alt="" width="28" height="38">Dapur Mama</p>
+  <p>Jl. Tebet Barat Dalam No. 12, Jakarta Selatan. Dapur buka setiap hari, 05.00 sampai 17.00.</p>
+  <ul>
+    <li>WhatsApp 08122*******</li>
+    <li><a href="https://instagram.com/alvenixx" target="_blank" rel="noopener">Instagram @mama**</a></li>
+    <li><a href="https://www.tiktok.com/@alvenix31" target="_blank" rel="noopener">TikTok @****</a></li>
+  </ul>
+  <p class="kaki__catat">Nama, alamat, harga, dan cerita di halaman ini adalah contoh. Foto semur, tempe orek, sambal, dan gabus pucung dari Wikimedia Commons (CC BY dan CC BY-SA). Foto sajian dari Pexels.</p>
+</footer>
+
+<div class="apung" id="apung"><a class="tombol" href="#pesan">Pesanan <b data-jumlah>0</b> <span id="apungTotal"></span></a></div>
+
+<dialog class="kasir" id="kasir" aria-labelledby="kasirJudul" tabindex="-1" autofocus>
+  <button class="kasir__tutup" type="button" id="kasirTutup" aria-label="Tutup pembayaran">×</button>
+  <h2 id="kasirJudul">Bayar</h2>
+  <p class="kasir__nilai"><b id="kasirNilai">Rp0</b><span id="kasirWaktu"></span></p>
+  <p>Kode pesanan <b id="kasirKode"></b></p>
+  <div id="kasirBayar">
+    <fieldset class="seg"><legend>Bayar pakai</legend><div>
+      <label><input type="radio" name="bayar" value="QRIS" checked><span>QRIS</span></label>
+      <label><input type="radio" name="bayar" value="E-wallet"><span>E-wallet</span></label>
+      <label><input type="radio" name="bayar" value="M-banking"><span>M-banking</span></label>
+    </div></fieldset>
+    <div class="bayar" id="bayarBox"></div>
+    <button class="tombol tombol--penuh" type="button" id="sudahBayar">Cek pembayaran</button>
+    <p class="kecil" id="kasirCatat"></p>
+  </div>
+  <div class="kasir__ok" id="kasirBerhasil" hidden>
+    <h3>Pembayaran berhasil</h3>
+    <p><b id="okNilai"></b> untuk <b id="okKode"></b></p>
+    <button class="tombol tombol--penuh" type="button" id="keWa">Kirim rincian ke WhatsApp</button>
+    <button class="tombol tombol--garis-merah tombol--penuh" type="button" id="keLacak">Lacak pesanan</button>
+  </div>
+</dialog>
+
+<script src="../config.js?v=20261030y"></script>
+<script src="../shared.js?v=20261030f"></script>
+<script src="dapur.js?v=1"></script>
+</body>
+</html>
