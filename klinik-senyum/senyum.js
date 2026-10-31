@@ -161,7 +161,7 @@
   const kunci = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
   const fmtHari = t => new Date(t + "T12:00").toLocaleDateString("id-ID", { weekday: "long", day: "numeric", month: "long" });
   const FOTO = { rania: "drg-rania", arga: "drg-arga", mira: "drg-mira" };
-  $("#daftarDokter").innerHTML = DOKTER.map(d => `<li><img src="img/${FOTO[d.id]}.jpg" alt="${d.n}" loading="lazy" width="1000" height="747"><h3>${d.n}</h3><p>${d.p}</p><p class="kecil">${d.j}</p><button class="tautan" type="button" data-pilih-dokter="${d.id}">Pilih dokter ini</button></li>`).join("");
+  $("#daftarDokter").innerHTML = DOKTER.map(d => `<li><img src="img/${FOTO[d.id]}.jpg" alt="${d.n}" loading="lazy" width="880" height="1100"><h3>${d.n}</h3><p>${d.p}</p><p class="kecil">${d.j}</p><button class="tautan" type="button" data-pilih-dokter="${d.id}">Pilih dokter ini</button></li>`).join("");
   $("#daftarDokter").onclick = e => { const b = e.target.closest("[data-pilih-dokter]"); if (b) { J.dokter = b.dataset.pilihDokter; J.hari = J.jam = ""; renderJanji(); $("#janji").scrollIntoView(); } };
   const hariBisa = () => { // sepuluh hari ke depan, Minggu tutup, mengikuti jadwal dokter
     const out = [], d = new Date(), dok = DOKTER.find(x => x.id === J.dokter);
@@ -287,7 +287,7 @@
 
   /* ---------- gerak: video tambal gigi mengikuti scroll ---------- */
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches, potong = v => Math.max(0, Math.min(1, v));
-  const FRAME = 95, seksi = $("#gigi"), kanvas = $("#kanvas"), kuas = kanvas.getContext("2d"), bingkai = [];
+  const FRAME = 64, seksi = $("#gigi"), kanvas = $("#kanvas"), kuas = kanvas.getContext("2d"), bingkai = [];
   let mau = reduce ? FRAME - 1 : 0, antre = false;
   const gambar = i => { // kalau frame belum sampai, tampilkan frame terdekat sebelumnya
     for (let k = i; k >= 0; k--) if (bingkai[k]?.complete && bingkai[k].naturalWidth) { kuas.drawImage(bingkai[k], 0, 0, 1280, 720); return; }
