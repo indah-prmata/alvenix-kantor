@@ -188,7 +188,7 @@ h1, h2, h3 { margin: 0; color: var(--ink); letter-spacing: -.03em; }
 .foot__ico { display: grid; place-items: center; width: 58px; height: 58px; border-radius: 50%; background: #fff; border: 1px solid var(--line); color: var(--blue); }
 .foot__ico svg { width: 26px; height: 26px; }
 .foot__item small { display: block; font-size: .78rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
-.foot__item b { display: block; font-size: 1.45rem; font-weight: 800; letter-spacing: -.03em; color: var(--ink); }
+.foot__item b { display: block; font-size: 1.2rem; font-weight: 800; letter-spacing: -.03em; color: var(--ink); }
 .foot__bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 18px; padding-top: 26px; font-size: .86rem; color: var(--muted); }
 .foot__bottom .logo svg { width: 26px; height: 26px; }
 .foot__bottom .logo span { font-size: 1.25rem; }
