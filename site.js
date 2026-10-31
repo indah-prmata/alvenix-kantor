@@ -41,7 +41,7 @@
       <div class="work__meta"><div><b>${esc(n)}</b><small>${esc(c)} · ${esc(jenis)}</small></div><span class="work__go" aria-hidden="true">→</span></div>
     </a>`).join("");
 
-  /* ---------- ulasan klien asli; tanpa data, bagian ini tetap tersembunyi ---------- */
+  /* ---------- ulasan klien asli; tanpa data, tampil pesan bawaan dari index.html ---------- */
   const bintang = n => "★".repeat(Math.round(n)) + "☆".repeat(5 - Math.round(n));
   if (CFG.ulasanUrl) fetch(CFG.ulasanUrl).then(r => r.json()).then(j => {
     if (Array.isArray(j)) j = j[0];
@@ -56,7 +56,6 @@
         ${u.komentar ? `<p>${esc(u.komentar)}</p>` : ""}
         <footer><b>${esc(u.usaha)}</b>${u.rekomendasi === "Ya" ? " · merekomendasikan alvenix" : ""}</footer>
       </blockquote>`).join("");
-    $("#ulasan").hidden = false;
   }).catch(() => {});
 
   /* ---------- konsultasi lewat Dina dulu, baru WhatsApp ---------- */

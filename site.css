@@ -50,7 +50,8 @@ h1, h2, h3 { margin: 0; color: var(--ink); letter-spacing: -.03em; }
 .nav__links { display: flex; gap: 28px; font-weight: 600; font-size: .94rem; color: var(--muted); white-space: nowrap; }
 .nav__links a:hover { color: var(--ink); }
 .ulasan { display: grid; grid-template-columns: minmax(220px, 1fr) 2.4fr; gap: 28px; align-items: start; }
-#ulasan[hidden] { display: none; }
+.ulasan__skor b:empty, .ulasan__bintang:empty, .ulasan__list:empty { display: none; }
+.ulasan:has(.ulasan__list:empty) { display: block; }
 .ulasan__skor h3 { font-size: 1.5rem; }
 .ulasan__skor b { display: block; margin-top: 14px; font-size: 4.2rem; font-weight: 800; letter-spacing: -.05em; line-height: 1; color: var(--ink); }
 .ulasan__bintang, .ulasan__kartu span { color: #F5A524; letter-spacing: .08em; }
@@ -220,7 +221,7 @@ h1, h2, h3 { margin: 0; color: var(--ink); letter-spacing: -.03em; }
 @media (prefers-reduced-motion: reduce) { .up, .rise { opacity: 1 !important; transform: none !important; animation: none; } .tagcard { animation: none; } }
 
 /* ---------- layar sedang ---------- */
-@media (max-width: 1180px) { .nav__promo { display: none; } }
+@media (max-width: 1180px) { .nav__promo { display: none; } .nav__links { gap: 18px; } }
 @media (max-width: 1020px) {
   .nav__links, .nav__promo { display: none; }
   .hero { padding-top: 30px; }
