@@ -41,6 +41,7 @@
   /* ---------- konsultasi lewat Dina dulu, baru WhatsApp ---------- */
   const waLangsung = text => window.open(S.waLink(CFG.waKantor, text), "_blank", "noopener");
   document.addEventListener("click", e => {
+    if (e.target.closest("[data-wa-langsung]")) { waLangsung(`Halo ${CFG.brand}, saya mau konsultasi bikin website.`); return; }
     if (e.target.closest("[data-konsul]")) {
       e.preventDefault();
       window.HQ_CHAT ? window.HQ_CHAT.ask("Halo, saya mau konsultasi dulu") : waLangsung(`Halo ${CFG.brand}, saya mau konsultasi bikin website.`);
