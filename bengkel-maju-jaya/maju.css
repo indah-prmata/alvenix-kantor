@@ -86,10 +86,11 @@ h1 em { white-space: nowrap; }
 .taksir__total, .spk__total { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding-top: 12px; border-top: 3px solid currentColor; font-weight: 700; }
 .taksir__total b, .spk__total b { font-family: var(--judul); font-size: 2.4rem; font-weight: 900; line-height: 1; }
 
-.bongkar { --p: 0; height: 230svh; background: var(--hitam); }
+.bongkar { --p: 0; height: 320svh; background: var(--hitam); }
 .bongkar__panggung { position: sticky; top: 0; height: 100svh; display: grid; place-items: center; overflow: hidden; }
-.bongkar img { width: 100%; height: 100%; object-fit: contain; transform: scale(calc(2.3 - var(--p) * 1.3)); transform-origin: 66% 58%; }
-.bongkar h2 { position: absolute; left: var(--tepi); right: var(--tepi); bottom: clamp(28px, 6vh, 64px); font-size: clamp(3rem, 5.6vw, 6rem); opacity: calc(var(--p) * 2.4 - .6); transform: translateY(calc((1 - var(--p)) * 40px)); }
+.susun { position: relative; width: min(100%, calc(100svh * 1.792)); aspect-ratio: 2752 / 1536; transform-origin: 36% 48%; }
+.susun img { position: absolute; height: auto; max-width: none; }
+.bongkar h2 { position: absolute; left: var(--tepi); right: var(--tepi); bottom: clamp(28px, 6vh, 64px); font-size: clamp(3rem, 5.6vw, 6rem); opacity: calc((var(--p) - .78) * 6); transform: translateY(calc((1 - var(--p)) * 120px)); }
 
 .sparepart { padding: clamp(24px, 4vw, 56px) var(--tepi) clamp(56px, 8vw, 112px); background: var(--hitam); }
 .sparepart__kepala { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: 24px; }
@@ -278,8 +279,7 @@ h1 em { white-space: nowrap; }
   .hero__aksi .tombol { flex: 1 1 100%; }
   .dua { grid-template-columns: minmax(0, 1fr); }
   .taksir, .spk { padding: 20px; margin-inline: calc(var(--tepi) * -1); }
-  .bongkar { height: 190svh; }
-  .bongkar img { transform: scale(calc(3.4 - var(--p) * 2.4)); }
+  .bongkar { height: 260svh; }
   .sparepart { padding-inline: 0; }
   .sparepart__kepala, .rak__judul, .fiche__daftar, .fiche__kartu { margin-inline: var(--tepi); }
   .fiche__daftar { grid-template-columns: repeat(2, minmax(0, 1fr)); }

@@ -326,16 +326,30 @@
 
   /* ---------- gerak: pita dan motor terurai mengikuti scroll ---------- */
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches, bongkar = $("#bongkar"), pita = $$(".pita");
+  const potong = v => Math.max(0, Math.min(1, v)), halus = t => t < .5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2;
+  const lapis = $$("#susun img"), panggung = $("#susun");
+  function susun(p) { // tiap bagian punya giliran sendiri, jarak dalam persen panggung
+    const q = potong((p - .05) / .8), W = panggung.offsetWidth, H = panggung.offsetHeight;
+    lapis.forEach(el => {
+      const d = el.dataset, t = +d.b ? halus(potong((q - d.a) / (d.b - d.a))) : 0;
+      el.style.transform = `translate(${d.dx * t * W / 100}px, ${d.dy * t * H / 100}px)${d.r ? ` rotate(${d.r * t}deg)` : ""}`;
+      if (d.pudar) el.style.opacity = 1 - t;
+      if (d.masuk) el.style.opacity = t;
+    });
+    const e = halus(potong((q - .55) / .45));
+    panggung.style.transform = `translate(${14 * e}%, ${-3 * e}%) scale(${1 + (innerWidth < 720 ? .4 : .25) * e})`;
+    bongkar.style.setProperty("--p", p.toFixed(3));
+  }
   let antre = false;
   function gerak() {
     antre = false;
     const b = bongkar.getBoundingClientRect(), p = Math.max(0, Math.min(1, -b.top / (b.height - innerHeight)));
-    bongkar.style.setProperty("--p", p.toFixed(3));
+    susun(p);
     pita.forEach(x => { x.style.backgroundPositionX = `${-scrollY * .35}px`; });
     const j = $("#jemput").getBoundingClientRect(), l = $("#lokasi").getBoundingClientRect();
     $("#apung").classList.toggle("sembunyi", (j.top < innerHeight * .6 && j.bottom > innerHeight * .4) || l.top < innerHeight * .7);
   }
-  if (reduce) bongkar.style.setProperty("--p", 1);
+  if (reduce) susun(1);
   addEventListener("scroll", () => { if (!antre) { antre = true; requestAnimationFrame(reduce ? () => { antre = false; } : gerak); } }, { passive: true });
   if (!reduce) gerak();
 
