@@ -73,5 +73,6 @@ window.HQ_CONFIG = {
   dinaUrl: "https://webalvinix.app.n8n.cloud/webhook/alvenix-dina",           // riwayat chat Dina
   dinaCekUrl: "https://webalvinix.app.n8n.cloud/webhook/alvenix-dina-cek",    // baca riwayat & kontrol
   dinaAdminUrl: "https://webalvinix.app.n8n.cloud/webhook/alvenix-dina-admin", // saklar AI, ambil alih, balas
-  nilaiUrl: "https://webalvinix.app.n8n.cloud/webhook/alvenix-nilai"          // penilaian kinerja dari klien
+  nilaiUrl: "https://webalvinix.app.n8n.cloud/webhook/alvenix-nilai",         // penilaian kinerja dari klien
+  ulasanUrl: "https://webalvinix.app.n8n.cloud/webhook/alvenix-ulasan"        // ulasan publik: hanya yang mengizinkan, tanpa Gmail
 };
