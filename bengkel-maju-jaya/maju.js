@@ -327,19 +327,29 @@
   /* ---------- gerak: pita dan motor terurai mengikuti scroll ---------- */
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches, bongkar = $("#bongkar"), pita = $$(".pita");
   const potong = v => Math.max(0, Math.min(1, v)), halus = t => t < .5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2;
-  const lapis = $$("#susun img"), panggung = $("#susun");
-  function susun(p) { // tiap bagian punya giliran sendiri, jarak dalam persen panggung
-    const q = potong((p - .05) / .8), W = panggung.offsetWidth, H = panggung.offsetHeight;
-    lapis.forEach(el => {
-      const d = el.dataset, t = +d.b ? halus(potong((q - d.a) / (d.b - d.a))) : 0;
-      el.style.transform = `translate(${d.dx * t * W / 100}px, ${d.dy * t * H / 100}px)${d.r ? ` rotate(${d.r * t}deg)` : ""}`;
-      if (d.pudar) el.style.opacity = 1 - t;
-      if (d.masuk) el.style.opacity = t;
-    });
-    const e = halus(potong((q - .55) / .45));
-    panggung.style.transform = `translate(${14 * e}%, ${-3 * e}%) scale(${1 + (innerWidth < 720 ? .4 : .25) * e})`;
+  const FRAME = 95, kanvas = $("#susun"), kuas = kanvas.getContext("2d"), bingkai = [];
+  let mauBingkai = 0;
+  const gambar = i => { // kalau frame belum sampai, tampilkan frame terdekat sebelumnya
+    for (let k = i; k >= 0; k--) if (bingkai[k]?.complete && bingkai[k].naturalWidth) { kuas.drawImage(bingkai[k], 0, 0, 1280, 720); return; }
+  };
+  const muatFrame = i => {
+    if (bingkai[i]) return;
+    const im = bingkai[i] = new Image();
+    im.onload = () => { if (i <= mauBingkai) gambar(mauBingkai); };
+    im.src = `img/susun/${String(i + 1).padStart(3, "0")}.webp`;
+  };
+  function susun(p) {
+    const q = potong((p - .03) / .86);
+    mauBingkai = Math.round(q * (FRAME - 1));
+    gambar(mauBingkai);
+    kanvas.style.transform = `scale(${1 + (innerWidth < 720 ? .16 : 0) * halus(potong((q - .6) / .4))})`;
     bongkar.style.setProperty("--p", p.toFixed(3));
   }
+  muatFrame(reduce ? FRAME - 1 : 0);
+  if (reduce) mauBingkai = FRAME - 1;
+  else new IntersectionObserver((es, o) => { // frame baru diunduh saat bagian ini mendekat
+    if (es[0].isIntersecting) { o.disconnect(); for (let i = 1; i < FRAME; i++) muatFrame(i); }
+  }, { rootMargin: "120% 0px" }).observe(bongkar);
   let antre = false;
   function gerak() {
     antre = false;
