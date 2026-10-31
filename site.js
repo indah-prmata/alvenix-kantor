@@ -26,7 +26,7 @@
   /* ---------- karya: screenshot asli, klik = buka demo ---------- */
   const WORK = [
     ["kopi-broyat", "Kopi Broyat", "Kedai Kopi", "Jambi", 0, 0, "Website", "https://kopibroyat.netlify.app/"],
-    ["kopi", "Kopi Senja", "Kedai Kopi", "Jambi", 4.8, 640, "Landing page"],
+    ["kopi-senja", "Kopi Senja", "Kedai Kopi", "Jambi", 0, 0, "Website", "kopi-senja/"],
     ["salon", "Salon Ayu", "Salon Kecantikan", "Jakarta", 4.9, 812, "Landing page"],
     ["bengkel", "Bengkel Maju Jaya", "Bengkel Sepeda Motor", "Jambi", 4.8, 359, "Landing page"],
     ["klinik", "Klinik Senyum", "Klinik Gigi", "Jakarta", 4.9, 410, "Website"],

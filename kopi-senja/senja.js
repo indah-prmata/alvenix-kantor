@@ -8,34 +8,27 @@
 
   const LANGIT = {
     sore: { warna: "#F2B24E", tinta: "#1C2430", judul: "Sore, jam tiga", isi: "Panas mulai turun. Kopi seduh dan teh dingin." },
-    senja: { warna: "#F0667A", tinta: "#1C2430", judul: "Senja, jam enam", isi: "Langit jingga di atas sungai. Es kopi andalan kedai." },
-    malam: { warna: "#1E3A4C", tinta: "#FFFFFF", judul: "Malam, jam delapan", isi: "Lampu menyala. Minuman hangat sampai tutup." },
+    senja: { warna: "#F0667A", tinta: "#1C2430", judul: "Senja, jam enam", isi: "Langit merah muda di atas sungai. Es kopi andalan kedai." },
+    malam: { warna: "#1E3A4C", foto: "#8FB0BF", tinta: "#FFFFFF", judul: "Malam, jam delapan", isi: "Lampu menyala. Minuman hangat sampai tutup." },
     teman: { warna: "#E9B9A5", tinta: "#1C2430", judul: "Teman kopi", isi: "Kudapan khas Jambi, dibuat setiap hari." }
   };
-  // bentuk: gelas, cangkir, piring (gambar sementara sebelum foto dipasang)
   const MENU = [
-    { id: "kopi-tubruk-kerinci", n: "Kopi Tubruk Kerinci", f: "Arabika Kerinci, panas, tanpa gula", h: 15000, l: "sore", b: "cangkir" },
-    { id: "liberika-tungkal", n: "Liberika Tungkal V60", f: "Wangi nangka, seduh manual", h: 28000, l: "sore", b: "cangkir" },
-    { id: "es-teh-serai", n: "Es Teh Serai", f: "Teh hitam, serai, jeruk kunci", h: 14000, l: "sore", b: "gelas" },
-    { id: "es-kopi-senja", n: "Es Kopi Senja", f: "Kopi susu, gula aren, andalan kedai", h: 24000, l: "senja", b: "gelas", besar: true },
-    { id: "es-kopi-pandan", n: "Es Kopi Pandan", f: "Kopi susu, sirup pandan asli", h: 25000, l: "senja", b: "gelas" },
-    { id: "cokelat-aren", n: "Es Cokelat Aren", f: "Cokelat pekat, gula aren", h: 23000, l: "senja", b: "gelas" },
-    { id: "teh-tarik-rempah", n: "Teh Tarik Rempah", f: "Teh, kapulaga, kayu manis, hangat", h: 18000, l: "malam", b: "cangkir" },
-    { id: "kopi-kayu-manis", n: "Kopi Kayu Manis", f: "Kerinci, kayu manis Kerinci, hangat", h: 20000, l: "malam", b: "cangkir" },
-    { id: "srikayo-pandan", n: "Srikayo Pandan", f: "Kue srikaya khas Jambi", h: 12000, l: "teman", b: "piring" },
-    { id: "pisang-goreng-keju", n: "Pisang Goreng Keju", f: "Pisang kepok, keju parut", h: 18000, l: "teman", b: "piring" },
-    { id: "nasi-gemuk", n: "Nasi Gemuk Jambi", f: "Nasi santan, teri, sambal", h: 25000, l: "teman", b: "piring" },
-    { id: "roti-bakar-srikaya", n: "Roti Bakar Srikaya", f: "Roti tebal, selai srikaya", h: 16000, l: "teman", b: "piring" }
+    { id: "kopi-tubruk-kerinci", n: "Kopi Tubruk Kerinci", f: "Arabika Kerinci, panas, tanpa gula", h: 15000, l: "sore", lepas: true },
+    { id: "liberika-tungkal", n: "Liberika Tungkal V60", f: "Wangi nangka, seduh manual", h: 28000, l: "sore" },
+    { id: "es-teh-serai", n: "Es Teh Serai", f: "Teh hitam, serai, jeruk kunci", h: 14000, l: "sore" },
+    { id: "es-kopi-senja", n: "Es Kopi Senja", f: "Kopi susu, gula aren, andalan kedai", h: 24000, l: "senja", besar: true },
+    { id: "es-kopi-pandan", n: "Es Kopi Pandan", f: "Kopi susu, sirup pandan asli", h: 25000, l: "senja" },
+    { id: "cokelat-aren", n: "Es Cokelat Aren", f: "Cokelat pekat, gula aren", h: 23000, l: "senja" },
+    { id: "kopi-malam", n: "Kopi Malam Kerinci", f: "Arabika Kerinci, diseduh lebih pekat", h: 20000, l: "malam", lepas: true },
+    { id: "srikayo-pandan", n: "Srikayo Pandan", f: "Kue srikaya khas Jambi", h: 12000, l: "teman" },
+    { id: "pisang-goreng-keju", n: "Pisang Goreng Keju", f: "Pisang kepok, keju parut", h: 18000, l: "teman" },
+    { id: "nasi-gemuk", n: "Nasi Gemuk Jambi", f: "Nasi santan, teri, sambal", h: 25000, l: "teman" },
+    { id: "roti-bakar-srikaya", n: "Roti Bakar Srikaya", f: "Roti tebal, selai srikaya", h: 16000, l: "teman" }
   ];
-  const BENTUK = {
-    gelas: '<path d="M30 14h40l-6 74H36z"/>',
-    cangkir: '<path d="M22 34h48v30a16 16 0 0 1-16 16H38a16 16 0 0 1-16-16zM70 42h6a10 10 0 0 1 0 20h-6v-7h6a3 3 0 0 0 0-6h-6z"/>',
-    piring: '<path d="M10 52h80a40 26 0 0 1-80 0z"/>'
-  };
   const GALERI = [
-    ["suasana-sungai", "Sungai Batanghari saat senja", "lebar"], ["suasana-seduh", "Kopi tubruk dituang ke cangkir biru", ""],
-    ["suasana-bangku", "Kursi rotan di dek menghadap sungai", ""], ["suasana-biji", "Biji kopi Kerinci selesai disangrai", ""],
-    ["suasana-lampu", "Lampu kedai menyala setelah gelap", ""], ["suasana-tangan", "Dua cangkir biru saat sore", "lebar"]
+    ["suasana-sungai", "Sungai Batanghari saat senja dengan perahu kecil", "lebar"], ["suasana-seduh", "Barista menuang kopi di meja beton", ""],
+    ["suasana-kettle", "Air panas dituang ke cangkir biru", ""], ["suasana-biji", "Biji kopi Kerinci selesai disangrai", ""],
+    ["suasana-dek", "Kursi rotan di dek menghadap sungai", ""], ["suasana-tangan", "Pelanggan memegang cangkir di tepi sungai", "lebar"]
   ];
   const BAYAR = {
     "QRIS": () => `<div class="qris"><svg viewBox="0 0 21 21" role="img" aria-label="Contoh kode QRIS">${qr()}</svg><div><b>Kopi Senja</b><p>Pindai dengan aplikasi bank atau e-wallet apa pun, lalu masukkan ${S.rupiah(total())}.</p><p>Kode ini contoh. Di website asli diganti QRIS milik toko.</p></div></div>`,
@@ -54,8 +47,7 @@
     return out;
   }
 
-  /* ---------- gambar: foto kalau ada, bentuk sementara kalau belum ---------- */
-  const gambar = (m, cls = "") => `<span class="pic ${cls}"><svg viewBox="0 0 100 100" aria-hidden="true">${BENTUK[m.b]}</svg><img src="img/${m.id}.png" alt="${esc(m.n)}" width="800" height="800" loading="lazy" onload="this.previousElementSibling.remove()" onerror="this.remove()"></span>`;
+  const gambar = m => `<img src="img/${m.id}.jpg" alt="${esc(m.n)}" width="1000" height="1000" loading="lazy">`;
 
   /* ---------- bon ---------- */
   const load = () => { try { return JSON.parse(localStorage.getItem("ks.bon")) || {}; } catch { return {}; } };
@@ -86,15 +78,15 @@
   /* ---------- menu ---------- */
   $("#menuBody").innerHTML = `<h2>Menu, urut dari sore sampai malam</h2>` + Object.entries(LANGIT).map(([k, L]) => `
     <div class="jam"><h3>${L.judul}</h3><p>${L.isi}</p></div>
-    <div class="tiles">${MENU.filter(m => m.l === k).map(m => `<article class="tile ${m.besar ? "tile--besar" : ""}">
-      <div class="tile__warna" style="background:${L.warna};color:${L.tinta}">${gambar(m)}</div>
-      <div class="tile__info"><h4>${esc(m.n)}</h4><p>${esc(m.f)}</p><div><b>${S.rupiah(m.h)}</b><button class="btn btn--sm" type="button" data-tambah="${m.id}" data-count="${m.id}">Tambah</button></div></div>
-    </article>`).join("")}</div>`).join("");
+    <div class="tiles tiles--${k}">${MENU.filter(m => m.l === k).map(m => `<article class="tile ${m.besar ? "tile--besar" : ""}">
+      <div class="tile__foto ${m.lepas ? "tile__foto--lepas" : ""}" style="background:${L.foto || L.warna}">${gambar(m)}</div>
+      <div class="tile__info" style="background:${L.warna};color:${L.tinta}"><h4>${esc(m.n)}</h4><p>${esc(m.f)}</p><div><b>${S.rupiah(m.h)}</b><button class="btn btn--sm" type="button" data-tambah="${m.id}" data-count="${m.id}">Tambah</button></div></div>
+    </article>`).join("")}${k === "malam" ? `<figure class="tile__lebar"><img src="img/suasana-lampu.jpg" alt="Dek kedai saat lampu menyala setelah gelap" width="1600" height="1600" loading="lazy"></figure>` : ""}</div>`).join("");
 
-  $("#galeri").innerHTML = GALERI.map(([f, alt, c]) => `<figure class="${c}"><img src="img/${f}.jpg" alt="${alt}" width="1200" height="900" loading="lazy" onerror="this.parentElement.classList.add('kosong')"></figure>`).join("");
+  $("#galeri").innerHTML = GALERI.map(([f, alt, c]) => `<figure class="${c}"><img src="img/${f}.jpg" alt="${alt}" width="1200" height="900" loading="lazy"></figure>`).join("");
 
   /* ---------- hero: menu berjajar di lengkung ---------- */
-  const PILIH = ["es-kopi-senja", "kopi-tubruk-kerinci", "teh-tarik-rempah", "es-kopi-pandan", "liberika-tungkal", "srikayo-pandan", "cokelat-aren"].map(item);
+  const PILIH = ["es-kopi-senja", "es-teh-serai", "es-kopi-pandan", "liberika-tungkal", "srikayo-pandan", "cokelat-aren"].map(item);
   let cur = 0;
   $("#arc").innerHTML = PILIH.map((m, i) => `<button type="button" class="arc__item" data-arc="${i}" aria-label="Lihat ${esc(m.n)}">${gambar(m)}</button>`).join("");
   function hero() {

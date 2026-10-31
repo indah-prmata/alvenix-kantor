@@ -1,6 +1,6 @@
 :root {
   --bg: #E4DDD0; --surface: #D8CFBF; --ink: #1C2430; --muted: #363B44;
-  --accent: #1E3A4C; --accent-ink: #fff; --paper: #F6F2EA;
+  --accent: #1E3A4C; --accent-ink: #fff; --paper: #EFEFEC;
   --step-small: clamp(.8125rem, .79rem + .1vw, .875rem);
   --step-body: clamp(1.0625rem, 1rem + .25vw, 1.1875rem);
   --step-lead: clamp(1.25rem, 1.1rem + .7vw, 1.625rem);
@@ -38,10 +38,8 @@ button, input { font: inherit; color: inherit; }
 .hero h1 { font-size: clamp(2.6rem, 6.4vw, 6.4rem); }
 .hero__text p { font-size: var(--step-body); }
 .arc { position: relative; width: 100%; flex: 1; height: clamp(250px, 44vh, 480px); margin-top: 8px; }
-.arc__item { position: absolute; left: 50%; top: 50%; width: clamp(190px, 26vh, 300px); aspect-ratio: 1; padding: 0; border: 0; background: none; cursor: pointer; color: inherit; transition: transform .55s cubic-bezier(.2, .8, .2, 1), filter .4s; touch-action: pan-y; }
-.pic { display: block; width: 100%; height: 100%; }
-.pic svg { width: 100%; height: 100%; fill: currentColor; opacity: .85; }
-.pic img { width: 100%; height: 100%; object-fit: contain; }
+.arc__item { position: absolute; left: 50%; top: 50%; width: clamp(180px, 30vh, 320px); aspect-ratio: 4 / 5; overflow: hidden; padding: 0; border: 0; background: none; cursor: pointer; color: inherit; transition: transform .55s cubic-bezier(.2, .8, .2, 1), filter .4s; touch-action: pan-y; }
+.arc__item img { width: 100%; height: 100%; object-fit: cover; }
 .hero__item { display: flex; align-items: center; gap: 22px; text-align: center; z-index: 20; }
 .hero__item h2 { font-size: clamp(1.75rem, 2.8vw, 2.6rem); line-height: 1.05; }
 .hero__item p { margin-top: 4px; }
@@ -57,15 +55,20 @@ button, input { font: inherit; color: inherit; }
 .jam { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 24px; align-items: baseline; margin-top: clamp(48px, 7vw, 100px); margin-bottom: 20px; }
 .jam h3 { font-size: var(--step-lead); font-weight: 600; letter-spacing: -.02em; }
 .tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
-.tile--besar { grid-column: span 2; grid-row: span 2; }
+.tiles--sore { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.tiles--senja { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr); }
 .tile { display: flex; flex-direction: column; }
-.tile__warna { flex: 1; display: grid; place-items: center; aspect-ratio: 1; padding: 12%; }
-.tile--besar .tile__warna { aspect-ratio: auto; padding: 8%; }
-.tile:hover .pic { transform: translateY(-6px) rotate(-2deg); }
-.tile .pic { transition: transform .3s; max-height: 100%; }
-.tile__info { padding-top: 10px; }
+.tile__foto { aspect-ratio: 1; overflow: hidden; }
+.tile__foto img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s; }
+.tile:hover .tile__foto img { transform: scale(1.04); }
+.tile__foto--lepas img { mix-blend-mode: multiply; }
+.tile--besar .tile__foto { flex: 1; aspect-ratio: auto; min-height: 0; }
+.tile__lebar { grid-column: span 3; margin: 0; overflow: hidden; }
+.tile__lebar img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; }
+.tile__info { flex: 1; display: flex; flex-direction: column; padding: 14px 16px 16px; }
+.tile__info div { margin-top: auto !important; padding-top: 8px; }
 .tile__info h4 { font-size: clamp(1.125rem, 1.4vw, 1.375rem); font-weight: 500; letter-spacing: -.02em; }
-.tile__info p { color: var(--ink); font-size: 1rem; }
+.tile__info p { font-size: 1rem; }
 .tile__info div { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 8px; }
 .tiles:nth-of-type(n) .tile--besar .tile__info h4 { font-size: var(--step-lead); }
 
@@ -74,11 +77,10 @@ button, input { font: inherit; color: inherit; }
 .cerita__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: clamp(32px, 5vw, 72px); align-items: start; }
 .cerita p { margin-top: 20px; max-width: 46ch; }
 .masonry { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-.masonry figure { margin: 0; aspect-ratio: 4 / 3; overflow: hidden; background: #2A4C60; }
+.masonry figure { margin: 0; aspect-ratio: 4 / 3; overflow: hidden; }
 .masonry .lebar { grid-column: span 2; aspect-ratio: 16 / 8; }
 .masonry img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s; }
 .masonry figure:hover img { transform: scale(1.04); }
-.masonry .kosong img { display: none; }
 
 /* bon */
 .bon { padding-block: clamp(72px, 10vw, 150px); }
@@ -121,7 +123,7 @@ form h2 { margin-bottom: 28px; }
 .lokasi h2 + p { margin-top: 16px; }
 
 .foot { padding: 40px var(--m) 28px; background: var(--ink); color: #fff; overflow: hidden; }
-.foot__name { font-weight: 600; font-size: clamp(3rem, 13vw, 14rem); letter-spacing: -.05em; line-height: .95; white-space: nowrap; }
+.foot__name { font-weight: 600; font-size: clamp(3rem, 16.4vw, 26rem); letter-spacing: -.05em; line-height: .95; white-space: nowrap; }
 
 .floatbon { display: none; }
 
@@ -131,7 +133,10 @@ form h2 { margin-bottom: 28px; }
 @media (max-width: 900px) {
   .hero__text { grid-template-columns: 1fr; gap: 12px; }
   .hero h1 { font-size: 10vw; }
-  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .tiles, .tiles--sore, .tiles--senja { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .tile--besar, .tiles--sore .tile:first-child, .tile__lebar { grid-column: 1 / -1; }
+  .tile__lebar { aspect-ratio: 4 / 3; }
+  .tile--besar .tile__foto { aspect-ratio: 1; }
   .jam { grid-template-columns: 1fr; gap: 4px; }
   .cerita__grid, .bon__grid, .lokasi__grid { grid-template-columns: 1fr; }
   .struk { position: static; order: -1; }
@@ -152,3 +157,17 @@ form h2 { margin-bottom: 28px; }
 .bar__name .ikon { width: 1.4em; height: 1.4em; flex: none; }
 .foot__name { display: flex; align-items: center; gap: .14em; }
 .foot__name .ikon { width: .86em; height: .86em; flex: none; }
+.cerita__grid > div:first-child { position: sticky; top: 104px; }
+@media (max-width: 900px) { .cerita__grid > div:first-child { position: static; } }
+@media (max-width: 520px) {
+  .tile__info { padding: 12px; }
+  .tile__info div { flex-wrap: wrap; }
+  .tile__info .btn { flex: 1 1 100%; text-align: center; }
+  .tiles--sore .tile:first-child .btn, .tile--besar .btn { flex: 0 0 auto; }
+}
+.tiles--malam .tile__foto { flex: 1; aspect-ratio: auto; }
+.tiles--malam .tile__info { flex: none; }
+@media (max-width: 900px) {
+  .tile--besar .tile__foto, .tiles--malam .tile__foto { flex: none; aspect-ratio: 1; }
+  .tile--besar .tile__info { flex: none; }
+}
