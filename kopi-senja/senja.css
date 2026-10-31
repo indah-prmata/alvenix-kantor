@@ -237,3 +237,39 @@ form h2 { margin-bottom: 28px; }
 .tiles--malam .tile__foto--lepas img { object-fit: cover; padding: 0; }
 /* latar terang netral supaya warna asli cangkir tidak berubah */
 .tile__foto--lepas { background: #EFE7D8 !important; }
+
+/* malam: cangkir utuh, foto dek mengikuti tinggi kartu */
+.tiles--malam .tile__foto, .tiles--malam .tile__foto--lepas { flex: none; aspect-ratio: 1; }
+.tiles--malam .tile__foto--lepas img { object-fit: contain; padding: 0; }
+.tile__lebar { position: relative; }
+.tile__lebar img { position: absolute; inset: 0; }
+
+/* HP: menu digeser ke samping seperti aplikasi pesan makanan */
+@media (max-width: 900px) {
+  .langit { padding-block: 44px; }
+  .menu__judul { padding-block: 52px 8px; }
+  .menu__judul h2, .hero__judul { font-size: 11vw; }
+  .jam { margin-bottom: 16px; }
+  .tiles, .tiles--sore, .tiles--senja, .tiles--malam { display: flex; gap: 12px; margin-inline: calc(var(--m) * -1); padding: 0 var(--m) 6px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--m); scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .tiles::-webkit-scrollbar { display: none; }
+  .tile, .tile--besar, .tiles--sore .tile:first-child { flex: 0 0 74%; scroll-snap-align: start; }
+  .tile__foto, .tile--besar .tile__foto, .tiles--senja .tile__foto, .tiles--senja .tile--besar .tile__foto { flex: none; aspect-ratio: 4 / 4.6; border-radius: 14px; }
+  .tiles--malam .tile__foto, .tiles--malam .tile__foto--lepas { aspect-ratio: 4 / 4.6; }
+  .tile__lebar { flex: 0 0 86%; aspect-ratio: auto; border-radius: 14px; scroll-snap-align: start; }
+  .tile__info { padding: 12px 2px 0; }
+  .tile__info h4, .tiles:nth-of-type(n) .tile--besar .tile__info h4 { font-size: 1.1875rem; }
+  .tile__info div { flex-wrap: nowrap; }
+  .tile__info .btn, .tiles--sore .tile:first-child .btn, .tile--besar .btn { flex: 0 0 auto; }
+  .sampul { min-height: 82svh; }
+  .sampul h1 { font-size: 14vw; }
+  .sampul p { font-size: 1.0625rem; line-height: 1.45; margin: 12px 0 18px; }
+  .hero { padding-block: 44px 36px; }
+  .arc { height: 330px; }
+  .arc__item { width: 218px; }
+  .cerita { padding-block: 52px; }
+  .masonry { gap: 8px; }
+  .bon, .lokasi { padding-block: 52px; }
+  .lokasi__grid { gap: 20px; }
+  .masonry figure, .struk { border-radius: 10px; }
+}
+@media (max-width: 900px) { .tiles--malam .tile__foto--lepas img { object-fit: cover; } }
