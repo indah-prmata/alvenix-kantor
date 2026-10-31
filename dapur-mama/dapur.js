@@ -58,10 +58,9 @@
   const kilat = (b, t = "Masuk pesanan") => { const a = b.textContent; b.textContent = t; b.disabled = true; setTimeout(() => { b.textContent = a; b.disabled = false; }, 1100); };
 
   /* ---------- susun rantang ---------- */
-  const R = { nasi: "nasi-uduk", lauk: "rendang", sayur: "sayur-asem", q: 1 };
+  const R = { nasi: "nasi-kuning", lauk: "rendang", sayur: "sayur-asem", q: 1 };
   const hargaSatu = () => TINGKAT.reduce((s, t) => s + nasi(t.id, R[t.id]).h, 0);
-  $("#pilihan").innerHTML = TINGKAT.map(t => `<div class="pilihan__baris"><p>${t.n}</p><div>${t.isi.map(i => `<button type="button" data-t="${t.id}" data-i="${i.id}"><img src="img/${i.id}.jpg" alt="" loading="lazy" width="96" height="96"><span>${i.n}</span><small>${S.rupiah(i.h)}</small></button>`).join("")}</div></div>`).join("");
-  $("#tingkat").innerHTML = TINGKAT.map((t, i) => `<figure class="cincin" id="cincin-${t.id}"><img alt="" width="720" height="720"><figcaption></figcaption></figure>`).join("");
+  $("#tiga").innerHTML = TINGKAT.map((t, n) => `<div class="kolom"><figure class="cincin" id="cincin-${t.id}"><img alt="" width="720" height="720"></figure><p class="kolom__judul">${["Pertama", "Kedua", "Ketiga"][n]}, ${t.id === "sayur" ? "pendamping" : t.id}</p><div class="kolom__menu" role="group" aria-label="${t.n}">${t.isi.map(i => `<button type="button" data-t="${t.id}" data-i="${i.id}"><span>${i.n}</span><small>${S.rupiah(i.h)}</small></button>`).join("")}</div></div>`).join("");
   document.addEventListener("click", e => {
     const b = e.target.closest("[data-t]");
     if (!b) return;
@@ -71,7 +70,6 @@
     TINGKAT.forEach(t => {
       const w = $(`#cincin-${t.id}`), i = nasi(t.id, R[t.id]), im = w.querySelector("img");
       if (!im.src.endsWith(`/${i.id}.jpg`)) { im.src = `img/${i.id}.jpg`; im.alt = i.n; }
-      w.querySelector("figcaption").textContent = i.n;
       if (t.id === ganti) { w.classList.remove("isi"); void w.offsetWidth; w.classList.add("isi"); }
     });
     $$("[data-t]").forEach(b => b.setAttribute("aria-pressed", R[b.dataset.t] === b.dataset.i));
@@ -87,7 +85,7 @@
   };
 
   /* ---------- paket ---------- */
-  $("#daftarPaket").innerHTML = PAKET.map(p => `<li><img src="img/${p.foto}.jpg" alt="${p.n}" loading="lazy" width="${p.w}" height="${p.t}"><div><h3>${p.n}</h3><p>${p.f}</p><p class="paket__harga">${S.rupiah(p.h)} <span>per ${p.satuan || "porsi"}</span></p><button class="tombol tombol--garis-merah" type="button" data-paket="${p.id}">Pesan${p.min > 1 ? ` ${p.min} porsi` : ""}</button></div></li>`).join("");
+  $("#daftarPaket").innerHTML = PAKET.map(p => `<li><img src="img/${p.foto}.jpg" alt="${p.n}" loading="lazy" width="${p.w}" height="${p.t}"><div><h3>${p.n}</h3><p>${p.f}</p><p class="paket__harga">${S.rupiah(p.h)} <span>per ${p.satuan || "porsi"}</span></p><button class="tautan" type="button" data-paket="${p.id}">Pesan${p.min > 1 ? ` ${p.min} porsi` : ""}</button></div></li>`).join("");
   $("#daftarPaket").onclick = e => {
     const b = e.target.closest("[data-paket]"); if (!b) return;
     const p = PAKET.find(x => x.id === b.dataset.paket);
@@ -116,7 +114,7 @@
 
   /* ---------- langganan ---------- */
   let lama = "bulan";
-  $("#minggu").innerHTML = MINGGU.map(m => `<li><img src="img/${m.foto}.jpg" alt="${m.n}" loading="lazy" width="720" height="720"><p class="minggu__hari">${m.h}</p><h3>${m.n}</h3><p>${m.s}</p></li>`).join("");
+  $("#minggu").innerHTML = MINGGU.map(m => `<li><p class="minggu__hari">${m.h}</p><div><h3>${m.n}</h3><p>${m.s}</p></div><img src="img/${m.foto}.jpg" alt="${m.n}" loading="lazy" width="720" height="720"></li>`).join("");
   $("#lamaLangganan").innerHTML = LAMA.map(l => `<button type="button" data-lama="${l.id}">${l.n}${l.diskon ? `, hemat ${l.diskon * 100}%` : ""}</button>`).join("");
   $("#lamaLangganan").onclick = e => { const b = e.target.closest("[data-lama]"); if (b) { lama = b.dataset.lama; renderLangganan(); } };
   $("#fOrang").oninput = renderLangganan;
@@ -253,15 +251,17 @@
   /* ---------- tombol bawah HP dan muncul saat di-scroll ---------- */
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   let antre = false;
+  const piring = $$(".piring"), heroT = () => $("#hero").offsetHeight;
   const gerak = () => {
     antre = false;
+    if (!reduce && scrollY < heroT() * 1.2) piring.forEach(el => { el.style.setProperty("--y", `${scrollY * el.dataset.laju * 2}px`); el.style.setProperty("--r", `${scrollY * el.dataset.laju}deg`); });
     const p = $("#pesan").getBoundingClientRect();
     $("#apung").classList.toggle("sembunyi", !cart.length || (p.top < innerHeight * .7));
   };
   addEventListener("scroll", () => { if (!antre) { antre = true; requestAnimationFrame(gerak); } }, { passive: true });
   if (!reduce && "IntersectionObserver" in window) {
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("tampak"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -8% 0px" });
-    $$(".rantang__kepala, .tingkat, .pilihan, .rantang__kaki, .paket > h2, .paket li, .acara__isi, .acara > img, .langganan__kepala, .minggu li, .langganan__hitung, .dapurnya > *, .pesan__kiri, .nota, .lacak > div").forEach(el => { el.classList.add("muncul"); io.observe(el); });
+    $$(".rantang__kepala, .kolom, .rantang__kaki, .paket > h2, .paket li, .acara__isi, .acara > img, .langganan__kepala, .minggu li, .langganan__hitung, .dapurnya > *, .pesan__kiri, .nota, .lacak > div").forEach(el => { el.classList.add("muncul"); io.observe(el); });
   }
 
   renderRantang(); renderAcara(); renderLangganan(); renderPesan(); lacak(CONTOH); gerak();
