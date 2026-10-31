@@ -25,6 +25,7 @@
 
   /* ---------- karya: screenshot asli, klik = buka demo ---------- */
   const WORK = [
+    ["kopi-broyat", "Kopi Broyat", "Kedai Kopi", "Jambi", 0, 0, "Website", "https://kopibroyat.netlify.app/"],
     ["kopi", "Kopi Senja", "Kedai Kopi", "Jambi", 4.8, 640, "Landing page"],
     ["salon", "Salon Ayu", "Salon Kecantikan", "Jakarta", 4.9, 812, "Landing page"],
     ["bengkel", "Bengkel Maju Jaya", "Bengkel Sepeda Motor", "Jambi", 4.8, 359, "Landing page"],
@@ -32,8 +33,8 @@
     ["katering", "Dapur Mama", "Katering", "Jambi", 4.8, 275, "Website"],
     ["butik", "Butik Anggun", "Butik", "Jambi", 4.7, 188, "Website"]
   ];
-  $("#porto").innerHTML = WORK.map(([img, n, c, city, r, u, jenis]) => `
-    <a class="work rise" target="_blank" rel="noopener" href="${esc(S.links.demo({ name: n, category: c, city, rating: r, reviews: u }))}">
+  $("#porto").innerHTML = WORK.map(([img, n, c, city, r, u, jenis, asli]) => `
+    <a class="work rise" target="_blank" rel="noopener" href="${esc(asli || S.links.demo({ name: n, category: c, city, rating: r, reviews: u }))}">
       <div class="work__img"><img src="contoh/porto-${img}.jpg" alt="Website ${esc(n)}" loading="lazy"></div>
       <div class="work__meta"><div><b>${esc(n)}</b><small>${esc(c)} · ${esc(jenis)}</small></div><span class="work__go" aria-hidden="true">→</span></div>
     </a>`).join("");
