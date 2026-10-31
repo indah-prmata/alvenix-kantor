@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Klinik Senyum — klinik gigi di Kebayoran Baru, Jakarta</title>
+<meta name="description" content="Contoh website klinik gigi buatan alvenix: tunjuk gigi yang mengganggu, lihat saran perawatan dan harga, hitung cicilan behel, pilih dokter, bayar, dan simpan pengingat kontrol.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="img/logo.png" type="image/png">
+<link rel="stylesheet" href="senyum.css?v=4">
+</head>
+<body>
+<p class="ribbon">Contoh website buatan alvenix. <a href="../">Bikin seperti ini</a></p>
+
+<header class="bar">
+  <a class="bar__nama" href="#top"><img src="img/logo.png" alt="" width="30" height="34">Klinik Senyum</a>
+  <nav aria-label="Menu halaman"><a href="#peta">Peta gigi</a><a href="#perawatan">Perawatan</a><a href="#warna">Warna gigi</a><a href="#cicilan">Cicilan</a><a href="#dokter">Dokter</a><a href="#lokasi">Lokasi</a></nav>
+  <a class="tombol tombol--kecil" href="#janji">Buat janji <b data-jumlah>0</b></a>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero__isi">
+      <h1>Takut ke dokter gigi?<br>Mulai dari sini.</h1>
+      <p>Klinik gigi di Kebayoran Baru. Tunjuk gigi yang mengganggu, lihat harganya, lalu putuskan sendiri. Dokter menjelaskan dulu sebelum mulai.</p>
+      <div class="hero__aksi"><a class="tombol tombol--terang" href="#peta">Tunjuk gigi saya</a><a class="tautan" href="#janji">Sakit hari ini? Cari jadwal</a></div>
+    </div>
+    <img class="hero__foto" src="img/tertawa.jpg" alt="Pasien tertawa lepas di ruang periksa Klinik Senyum" width="1600" height="1195" fetchpriority="high">
+  </section>
+
+  <section class="peta" id="peta">
+    <div class="peta__mulut">
+      <div class="peta__kepala"><h2>Gigi mana yang sakit?</h2><p>Ketuk giginya. Kiri layar adalah sisi kanan mulutmu.</p></div>
+      <div id="mulut"></div>
+    </div>
+    <aside class="saran" id="saran" aria-live="polite"></aside>
+  </section>
+
+  <section class="gigi" id="gigi" aria-label="Proses menambal gigi berlubang">
+    <div class="gigi__panggung"><canvas class="gigi__kanvas" id="kanvas" width="1280" height="720" role="img" aria-label="Lubang gigi diisi bahan tambal sampai gigi kembali utuh saat halaman digulir"></canvas></div>
+  </section>
+
+  <section class="perawatan" id="perawatan">
+    <h2>Harga tertulis di depan</h2>
+    <ul class="kartu-rawat" id="kartuRawat"></ul>
+    <ul class="baris-rawat" id="barisRawat"></ul>
+    <p class="kecil">Harga "mulai" bisa berubah setelah dokter memeriksa. Dokter menyebut angkanya dulu sebelum mengerjakan.</p>
+  </section>
+
+  <section class="warna" id="warna">
+    <div class="warna__foto">
+      <img src="img/sebelum.jpg" alt="Senyum dengan warna gigi awal" loading="lazy" width="1500" height="837">
+      <img id="fotoSesudah" src="img/sesudah.jpg" alt="Senyum setelah whitening" loading="lazy" width="1500" height="837">
+    </div>
+    <div class="warna__isi">
+      <h2>Mau seputih apa?</h2>
+      <p>Pilih tingkat warna seperti di panduan dokter. Warna akhir tetap dibuat alami, sesuai warna kulit dan bentuk gigimu.</p>
+      <div class="tab-warna" id="tabWarna" role="group" aria-label="Tingkat warna gigi"></div>
+      <p class="warna__hasil" id="warnaHasil" aria-live="polite"></p>
+      <button class="tombol" type="button" data-rencana="whitening">Tambah whitening ke rencana</button>
+      <p class="kecil">Simulasi. Hasil tiap orang berbeda.</p>
+    </div>
+  </section>
+
+  <section class="cicilan" id="cicilan">
+    <div class="cicilan__isi">
+      <h2>Cicilan per bulan</h2>
+      <div class="seg-terang" id="pilihCicil" role="group" aria-label="Pilih perawatan"></div>
+      <label class="geser">Uang muka <b id="dpNilai"></b>
+        <input type="range" id="fDp" min="10" max="50" step="5" value="20">
+      </label>
+      <div class="seg-terang" id="pilihTenor" role="group" aria-label="Lama cicilan"></div>
+      <p class="cicilan__angka"><b id="perBulan">Rp0</b><span id="cicilRinci"></span></p>
+      <button class="tombol tombol--terang" type="button" id="konsulCicil">Konsultasi dulu</button>
+    </div>
+    <img id="fotoCicil" src="img/behel.jpg" alt="Model gigi dengan behel" loading="lazy" width="1100" height="821">
+  </section>
+
+  <section class="tenang" id="tenang">
+    <img src="img/ruang.jpg" alt="Ruang periksa Klinik Senyum dengan cahaya pagi" loading="lazy" width="1800" height="1005">
+    <div>
+      <h2>Boleh berhenti</h2>
+      <ul>
+        <li><b>Angkat tangan, kami berhenti.</b> Tanpa perlu menjelaskan.</li>
+        <li><b>Lihat dulu lewat kamera mulut.</b> Kamu melihat yang dokter lihat.</li>
+        <li><b>Anak punya sesi sendiri.</b> Kenalan dengan kursi dulu, baru diperiksa.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="dokter" id="dokter">
+    <h2>Dokter yang akan menanganimu</h2>
+    <ul id="daftarDokter"></ul>
+  </section>
+
+  <section class="janji" id="janji">
+    <div class="janji__kiri">
+      <h2>Buat janji</h2>
+      <button class="tombol tombol--garis" type="button" id="sakitHariIni">Sakit hari ini, cari jam terdekat</button>
+      <p class="kecil" id="sakitPesan" role="status"></p>
+      <form id="formJanji" novalidate>
+        <p class="judul-kecil">Dokter</p><div class="pilih" id="pilihDokter"></div>
+        <p class="judul-kecil">Hari</p><div class="pilih" id="pilihHari"></div>
+        <p class="judul-kecil">Jam</p><div class="pilih" id="pilihJam"></div>
+        <div class="dua">
+          <label>Nama<input id="fNama" autocomplete="name" required></label>
+          <label>Catatan untuk dokter<input id="fCatatan" autocomplete="off" placeholder="Takut jarum, sedang hamil"></label>
+        </div>
+        <fieldset class="seg"><legend>Bayar sekarang</legend><div>
+          <label><input type="radio" name="jenis" value="dp" checked><span>DP Rp100.000</span></label>
+          <label><input type="radio" name="jenis" value="lunas"><span>Lunas</span></label>
+        </div></fieldset>
+        <p class="galat" id="galat" role="alert"></p>
+        <button class="tombol tombol--penuh" type="submit">Lanjut bayar</button>
+      </form>
+    </div>
+    <aside class="rencana">
+      <h3>Rencana perawatan</h3>
+      <ul id="daftarRencana"></ul>
+      <ul class="rencana__hitung" id="hitungRencana"></ul>
+      <p class="kecil">Perkiraan. Dokter memastikan setelah memeriksa.</p>
+      <img src="img/alat.jpg" alt="Alat periksa yang bersih di atas kain pink" loading="lazy" width="900" height="672">
+    </aside>
+  </section>
+
+  <section class="cek" id="cek">
+    <div>
+      <h2>Cek janji</h2>
+      <form class="cek__cari" id="formCek">
+        <label class="sr" for="fCek">Kode janji</label>
+        <input id="fCek" autocomplete="off" placeholder="KS-XXXX">
+        <button class="tombol" type="submit">Cek</button>
+      </form>
+    </div>
+    <div class="cek__hasil" id="hasilCek" aria-live="polite"></div>
+  </section>
+
+  <section class="lokasi" id="lokasi">
+    <div>
+      <h2>Datang ke klinik</h2>
+      <p>Jl. Wijaya I No. 27, Kebayoran Baru, Jakarta Selatan</p>
+      <p>Senin sampai Sabtu, 09.00 sampai 20.00</p>
+      <a class="tombol tombol--terang" href="https://www.google.com/maps/search/?api=1&query=Kebayoran%20Baru%20Jakarta" target="_blank" rel="noopener">Buka di Google Maps</a>
+    </div>
+    <img src="img/resepsionis.jpg" alt="Area tunggu Klinik Senyum" loading="lazy" width="1500" height="837">
+  </section>
+</main>
+
+<footer class="kaki">
+  <p class="kaki__nama"><img src="img/logo-terang.png" alt="" width="30" height="34">Klinik Senyum</p>
+  <ul>
+    <li>WhatsApp 08122*******</li>
+    <li><a href="https://instagram.com/alvenixx" target="_blank" rel="noopener">Instagram @senyum**</a></li>
+    <li><a href="https://www.tiktok.com/@alvenix31" target="_blank" rel="noopener">TikTok @****</a></li>
+  </ul>
+  <p class="kaki__catat">Nama, alamat, dokter, dan harga di halaman ini adalah contoh. Saran perawatan bukan diagnosis.</p>
+</footer>
+
+<div class="apung" id="apung"><a class="tombol" href="#janji">Buat janji</a><a class="tombol tombol--garis" href="#janji">Rencana <b data-jumlah>0</b></a></div>
+
+<dialog class="kasir" id="kasir" aria-labelledby="kasirJudul" tabindex="-1" autofocus>
+  <button class="kasir__tutup" type="button" id="kasirTutup" aria-label="Tutup pembayaran">×</button>
+  <h2 id="kasirJudul">Bayar</h2>
+  <p class="kasir__nilai"><b id="kasirNilai">Rp0</b><span id="kasirWaktu"></span></p>
+  <p>Kode janji <b id="kasirKode"></b></p>
+  <div id="kasirBayar">
+    <fieldset class="seg"><legend>Bayar pakai</legend><div>
+      <label><input type="radio" name="bayar" value="QRIS" checked><span>QRIS</span></label>
+      <label><input type="radio" name="bayar" value="E-wallet"><span>E-wallet</span></label>
+      <label><input type="radio" name="bayar" value="M-banking"><span>M-banking</span></label>
+    </div></fieldset>
+    <div class="bayar" id="bayarBox"></div>
+    <button class="tombol tombol--penuh" type="button" id="sudahBayar">Cek pembayaran</button>
+    <p class="kecil" id="kasirCatat"></p>
+  </div>
+  <div class="kasir__ok" id="kasirBerhasil" hidden>
+    <h3>Pembayaran berhasil</h3>
+    <p><b id="okNilai"></b> untuk <b id="okKode"></b></p>
+    <button class="tombol tombol--penuh" type="button" id="keWa">Kirim rincian ke WhatsApp</button>
+    <button class="tombol tombol--garis tombol--penuh" type="button" id="keIcs">Simpan pengingat kontrol 6 bulan</button>
+  </div>
+</dialog>
+
+<script src="../config.js?v=20261030y"></script>
+<script src="../shared.js?v=20261030f"></script>
+<script src="senyum.js?v=2"></script>
+</body>
+</html>
