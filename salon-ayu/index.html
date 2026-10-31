@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Salon Ayu — salon rambut dan rias di Menteng, Jakarta</title>
 <meta name="description" content="Contoh website salon buatan alvenix: pilih layanan dan penata, atur jam, bayar DP dengan QRIS, e-wallet, atau m-banking, janji langsung masuk WhatsApp salon.">
-<link rel="preconnect" href="https://api.fontshare.com">
-<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
-<link href="https://api.fontshare.com/v2/css?f[]=boska@400,500,700,400i,500i&f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" href="img/logo.png" type="image/png">
-<link rel="stylesheet" href="ayu.css?v=3">
+<link rel="stylesheet" href="ayu.css?v=5">
 </head>
 <body>
 <p class="ribbon">Contoh website buatan alvenix. <a href="../">Bikin seperti ini</a></p>
@@ -23,7 +23,7 @@
 <main id="top">
   <section class="buka" id="buka" aria-label="Salon Ayu">
     <div class="buka__panggung">
-      <h1><span>Salon</span> <span>Ayu</span></h1>
+      <h1><span>Salon</span> <span><em>Ayu</em></span></h1>
       <div class="buka__kaca">
         <video src="img/cermin.mp4" poster="img/cermin-awal.jpg" autoplay muted loop playsinline aria-label="Penata menyisir rambut tamu sampai berkilau"></video>
       </div>
@@ -43,7 +43,7 @@
       <p id="kacaKet"></p>
     </div>
     <div class="layanan__papan">
-      <h2>Papan harga</h2>
+      <h2>Papan <em>harga</em></h2>
       <p class="layanan__intro">Ketuk untuk melihatnya di cermin, lalu tambahkan ke kartu janji. Harga sudah termasuk cuci dan blow.</p>
       <div id="papan"></div>
     </div>
@@ -52,7 +52,7 @@
   <section class="ruang" aria-label="Ruangan salon">
     <figure class="ruang__a"><img src="img/kursi.jpg" alt="Deretan kursi beludru hijau menghadap cermin bundar" width="1500" height="1120" loading="lazy"></figure>
     <div class="ruang__teks">
-      <h2>Kursi beludru, keramik hijau</h2>
+      <h2>Kursi beludru, <em>keramik hijau</em></h2>
       <p>Kursi di sini cuma empat. Satu penata pegang satu tamu sampai selesai, jadi kamu tidak ditinggal setengah jalan.</p>
       <p>Tempat keramasnya kami taruh di ruang belakang yang tenang, dengan sandaran empuk dan air hangat.</p>
     </div>
@@ -61,7 +61,7 @@
 
   <section class="hasil" id="hasil">
     <div class="hasil__teks">
-      <h2>Geser, lihat bedanya</h2>
+      <h2>Geser, <em>lihat bedanya</em></h2>
       <p id="hasilKet"></p>
       <div class="pilih" role="group" aria-label="Pilih contoh hasil">
         <button type="button" data-pasang="rambut" aria-pressed="true">Rambut</button>
@@ -69,8 +69,8 @@
       </div>
     </div>
     <div class="geser lengkung" id="geser" style="--x:50%">
-      <img id="sesudah" src="img/sesudah-rambut.jpg" alt="Sesudah" width="1100" height="1640" loading="lazy">
-      <img id="sebelum" src="img/sebelum-rambut.jpg" alt="Sebelum" width="1100" height="1640" loading="lazy">
+      <div class="geser__lap"><img id="sesudah" src="img/sesudah-rambut.jpg" alt="Sesudah" width="1100" height="1640" loading="lazy"></div>
+      <div class="geser__lap geser__lap--a"><img id="sebelum" src="img/sebelum-rambut.jpg" alt="Sebelum" width="1100" height="1640" loading="lazy"></div>
       <span class="geser__garis" aria-hidden="true"><b>↔</b></span>
       <input type="range" id="geserIn" min="0" max="100" value="50" aria-label="Geser untuk membandingkan sebelum dan sesudah">
       <small class="geser__a">Sebelum</small><small class="geser__b">Sesudah</small>
@@ -78,12 +78,12 @@
   </section>
 
   <section class="penata" id="penata">
-    <h2>Yang pegang rambutmu</h2>
+    <h2>Yang pegang <em>rambutmu</em></h2>
     <div class="penata__baris" id="penataList"></div>
   </section>
 
   <section class="janji" id="janji">
-    <h2>Atur janji</h2>
+    <h2>Atur <em>janji</em></h2>
     <form id="form" novalidate>
       <fieldset class="seg"><legend>Hari</legend><div id="hari" class="geserx"></div></fieldset>
       <fieldset class="seg"><legend>Jam</legend><div id="jam" class="grid-jam"></div></fieldset>
@@ -101,8 +101,8 @@
     </form>
 
     <aside class="kartu" aria-label="Kartu janji">
-      <img src="img/logo.png" alt="" width="52" height="84">
-      <h3>Kartu janji</h3>
+      <div class="kartu__kepala"><img src="img/logo-terang.png" alt="" width="40" height="64"><h3>Kartu janji</h3></div>
+      <div class="kartu__isi">
       <dl>
         <div><dt>Atas nama</dt><dd id="kNama">—</dd></div>
         <div><dt>Hari</dt><dd id="kHari">—</dd></div>
@@ -112,18 +112,19 @@
       <ul id="kList"></ul>
       <p class="kartu__total"><span>Perkiraan total</span><b id="kTotal">Rp0</b></p>
       <p class="kartu__dp"><span>DP 30%</span><b id="kDp">Rp0</b></p>
+      </div>
     </aside>
   </section>
 
   <section class="lokasi" id="lokasi">
     <div class="lokasi__isi">
-      <h2>Ruko hijau di Cikini</h2>
+      <h2>Ruko hijau <em>di Cikini</em></h2>
       <p>Selasa sampai Minggu, 10.00 – 20.00 WIB. Senin libur.</p>
-      <!-- contoh: ganti link & nama akun dengan milik salon -->
+      <!-- contoh: sementara memakai akun alvenix, ganti dengan milik salon -->
       <ul class="kontak">
-        <li><a href="https://wa.me/6282264116532" target="_blank" rel="noopener"><span>WhatsApp</span><b>0822 6411 6532</b></a></li>
-        <li><a href="https://www.instagram.com/" target="_blank" rel="noopener"><span>Instagram</span><b>@salonayu</b></a></li>
-        <li><a href="https://www.tiktok.com/" target="_blank" rel="noopener"><span>TikTok</span><b>@salonayu</b></a></li>
+        <li><a href="https://api.whatsapp.com/send?text=Halo%20Salon%20Ayu" target="_blank" rel="noopener"><span>WhatsApp</span><b>08122*******</b></a></li>
+        <li><a href="https://www.instagram.com/alvenixx/" target="_blank" rel="noopener"><span>Instagram</span><b>@alvenixx</b></a></li>
+        <li><a href="https://www.tiktok.com/@alvenix31" target="_blank" rel="noopener"><span>TikTok</span><b>@alvenix31</b></a></li>
         <li><a href="https://www.google.com/maps/search/?api=1&query=Jalan+Cikini+Raya+Menteng+Jakarta+Pusat" target="_blank" rel="noopener"><span>Alamat</span><b>Jl. Cikini Raya, Menteng, Jakarta Pusat</b></a></li>
       </ul>
     </div>
@@ -131,14 +132,17 @@
 </main>
 
 <footer class="kaki">
-  <p class="kaki__nama">Salon Ayu</p>
-  <p>Website oleh <a href="../">alvenix</a></p>
+  <p class="kaki__nama">Salon <em>Ayu</em></p>
+  <div class="kaki__link">
+    <nav aria-label="Kontak salon"><a href="https://api.whatsapp.com/send?text=Halo%20Salon%20Ayu" target="_blank" rel="noopener">WhatsApp</a><a href="https://www.instagram.com/alvenixx/" target="_blank" rel="noopener">Instagram</a><a href="https://www.tiktok.com/@alvenix31" target="_blank" rel="noopener">TikTok</a><a href="https://www.google.com/maps/search/?api=1&query=Jalan+Cikini+Raya+Menteng+Jakarta+Pusat" target="_blank" rel="noopener">Maps</a></nav>
+    <p>Website oleh <a href="../">alvenix</a></p>
+  </div>
 </footer>
 
 <a class="apung" id="apung" href="#janji" hidden><span id="apungTeks"></span><b>Atur janji</b></a>
 
 <script src="../config.js?v=20261030y"></script>
 <script src="../shared.js?v=20261030f"></script>
-<script src="ayu.js?v=1"></script>
+<script src="ayu.js?v=4"></script>
 </body>
 </html>

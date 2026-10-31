@@ -1,10 +1,9 @@
 /* Kopi Senja: menu per jam langit, bon pesanan, kirim ke WhatsApp pemilik.
    shortcut: pembayaran dicek manual oleh pemilik; konfirmasi otomatis butuh payment gateway (Midtrans/Xendit) + backend. */
 (() => {
-  const CFG = window.HQ_CONFIG || {}, S = window.HQ_SHARED;
+  const S = window.HQ_SHARED;
   const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-  const WA = CFG.waKantor;
 
   const LANGIT = {
     sore: { warna: "#F2B24E", tinta: "#1C2430", judul: "Sore, jam tiga", isi: "Panas mulai turun. Kopi seduh dan teh dingin." },
@@ -140,7 +139,8 @@
     const teks = `Halo Kopi Senja, saya mau pesan.\n\nNo. pesanan: *${S.kode("KS", 4)}*\nNama: ${nama}\nTerima: ${terima}${terima === "Antar" ? `\nAlamat: ${alamat}` : ""}\n\n` +
       r.map(m => `${m.q}x ${m.n} = ${S.rupiah(m.h * m.q)}`).join("\n") + `\n\n*Total: ${S.rupiah(total())}*\nBayar: ${bayar}` +
       ($("#fCatatan").value.trim() ? `\nCatatan: ${$("#fCatatan").value.trim()}` : "") + "\n\nBukti bayar saya kirim setelah ini.";
-    window.open(S.waLink(WA, teks), "_blank", "noopener");
+    // contoh: tanpa nomor tujuan, di website asli diganti nomor kedai
+    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(teks)}`, "_blank", "noopener");
   });
 
   /* ---------- muncul saat di-scroll ---------- */

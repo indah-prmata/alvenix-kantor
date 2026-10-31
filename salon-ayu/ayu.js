@@ -1,14 +1,14 @@
 /* Salon Ayu: papan harga di cermin, kartu janji, kirim ke WhatsApp salon.
    shortcut: jadwal penata dan DP dicek manual oleh admin; slot real-time butuh backend + payment gateway. */
 (() => {
-  const CFG = window.HQ_CONFIG || {}, S = window.HQ_SHARED;
+  const S = window.HQ_SHARED;
   const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
   const LAYANAN = [
     { g: "Rambut", id: "potong", n: "Potong dan blow", f: "Konsultasi bentuk wajah dulu, baru digunting", h: 120000, d: 60, foto: "potong", pos: "62% 50%" },
     { g: "Rambut", id: "creambath", n: "Creambath", f: "Pijat kepala dan bahu, masker rambut", h: 95000, d: 60, foto: "creambath", pos: "58% 50%" },
-    { g: "Rambut", id: "warna", n: "Warna rambut", f: "Harga menyesuaikan panjang rambut", h: 450000, d: 150, mulai: true, foto: "warna", pos: "62% 50%" },
+    { g: "Rambut", id: "warna", n: "Warna rambut", f: "Harga menyesuaikan panjang rambut", h: 450000, d: 150, mulai: true, foto: "warna-cokelat", pos: "54% 50%" },
     { g: "Wajah", id: "facial", n: "Facial", f: "Bersih pori, masker, pijat wajah", h: 180000, d: 60, foto: "facial", pos: "48% 50%" },
     { g: "Wajah", id: "rias", n: "Rias acara", f: "Wisuda, lamaran, kondangan", h: 350000, d: 60, foto: "makeup", pos: "50% 50%" },
     { g: "Wajah", id: "hijab", n: "Tata hijab", f: "Lipit rapi, kuat sampai acara selesai", h: 100000, d: 30, foto: "hijab", pos: "64% 50%" },
@@ -19,8 +19,8 @@
     { id: "raka", n: "Raka", p: "Rias acara dan pengantin", foto: "penata-raka", pos: "62% 30%" }
   ];
   const PASANG = {
-    rambut: { a: "sebelum-rambut", b: "sesudah-rambut", ket: "Rambut lepek dan tipis, keluar dengan gelombang lembut dan kilau yang tahan sampai malam." },
-    makeup: { a: "sebelum-makeup", b: "sesudah-makeup", ket: "Rias tipis yang tetap kelihatan seperti wajahmu sendiri, hanya lebih segar." }
+    rambut: { a: "sebelum-rambut", b: "sesudah-rambut", z: 1.42, ket: "Rambut lepek dan tipis, keluar dengan gelombang lembut dan kilau yang tahan sampai malam." },
+    makeup: { a: "sebelum-makeup", b: "sesudah-makeup", z: 1.12, ket: "Rias tipis yang tetap kelihatan seperti wajahmu sendiri, hanya lebih segar." }
   };
   const BAYAR = {
     "QRIS": () => `<div class="qris"><svg viewBox="0 0 21 21" role="img" aria-label="Contoh kode QRIS">${qr()}</svg><div><b>Salon Ayu</b><p>Pindai dengan aplikasi bank atau e-wallet apa pun, lalu masukkan ${S.rupiah(dp())}.</p><p>Kode ini contoh. Di website asli diganti QRIS milik salon.</p></div></div>`,
@@ -125,7 +125,7 @@
   $("#geserIn").addEventListener("input", e => geser.style.setProperty("--x", e.target.value + "%"));
   function pasang(k) {
     const P = PASANG[k];
-    $("#sebelum").src = `img/${P.a}.jpg`; $("#sesudah").src = `img/${P.b}.jpg`; $("#hasilKet").textContent = P.ket;
+    $("#sebelum").src = `img/${P.a}.jpg`; $("#sesudah").src = `img/${P.b}.jpg`; $("#hasilKet").textContent = P.ket; geser.style.setProperty("--z", P.z);
     $$("[data-pasang]").forEach(b => b.setAttribute("aria-pressed", b.dataset.pasang === k));
   }
 
@@ -155,7 +155,8 @@
     const teks = `Halo Salon Ayu, saya mau buat janji.\n\nNo. janji: *${S.kode("SA", 4)}*\nNama: ${nama}\nHari: ${fmtHari(J.hari)}\nJam: ${J.jam} WIB (${lama(durasi())})\nPenata: ${PENATA.find(p => p.id === J.penata)?.n || "Siapa saja"}\n\n` +
       r.map(l => `- ${l.n}: ${harga(l)}`).join("\n") + `\n\n*Perkiraan total: ${S.rupiah(total())}*\n*DP 30%: ${S.rupiah(dp())}*\nBayar DP: ${kel}` +
       (cat ? `\nCatatan: ${cat}` : "") + "\n\nBukti DP saya kirim setelah ini.";
-    window.open(S.waLink(CFG.waKantor, teks), "_blank", "noopener");
+    // contoh: tanpa nomor tujuan, di website asli diganti nomor salon
+    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(teks)}`, "_blank", "noopener");
   });
 
   /* ---------- cermin membuka saat digulir ---------- */
@@ -170,6 +171,10 @@
   const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { x.target.classList.add("in"); io.unobserve(x.target); } }), { threshold: .12 });
   document.documentElement.classList.add("js");
   $$(".baris, .ruang figure, .ruang__teks, .orang, .kartu").forEach((el, i) => { el.style.transitionDelay = (i % 3) * 60 + "ms"; io.observe(el); });
+
+  // tombol apung tidak perlu saat kartu janji dan kontak sudah terlihat
+  const ioApung = new IntersectionObserver(es => es.forEach(x => $("#apung").classList.toggle("sembunyi", x.isIntersecting)));
+  ioApung.observe($("#janji")); new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) $("#apung").classList.add("sembunyi"); else if ($("#janji").getBoundingClientRect().top > innerHeight) $("#apung").classList.remove("sembunyi"); })).observe($(".lokasi"));
 
   pasang("rambut"); lihat("potong"); render(); gulir();
 })();
