@@ -8,7 +8,7 @@
   const tulis = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} };
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const barang = id => KATALOG.find(b => b.id === id);
-  const fotoM = b => `img/m/${b.id}.webp`, fotoF = b => `img/f/${b.id}.webp`, fotoR = b => `img/r/${b.id}.jpg`;
+  const fotoM = b => `img/m/${b.id}.webp?v=2`, fotoF = b => `img/f/${b.id}.webp`, fotoR = b => `img/r/${b.id}.jpg`;
 
   /* ---------- kamar pas ---------- */
   const P = { g: "w", acara: "semua", id: "kebaya", ukuran: "" };
