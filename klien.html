@@ -95,6 +95,28 @@
   .help { margin-top: 30px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
   .help div { padding: 16px; border-radius: 16px; border: 1px solid var(--line); font-size: .9rem; color: var(--muted); }
   .help b { display: block; color: var(--text); margin-bottom: 2px; }
+  .embed .nilai { display: none; }
+  .nilai__baris { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 4px 16px; padding: 12px 0; border: 0; border-bottom: 1px solid var(--line); margin: 0; min-width: 0; }
+  .nilai__baris legend { float: left; padding: 0; font-weight: 700; }
+  .bintang { display: flex; }
+  .bintang label { width: 44px; height: 44px; display: grid; place-items: center; font-size: 1.7rem; line-height: 1; color: rgba(255,255,255,.16); cursor: pointer; transition: color .15s, transform .15s; }
+  .bintang label.is-on { color: #ffc24d; }
+  .bintang label:hover { transform: scale(1.12); }
+  .bintang input, .pilih input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .bintang input:focus-visible + span, .pilih input:focus-visible + span { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+  .nilai__lbl { display: block; margin: 20px 0 8px; font-weight: 700; }
+  .pilih { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pilih span { display: block; padding: 10px 18px; border-radius: 999px; border: 1px solid var(--line-2); color: var(--muted); cursor: pointer; }
+  .pilih input:checked + span { background: var(--gold-grad); border-color: transparent; color: #021417; font-weight: 700; }
+  .nilai textarea { width: 100%; min-height: 110px; padding: 14px 16px; border-radius: 16px; border: 1px solid var(--line-2); background: rgba(255,255,255,.04); color: var(--text); font: 400 1rem var(--f-body); resize: vertical; outline: none; box-sizing: border-box; }
+  .nilai textarea:focus { border-color: var(--gold); }
+  .nilai__izin { display: flex; gap: 10px; align-items: flex-start; margin-top: 14px; color: var(--muted); cursor: pointer; }
+  .nilai__izin input { width: 20px; height: 20px; margin: 2px 0 0; flex: none; accent-color: var(--gold); }
+  .nilai__ok { display: flex; align-items: baseline; gap: 10px; margin-top: 20px; }
+  .nilai__ok b { font-family: var(--f-display); font-weight: 500; font-size: 3rem; letter-spacing: -.05em; line-height: 1; }
+  .nilai__ok span { color: #ffc24d; font-size: 1.3rem; }
+  .nilai__kom { margin: 14px 0 0; color: var(--muted); white-space: pre-wrap; overflow-wrap: anywhere; }
+  @media (max-width: 480px) { .nilai__baris { grid-template-columns: 1fr; } .bintang label { width: 52px; } }
   @media (max-width: 600px) { .info, .help { grid-template-columns: 1fr; } .find { flex-direction: column; } .find .btn { width: 100%; } }
 </style>
 </head>
@@ -121,7 +143,7 @@
 </div>
 
 <div class="zoom" id="zoom" hidden onclick="this.hidden=true"><img id="zoomImg" alt="Foto progres"></div>
-<script src="config.js?v=20261030y"></script>
+<script src="config.js?v=20261101a"></script>
 <script src="shared.js?v=20261028"></script>
 <script>
 (() => {
@@ -142,6 +164,61 @@
 
   const safeImg = u => { u = String(u || "").trim(); return /^(https?:\/\/|data:image\/(jpeg|png|webp);base64,|contoh\/[\w-]+\.(jpg|png)$)/i.test(u) ? u : ""; };
   const safeUrl = u => /^https?:\/\//i.test(String(u || "").trim()) ? String(u).trim() : "";
+  /* ---------- penilaian kinerja: terbuka sejak klien bisa melihat hasilnya (tahap Revisi) ---------- */
+  const ASPEK = [["hasil", "Hasil desain"], ["kecepatan", "Kecepatan kerja"], ["komunikasi", "Komunikasi tim"], ["revisi", "Penanganan revisi"]];
+  const NKEY = "hq.nilai.v1";
+  const nilaiLokal = k => { try { return (JSON.parse(localStorage.getItem(NKEY)) || {})[k] || null; } catch { return null; } };
+  const simpanLokal = (k, v) => { try { const a = JSON.parse(localStorage.getItem(NKEY)) || {}; a[k] = v; localStorage.setItem(NKEY, JSON.stringify(a)); } catch {} };
+  const rata = v => ASPEK.reduce((s, [k]) => s + +v[k], 0) / ASPEK.length;
+  const titik = n => n.toFixed(1).replace(".", ",");
+
+  function isiNilai(P, ubah) {
+    const host = $("#nilai"); if (!host) return;
+    const v = nilaiLokal(P.kode);
+    if (v && !ubah) {
+      host.innerHTML = `
+        <div class="card__head"><div><h2>Terima kasih, penilaian Anda sudah kami terima</h2><p>${P.kode === "ALV-CONTOH" ? "Ini kode contoh, jadi nilainya tidak disimpan." : "Masukan ini langsung dibaca tim kami."}</p></div></div>
+        <div class="nilai__ok"><b>${titik(rata(v))}</b><span aria-hidden="true">★</span></div>
+        ${v.komentar ? `<p class="nilai__kom">${esc(v.komentar)}</p>` : ""}
+        <div class="acts"><button type="button" class="btn" id="nilaiUbah">Ubah penilaian</button></div>`;
+      $("#nilaiUbah").onclick = () => isiNilai(P, true);
+      return;
+    }
+    const a = v || {};
+    host.innerHTML = `
+      <div class="card__head"><div><h2>Nilai kinerja kami</h2><p>Jujur saja. Nilai Anda membantu kami bekerja lebih baik.</p></div></div>
+      <form id="nilaiForm" novalidate>
+        ${ASPEK.map(([k, l]) => `<fieldset class="nilai__baris"><legend>${l}</legend><div class="bintang">${[1, 2, 3, 4, 5].map(n => `<label class="${n <= +a[k] ? "is-on" : ""}"><input type="radio" name="${k}" value="${n}" ${n === +a[k] ? "checked" : ""} aria-label="${l}: ${n} dari 5"><span aria-hidden="true">★</span></label>`).join("")}</div></fieldset>`).join("")}
+        <span class="nilai__lbl">Mau merekomendasikan kami ke teman?</span>
+        <div class="pilih">${["Ya", "Mungkin", "Tidak"].map(x => `<label><input type="radio" name="rekomendasi" value="${x}" ${a.rekomendasi === x ? "checked" : ""}><span>${x}</span></label>`).join("")}</div>
+        <label class="nilai__lbl" for="nilaiKom">Saran atau kesan Anda</label>
+        <textarea id="nilaiKom" maxlength="1000" placeholder="Apa yang sudah bagus, apa yang perlu kami perbaiki?">${esc(a.komentar || "")}</textarea>
+        <label class="nilai__izin"><input type="checkbox" id="nilaiIzin" ${a.izin ? "checked" : ""}><span>Boleh ditampilkan sebagai testimoni dengan nama usaha saya.</span></label>
+        <p class="msg" id="nilaiMsg" role="status"></p>
+        <div class="acts" style="margin-top:8px"><button class="btn btn--gold" type="submit" id="nilaiKirim">Kirim penilaian</button></div>
+      </form>`;
+    $$(".bintang", host).forEach(b => b.onchange = e => $$("label", b).forEach((l, i) => l.classList.toggle("is-on", i < +e.target.value)));
+    $("#nilaiForm").onsubmit = async e => {
+      e.preventDefault();
+      const f = new FormData(e.target), d = { kode: P.kode };
+      ASPEK.forEach(([k]) => d[k] = +f.get(k) || 0);
+      const m = $("#nilaiMsg"), tb = $("#nilaiKirim");
+      if (ASPEK.some(([k]) => !d[k])) { m.textContent = "Beri bintang untuk keempat bagian dulu ya."; return; }
+      d.rekomendasi = f.get("rekomendasi") || ""; d.komentar = $("#nilaiKom").value.trim(); d.izin = $("#nilaiIzin").checked;
+      m.textContent = ""; tb.disabled = true; tb.textContent = "Mengirim…";
+      try {
+        if (P.kode !== "ALV-CONTOH") {
+          const r = await fetch(CFG.nilaiUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(d) });
+          let j = await r.json(); if (Array.isArray(j)) j = j[0];
+          if (!r.ok || !j || !j.ok) throw 0;
+        }
+        simpanLokal(P.kode, d); isiNilai(P);
+      } catch {
+        m.textContent = "Penilaian belum terkirim. Coba lagi sebentar ya."; tb.disabled = false; tb.textContent = "Kirim penilaian";
+      }
+    };
+  }
+
   function render(P) {
     const pv = safeUrl(P.pv);
     const t = Math.max(0, Math.min(TAHAP.length - 1, +P.t || 0));
@@ -200,7 +277,9 @@ Revisi bagian mana:
 1. `)}" target="_blank" rel="noopener">✏️ Revisi bagian mana?</a>
         </div>
         <p class="upd">Kalau tampilan tidak muncul di sini, tekan “Buka layar penuh”.</p>
-      </section>` : ""}`;
+      </section>` : ""}
+      ${t >= 3 ? `<section class="card nilai" id="nilai"></section>` : ""}`;
+    isiNilai(P);
     $$("[data-zoom]", $("#out")).forEach(b => b.onclick = () => { $("#zoomImg").src = b.dataset.zoom; $("#zoom").hidden = false; });
     $$("[data-dev]", $("#out")).forEach(b => b.onclick = () => { $(".pv__stage").dataset.dev = b.dataset.dev; $$(".pv__seg button").forEach(x => x.classList.toggle("is-on", x === b)); });
     requestAnimationFrame(() => setTimeout(() => $("#barFill").style.width = pct + "%", 60));

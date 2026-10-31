@@ -72,5 +72,6 @@ window.HQ_CONFIG = {
   fotoUrl: "https://webalvinix.app.n8n.cloud/webhook/alvenix-foto",       // foto update progres -> Google Drive
   dinaUrl: "https://webalvinix.app.n8n.cloud/webhook/alvenix-dina",           // riwayat chat Dina
   dinaCekUrl: "https://webalvinix.app.n8n.cloud/webhook/alvenix-dina-cek",    // baca riwayat & kontrol
-  dinaAdminUrl: "https://webalvinix.app.n8n.cloud/webhook/alvenix-dina-admin" // saklar AI, ambil alih, balas
+  dinaAdminUrl: "https://webalvinix.app.n8n.cloud/webhook/alvenix-dina-admin", // saklar AI, ambil alih, balas
+  nilaiUrl: "https://webalvinix.app.n8n.cloud/webhook/alvenix-nilai"          // penilaian kinerja dari klien
 };

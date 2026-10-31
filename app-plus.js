@@ -44,8 +44,23 @@
       if (!res.ok) throw 0;
       let j = await res.json(); if (Array.isArray(j) && j.length === 1 && j[0].proyek) j = j[0];
       (j.proyek || j || []).forEach(r => { if (!r.kode) return; const p = unflat(r); const old = proyek[p.kode]; if (!old || new Date(p.up || 0) > new Date(old.up || 0)) { (p.log || []).forEach(e => { const o = (old?.log || []).find(x => x.id === e.id); if (o && !e.img && o.img) e.img = o.img; }); proyek[p.kode] = p; } });
-      save(KEY, proyek); render();
+      save(KEY, proyek); render(); pullNilai();
     } catch { online = false; }
+  }
+  // penilaian dari klien (tab Nilai di Sheet); hanya dibaca, tidak ikut tersimpan di proyek
+  let nilai = {};
+  const ASPEK = [["hasil", "Hasil desain"], ["kecepatan", "Kecepatan kerja"], ["komunikasi", "Komunikasi tim"], ["revisi", "Penanganan revisi"]];
+  const rataN = n => ASPEK.reduce((s, [k]) => s + +n[k], 0) / ASPEK.length;
+  const titik = n => n.toFixed(1).replace(".", ",");
+  async function pullNilai() {
+    if (!CFG.nilaiUrl) return;
+    try {
+      const res = await fetch(CFG.nilaiUrl + "?key=" + encodeURIComponent(accessKey()), { headers: { Accept: "application/json" } });
+      if (!res.ok) return;
+      let j = await res.json(); if (Array.isArray(j) && j.length === 1 && j[0].nilai) j = j[0];
+      nilai = {}; (j.nilai || []).forEach(n => { if (n.kode) nilai[n.kode] = n; });
+      renderProyek();
+    } catch {}
   }
 
   /* ---------------- pesan WhatsApp ---------------- */
@@ -56,6 +71,7 @@
   const msgKode = p => `Halo ${p.nm ? "kak " + p.nm : "kak"} 🙏 Terima kasih sudah mempercayakan website *${p.n}* ke ${CFG.brand}!\n\n` +
     `Ini *kode proyek* kakak: *${p.kode}*\nProgres pengerjaan bisa dipantau kapan saja di:\n${S.base()}klien.html#k=${p.kode}\n\n` +
     `Atau langsung buka link ini (sudah berisi data terbaru):\n${S.links.klien(snap(p))}\n\nSetiap ada kemajuan, foto hasil kerjanya kami tambahkan di sana 📸`;
+  const msgNilai = p => `Halo ${p.nm ? "kak " + p.nm : "kak"} 🙏\n\nBoleh minta waktunya sebentar untuk menilai kerja kami di website *${p.n}*? Formnya ada di bagian paling bawah halaman ini:\n${S.base()}klien.html#k=${p.kode}\n\nTerima kasih banyak!`;
   const lastLog = p => (p.log || [])[(p.log || []).length - 1];
   const msgUpdate = p => `Halo ${p.nm ? "kak " + p.nm : "kak"} 👋\n\nUpdate website *${p.n}*: sekarang di tahap *${TAHAP[p.t]}* (${pctOf(p)}%).` +
     (lastLog(p) ? `\n\n📸 *${lastLog(p).j}*${lastLog(p).c ? "\n" + lastLog(p).c : ""}` : "") +
@@ -151,13 +167,14 @@
   function renderProyek() {
     const host = $("#proyekList"); if (!host) return;
     const list = Object.values(proyek).sort((a, b) => (a.t === 5) - (b.t === 5) || new Date(b.up) - new Date(a.up));
-    $("#proyekCount").textContent = `${list.filter(p => p.t < 5).length} berjalan · ${list.filter(p => p.t === 5).length} selesai`;
+    const semuaNilai = Object.values(nilai);
+    $("#proyekCount").textContent = `${list.filter(p => p.t < 5).length} berjalan · ${list.filter(p => p.t === 5).length} selesai` + (semuaNilai.length ? ` · ⭐ ${titik(semuaNilai.reduce((s, n) => s + rataN(n), 0) / semuaNilai.length)} dari ${semuaNilai.length} klien` : "");
     host.innerHTML = list.length ? list.map(p => {
       const sb = statusBayar(p), late = p.dl && p.dl < today() && p.t < 4;
       return `<article class="pj" data-pj="${esc(p.kode)}">
         <header><div><b>${esc(p.n)}</b><small>${esc(S.paket(p.p).nama)} · <span class="mono">${esc(p.kode)}</span></small></div><span class="pj__pct">${pctOf(p)}%</span></header>
         <div class="pj__steps">${TAHAP.map((t, i) => `<i class="${i < p.t ? "done" : i === p.t ? "now" : ""}" title="${t}"></i>`).join("")}</div>
-        <div class="pj__meta"><span>${esc(TAHAP[p.t])}</span><span class="${late ? "is-late" : ""}">🎯 ${fmtD(p.dl)}${late ? " · telat" : ""}</span><span>✏️ ${p.rv}/${MAX}</span><span>📸 ${(p.log || []).length} update</span><span class="pay pay--${sb}">${{ lunas: "Lunas", dp: "DP masuk", belum: "Belum bayar" }[sb]}</span></div>
+        <div class="pj__meta"><span>${esc(TAHAP[p.t])}</span><span class="${late ? "is-late" : ""}">🎯 ${fmtD(p.dl)}${late ? " · telat" : ""}</span><span>✏️ ${p.rv}/${MAX}</span><span>📸 ${(p.log || []).length} update</span>${nilai[p.kode] ? `<span>⭐ ${titik(rataN(nilai[p.kode]))}</span>` : ""}<span class="pay pay--${sb}">${{ lunas: "Lunas", dp: "DP masuk", belum: "Belum bayar" }[sb]}</span></div>
         <div class="pj__acts">
           <button type="button" class="btn btn--xs btn--gold" data-addprog="${esc(p.kode)}">📸 Tambah progres</button>
           <button type="button" class="btn btn--xs" data-copykode="${esc(p.kode)}">🔑 Salin kode klien</button>
@@ -165,6 +182,15 @@
         </div>
       </article>`;
     }).join("") : `<div class="empty plus-empty"><b>Belum ada proyek.</b><p>Buka detail lead → <b>Deal! Mulai proyek</b>, atau klik <b>+ Proyek baru</b>.</p></div>`;
+  }
+
+  function nilaiHtml(p) {
+    const n = nilai[p.kode];
+    if (n) return `<div class="d-sec"><h4>Penilaian klien — ⭐ ${titik(rataN(n))}</h4>
+        <div class="nilai-grid">${ASPEK.map(([k, l]) => `<div><span>${l}</span><b>${esc(n[k])} / 5</b></div>`).join("")}</div>
+        <p class="tbl__foot">Rekomendasi: ${esc(n.rekomendasi || "—")} · Testimoni: ${n.izin === true || n.izin === "ya" ? "boleh ditampilkan" : "tidak boleh ditampilkan"}${n.waktu ? " · " + fmtD(n.waktu) : ""}</p>
+        ${n.komentar ? `<p class="nilai-kom">${esc(n.komentar)}</p>` : ""}</div>`;
+    return +p.t >= 3 && p.wa ? `<div class="d-sec"><h4>Penilaian klien</h4><p class="tbl__foot">Belum ada penilaian.</p><div class="d-acts"><button class="btn btn--sm btn--wa" type="button" id="mintaNilai">⭐ Minta penilaian via WA</button></div></div>` : "";
   }
 
   function openProject(kode) {
@@ -190,6 +216,7 @@
           <div class="pv-row"><input class="sel" id="fPv" value="${esc(p.pv)}" placeholder="mis. https://kopisenja.vercel.app">${p.pv ? `<a class="btn btn--sm" href="${esc(p.pv)}" target="_blank" rel="noopener">Buka</a>` : ""}</div></label>
         <label class="plus-full"><span>Catatan untuk klien (tampil di portal)</span><textarea class="d-note" id="fCat" placeholder="mis. Menunggu foto menu dari klien">${esc(p.cat)}</textarea></label>
       </div>
+      ${nilaiHtml(p)}
       <div class="d-sec"><h4>Pembayaran — ${R(dibayar(p))} dari ${R(p.harga)}</h4>
         <div class="pay-list">${(p.bayar || []).map((b, i) => `<div><span>${fmtD(b.d)}</span><b>${R(b.j)}</b><button type="button" class="icon-btn" data-delpay="${i}" title="Hapus">✕</button></div>`).join("") || `<p class="tbl__foot">Belum ada pembayaran.</p>`}</div>
         <div class="d-acts">
@@ -241,6 +268,7 @@
     $("#payOther", body).onclick = () => { const v = +String(prompt("Jumlah pembayaran (angka saja):", "") || "").replace(/\D/g, ""); if (v > 0) { (p.bayar ||= []).push({ d: today(), j: v }); re(); } };
     $$("[data-delpay]", body).forEach(b => b.onclick = () => { if (confirm("Hapus catatan pembayaran ini?")) { p.bayar.splice(+b.dataset.delpay, 1); re(); } });
     $("#tagih", body) && ($("#tagih", body).onclick = () => window.open(wa(p.wa, msgTagih(p)), "_blank", "noopener"));
+    $("#mintaNilai", body) && ($("#mintaNilai", body).onclick = () => window.open(wa(p.wa, msgNilai(p)), "_blank", "noopener"));
     $("#sendUpd", body).onclick = () => { window.open(wa(p.wa, msgUpdate(p)), "_blank", "noopener"); A.log?.(`kirim update progres ke ${p.n}`); };
     $("#copyPortal", body).onclick = () => navigator.clipboard?.writeText(S.links.klien(snap(p))).then(() => A.toast("Link portal disalin"));
     let foto = "";

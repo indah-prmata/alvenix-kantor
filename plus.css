@@ -16,6 +16,10 @@
 .pj__steps i.now { background: var(--orange); box-shadow: 0 0 10px rgba(239,106,58,.6); }
 .pj__meta { display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: .76rem; color: var(--muted); }
 .pj__meta .is-late { color: var(--red); }
+.nilai-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.nilai-grid div { padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line); }
+.nilai-grid span { display: block; font-size: .76rem; color: var(--muted); }
+.nilai-kom { margin: 10px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; }
 .pay { font-family: var(--f-mono); font-size: .66rem; padding: 3px 8px; border-radius: 999px; border: 1px solid var(--line-2); white-space: nowrap; }
 .pay--lunas { color: var(--green); border-color: rgba(94,230,154,.35); }
 .pay--dp { color: var(--amber); border-color: rgba(255,177,92,.35); }
