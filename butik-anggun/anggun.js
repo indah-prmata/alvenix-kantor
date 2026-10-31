@@ -8,7 +8,7 @@
   const tulis = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} };
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const barang = id => KATALOG.find(b => b.id === id);
-  const fotoM = b => `img/m/${b.id}.webp?v=3`, fotoF = b => `img/f/${b.id}.webp?v=2`, fotoR = b => `img/r/${b.id}.jpg`;
+  const fotoM = b => `img/m/${b.id}.webp?v=4`, fotoF = b => `img/f/${b.id}.webp?v=2`, fotoR = b => `img/r/${b.id}.jpg`;
 
   /* ---------- kamar pas ---------- */
   const P = { g: "w", acara: "semua", id: "kebaya", ukuran: "" };
@@ -20,7 +20,7 @@
     return el;
   };
   const pasHuruf = () => { // huruf setinggi panggung: lebar tetap penuh, tingginya ditarik
-    const p = $("#pas"), hp = innerWidth <= 760, fs = innerWidth * .62;
+    const p = $("#pas"), hp = innerWidth <= 760, fs = innerWidth * .62; // tinggi berubah saat kamar pas dibuka di samping
     const tinggi = hp ? $("#latar").offsetHeight - 92 - 12 : p.offsetHeight - $("#rel").offsetHeight - 28;
     p.style.setProperty("--sy", (tinggi / (fs * .86)).toFixed(3));
   };
@@ -83,9 +83,33 @@
   const keKamar = id => {
     const b = barang(id);
     if (b.g !== P.g || (P.acara !== "semua" && !b.acara.includes(P.acara))) { P.g = b.g; P.acara = "semua"; renderSaring(); }
-    pakai(id); renderRel();
-    $("#pas").scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
+    pakai(id); renderRel(); bukaSamping();
   };
+  /* kamar pas meluncur dari samping, posisi scroll halaman tidak berubah */
+  const pas = $("#pas"); let diSamping = false, posisi = 0;
+  function bukaSamping() {
+    if (diSamping) return;
+    if (pas.getBoundingClientRect().bottom > innerHeight * .6) return; // kamar pas sudah terlihat
+    diSamping = true; posisi = scrollY;
+    $("#pasTempat").style.height = `${pas.offsetHeight}px`;
+    pas.classList.add("pas--samping"); $("#pasTutup").hidden = false;
+    document.documentElement.classList.add("terkunci"); pasHuruf();
+    if (!reduce) pas.animate([{ transform: "translateX(100%)" }, { transform: "none" }], { duration: 640, easing: "cubic-bezier(.77,0,.18,1)" });
+    $("#pasTutup").focus({ preventScroll: true });
+  }
+  function tutupSamping() {
+    if (!diSamping) return;
+    diSamping = false;
+    const selesai = () => {
+      pas.classList.remove("pas--samping"); $("#pasTutup").hidden = true; $("#pasTempat").style.height = "";
+      document.documentElement.classList.remove("terkunci"); pasHuruf();
+      scrollTo({ top: posisi, behavior: "instant" });
+    };
+    if (reduce) selesai();
+    else pas.animate([{ transform: "none" }, { transform: "translateX(100%)" }], { duration: 520, easing: "cubic-bezier(.77,0,.18,1)", fill: "forwards" }).onfinish = e => { selesai(); e.target.cancel(); };
+  }
+  $("#pasTutup").onclick = tutupSamping;
+  addEventListener("keydown", e => { if (e.key === "Escape" && !document.querySelector("dialog[open]")) tutupSamping(); });
   document.addEventListener("click", e => { const t = e.target.closest("[data-coba]"); if (t) keKamar(t.dataset.coba); });
 
   /* ---------- berdua ---------- */
@@ -118,7 +142,8 @@
 
   /* ---------- lemari ---------- */
   $("#sJumlah").textContent = KATALOG.length;
-  $("#lemari").innerHTML = KATALOG.map(b => `<button type="button" class="baju" data-lihat="${b.id}"><span class="baju__foto"><img src="${fotoR(b)}" alt="Model memakai ${esc(b.nama)}" loading="lazy"><img class="baju__flat" src="${fotoF(b)}" alt="" loading="lazy"></span><span class="baju__nama">${esc(b.nama)}</span><span class="baju__harga">${S.rupiah(b.harga)}</span></button>`).join("");
+  $("#lemari").innerHTML = KATALOG.map(b => `<div class="baju"><button type="button" class="baju__buka" data-lihat="${b.id}"><span class="baju__foto"><img src="${fotoR(b)}" alt="Model memakai ${esc(b.nama)}" loading="lazy"><img class="baju__flat" src="${fotoF(b)}" alt="" loading="lazy"></span><span class="baju__nama">${esc(b.nama)}</span><span class="baju__harga">${S.rupiah(b.harga)}</span></button><div class="baju__beli"><select aria-label="Ukuran ${esc(b.nama)}">${opsiUkur(b)}</select><button type="button" data-beli="${b.id}" aria-label="Masukkan ${esc(b.nama)} ke kantong">+ Kantong</button></div></div>`).join("");
+  $$(".baju").forEach(k => { const s = k.querySelector("select"), b = barang(k.querySelector("[data-beli]").dataset.beli); s.value = pilihan(b, b.g === "w" ? "M" : "L"); });
 
   let sorotId = "", gilirSorot = 0;
   function sorot(id) { // baju yang diketuk pindah ke bingkai besar di sebelahnya, halaman tetap di tempat
@@ -126,7 +151,7 @@
     const b = barang(id), wadah = $("#sorotFoto"), lama = wadah.querySelectorAll("img"), giliran = ++gilirSorot, foto = new Image();
     sorotId = id; foto.src = fotoR(b); foto.alt = `Model memakai ${b.nama}`;
     $("#sorotNama").textContent = b.nama; $("#sorotHarga").textContent = S.rupiah(b.harga);
-    $$("#lemari .baju").forEach(x => x.setAttribute("aria-pressed", x.dataset.lihat === id));
+    $$("#lemari [data-lihat]").forEach(x => x.setAttribute("aria-pressed", x.dataset.lihat === id));
     (foto.decode ? foto.decode().catch(() => {}) : Promise.resolve()).then(() => {
       if (giliran !== gilirSorot) return;
       wadah.append(foto);
@@ -135,6 +160,12 @@
     });
   }
   $("#lemari").onclick = e => {
+    const beli = e.target.closest("[data-beli]");
+    if (beli) {
+      const ok = tambah(beli.dataset.beli, beli.previousElementSibling.value);
+      beli.textContent = ok ? "Masuk" : "Stok habis"; setTimeout(() => { beli.textContent = "+ Kantong"; }, 1300);
+      return;
+    }
     const t = e.target.closest("[data-lihat]"); if (!t) return;
     sorot(t.dataset.lihat);
     if (innerWidth <= 1040) $(".sorot").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "nearest" });
@@ -169,7 +200,7 @@
   $("#uPakai").onclick = () => {
     P.ukuran = U.hasil;
     if (P.g !== U.g) { const b = KATALOG.find(k => k.g === U.g); keKamar(b.id); return; }
-    renderInfo(); $("#pas").scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
+    renderInfo(); bukaSamping();
   };
 
   /* ---------- kantong ---------- */
@@ -185,11 +216,12 @@
   const ongkir = () => KIRIM.find(k => k[0] === kirim)[2];
   const total = () => subtotal() + ongkir();
   function tambah(id, u, pasang) {
-    if (!u || sisaStok(id, u) <= 0) { $("#pStok").textContent = `Stok ukuran ${u} sudah semuanya di kantongmu`; return; }
+    if (!u || sisaStok(id, u) <= 0) { $("#pStok").textContent = `Stok ukuran ${u} sudah semuanya di kantongmu`; return false; }
     const c = isi.find(x => x.id === id && x.u === u);
     if (c) { c.q++; if (pasang) c.pasang = pasang; } else isi.push({ id, u, q: 1, pasang });
     simpan(); renderKantong();
     const t = $("#bukaKantong"); if (!reduce) t.animate([{ scale: 1 }, { scale: 1.14 }, { scale: 1 }], 380);
+    return true;
   }
   function renderKantong() {
     const n = isi.reduce((a, c) => a + c.q, 0);
@@ -304,7 +336,7 @@
   };
   const muatFrame = i => {
     if (bingkai[i]) return;
-    const f = new Image(); f.src = `img/putar/${String(i + 1).padStart(3, "0")}.webp?v=2`; bingkai[i] = f;
+    const f = new Image(); f.src = `img/putar/${String(i + 1).padStart(3, "0")}.webp?v=3`; bingkai[i] = f;
     f.onload = () => { if (i === mauFrame) lukis(i); };
   };
   let mauFrame = reduce ? 30 : 0, antre = false;
