@@ -343,7 +343,6 @@
     mauBingkai = Math.round(q * (FRAME - 1));
     gambar(mauBingkai);
     kanvas.style.transform = `scale(${1 + (innerWidth < 720 ? .16 : 0) * halus(potong((q - .6) / .4))})`;
-    bongkar.style.setProperty("--p", p.toFixed(3));
   }
   muatFrame(reduce ? FRAME - 1 : 0);
   if (reduce) mauBingkai = FRAME - 1;

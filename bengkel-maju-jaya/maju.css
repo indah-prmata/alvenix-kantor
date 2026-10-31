@@ -86,11 +86,9 @@ h1 em { white-space: nowrap; }
 .taksir__total, .spk__total { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding-top: 12px; border-top: 3px solid currentColor; font-weight: 700; }
 .taksir__total b, .spk__total b { font-family: var(--judul); font-size: 2.4rem; font-weight: 900; line-height: 1; }
 
-.bongkar { --p: 0; height: 340svh; background: var(--hitam); }
-.bongkar h2 em { display: block; }
+.bongkar { height: 340svh; background: var(--hitam); }
 .bongkar__panggung { background: #060606; position: sticky; top: 0; height: 100svh; display: grid; place-items: center; overflow: hidden; }
 .susun { display: block; width: min(100%, calc(100svh * 1.778)); aspect-ratio: 16 / 9; }
-.bongkar h2 { position: absolute; right: var(--tepi); top: 76px; text-align: right; font-size: clamp(2.8rem, 4.2vw, 4.6rem); opacity: calc((var(--p) - .78) * 6); transform: translateY(calc((1 - var(--p)) * 120px)); }
 
 .sparepart { padding: clamp(24px, 4vw, 56px) var(--tepi) clamp(56px, 8vw, 112px); background: var(--hitam); }
 .sparepart__kepala { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: 24px; }
@@ -266,7 +264,6 @@ h1 em { white-space: nowrap; }
   .bar { min-height: 56px; }
   html { scroll-padding-top: 64px; }
   .bar__keranjang { display: none; }
-  .bongkar h2 { top: auto; left: var(--tepi); bottom: 92px; text-align: left; font-size: clamp(2.8rem, 13vw, 4.5rem); }
   .apung { display: grid; }
   .hero { min-height: calc(100svh - 96px); align-items: flex-end; }
   .hero { background: var(--hitam); }
@@ -309,5 +306,4 @@ h1 em { white-space: nowrap; }
   .fiche__peta, .apung, .oli__bar i { transition: none; }
   .bongkar { height: auto; }
   .bongkar__panggung { position: static; height: auto; padding: 40px 0; }
-  .bongkar h2 { position: static; margin: 24px var(--tepi) 0; }
 }
