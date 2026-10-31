@@ -235,3 +235,5 @@ form h2 { margin-bottom: 28px; }
 .floatbon { background: var(--accent); color: var(--accent-ink); }
 .btn--terang { background: var(--accent); color: var(--accent-ink); }
 .tiles--malam .tile__foto--lepas img { object-fit: cover; padding: 0; }
+/* latar terang netral supaya warna asli cangkir tidak berubah */
+.tile__foto--lepas { background: #EFE7D8 !important; }
