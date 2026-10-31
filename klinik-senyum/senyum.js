@@ -285,27 +285,11 @@
   }
   $("#formCek").addEventListener("submit", e => { e.preventDefault(); if ($("#fCek").value.trim()) cek($("#fCek").value); });
 
-  /* ---------- gerak: video tambal gigi mengikuti scroll ---------- */
-  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches, potong = v => Math.max(0, Math.min(1, v));
-  const FRAME = 64, seksi = $("#gigi"), kanvas = $("#kanvas"), kuas = kanvas.getContext("2d"), bingkai = [];
-  let mau = reduce ? FRAME - 1 : 0, antre = false;
-  const gambar = i => { // kalau frame belum sampai, tampilkan frame terdekat sebelumnya
-    for (let k = i; k >= 0; k--) if (bingkai[k]?.complete && bingkai[k].naturalWidth) { kuas.drawImage(bingkai[k], 0, 0, 1280, 720); return; }
-  };
-  const muatFrame = i => {
-    if (bingkai[i]) return;
-    const im = bingkai[i] = new Image();
-    im.onload = () => { if (i <= mau) gambar(mau); };
-    im.src = `img/gigi/${String(i + 1).padStart(3, "0")}.webp`;
-  };
-  muatFrame(mau);
-  if (!reduce) new IntersectionObserver((es, o) => { // frame baru diunduh saat bagian ini mendekat
-    if (es[0].isIntersecting) { o.disconnect(); for (let i = 1; i < FRAME; i++) muatFrame(i); }
-  }, { rootMargin: "120% 0px" }).observe(seksi);
+  /* ---------- tombol bawah HP disembunyikan di bagian janji dan lokasi ---------- */
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let antre = false;
   function gerak() {
     antre = false;
-    const b = seksi.getBoundingClientRect(), p = potong(-b.top / (b.height - innerHeight));
-    if (!reduce) { mau = Math.round(potong((p - .03) / .9) * (FRAME - 1)); gambar(mau); }
     const j = $("#janji").getBoundingClientRect(), l = $("#lokasi").getBoundingClientRect();
     $("#apung").classList.toggle("sembunyi", (j.top < innerHeight * .7 && j.bottom > innerHeight * .3) || l.top < innerHeight * .7);
   }

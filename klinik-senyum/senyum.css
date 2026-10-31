@@ -76,9 +76,6 @@ h1 { font-size: clamp(3.2rem, 4.9vw, 5.6rem); }
 .saran__nama { font-family: var(--serif); font-size: 1.45rem; line-height: 1.15; }
 .saran__harga { font-weight: 700; font-size: 1.2rem; margin-bottom: 6px; }
 
-.gigi { height: 240svh; background: #ecd6b6; }
-.gigi__panggung { position: sticky; top: 0; height: 100svh; display: grid; place-items: center; overflow: hidden; background: #ecd6b6; }
-.gigi__kanvas { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 38% 50%; }
 
 .perawatan { padding: clamp(56px, 7vw, 104px) var(--tepi); background: var(--ungu); color: var(--gading); }
 .perawatan > h2 { max-width: 13em; }
@@ -220,9 +217,6 @@ h1 { font-size: clamp(3.2rem, 4.9vw, 5.6rem); }
   .hero__aksi { margin-top: 18px; }
   .hero__aksi .tombol { width: 100%; }
   .dua { grid-template-columns: minmax(0, 1fr); }
-  .gigi { height: 200svh; }
-  .gigi__panggung { background: #ecd6b6; }
-  .gigi__kanvas { height: 70svh; object-position: 40% 50%; -webkit-mask-image: linear-gradient(transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(transparent, #000 10%, #000 90%, transparent); }
   .kartu-rawat li, .kartu-rawat li:nth-child(n + 4) { grid-column: 1 / -1; flex-direction: column; }
   .kartu-rawat li:nth-child(n + 4) img { width: 100%; aspect-ratio: 4 / 3; }
   .baris-rawat li { grid-template-columns: minmax(0, 1fr) 88px; }
@@ -240,8 +234,5 @@ h1 { font-size: clamp(3.2rem, 4.9vw, 5.6rem); }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .gigi { height: auto; }
-  .gigi__panggung { position: static; height: auto; }
-  .gigi__kanvas { height: auto; aspect-ratio: 16 / 9; }
   .warna__foto img, .apung { transition: none; }
 }
