@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" href="img/logo.png" type="image/png">
-<link rel="stylesheet" href="ayu.css?v=7">
+<link rel="stylesheet" href="ayu.css?v=8">
 </head>
 <body>
 <p class="ribbon">Contoh website buatan alvenix. <a href="../">Bikin seperti ini</a></p>
@@ -144,18 +144,25 @@
   <h2 id="kasirJudul">Bayar <em id="kasirJenis">DP</em></h2>
   <p class="kasir__nilai"><b id="kasirNilai">Rp0</b><span id="kasirWaktu"></span></p>
   <p class="kasir__kode">No. janji <b id="kasirKode"></b></p>
+  <div id="kasirBayar">
   <fieldset class="seg"><legend>Bayar pakai</legend><div>
     <label><input type="radio" name="bayar" value="QRIS" checked><span>QRIS</span></label>
     <label><input type="radio" name="bayar" value="E-wallet"><span>E-wallet</span></label>
     <label><input type="radio" name="bayar" value="M-banking"><span>M-banking</span></label>
   </div></fieldset>
   <div class="bayar" id="bayarBox"></div>
-  <button class="tombol tombol--penuh" type="button" id="sudahBayar">Saya sudah bayar</button>
-  <p class="catat" id="kasirCatat">Lalu kirim bukti bayar di WhatsApp. Admin mengecek pembayaran dan jadwal penata, baru janji dikonfirmasi. Ini contoh, tidak ada uang yang diproses.</p>
+  <button class="tombol tombol--penuh" type="button" id="sudahBayar">Cek pembayaran</button>
+  <p class="catat" id="kasirCatat">Sudah membayar? Tekan Cek pembayaran. WhatsApp baru terbuka kalau pembayaran berhasil. Mode contoh: pembayaran selalu dianggap berhasil dan tidak ada uang yang diproses.</p>
+  </div>
+  <div class="kasir__ok" id="kasirBerhasil" hidden>
+    <h3>Pembayaran berhasil</h3>
+    <p><b id="okNilai"></b> untuk <b id="okKode"></b></p>
+    <button class="tombol tombol--penuh" type="button" id="keWa">Kirim rincian ke WhatsApp</button>
+  </div>
 </dialog>
 
 <script src="../config.js?v=20261030y"></script>
 <script src="../shared.js?v=20261030f"></script>
-<script src="ayu.js?v=5"></script>
+<script src="ayu.js?v=6"></script>
 </body>
 </html>

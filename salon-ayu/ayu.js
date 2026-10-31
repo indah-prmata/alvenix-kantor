@@ -172,17 +172,30 @@
     $("#kasirKode").textContent = kode;
     $("#kasirJenis").textContent = lunas() ? "lunas" : "DP 30%";
     $("#kasirNilai").textContent = S.rupiah(kini());
-    $("#kasirCatat").textContent = "Lalu kirim bukti bayar di WhatsApp. Admin mengecek pembayaran dan jadwal penata, baru janji dikonfirmasi. Ini contoh, tidak ada uang yang diproses.";
+    $("#kasirCatat").textContent = "Sudah membayar? Tekan Cek pembayaran. WhatsApp baru terbuka kalau pembayaran berhasil. Mode contoh: pembayaran selalu dianggap berhasil dan tidak ada uang yang diproses.";
+    $("#kasirBayar").hidden = false; $("#kasirBerhasil").hidden = true; $("#sudahBayar").textContent = "Cek pembayaran";
     bayar(); clearInterval(timer); tik(); timer = setInterval(tik, 1000);
     kasir.showModal();
   }
   kasir.addEventListener("close", () => clearInterval(timer));
   $("#kasirTutup").onclick = () => kasir.close();
-  $("#sudahBayar").onclick = () => {
+  // shortcut: situs statis tidak bisa membaca uang masuk, jadi mode contoh selalu berhasil.
+  // Di website asli fungsi ini menanyakan status ke backend payment gateway (Midtrans/Xendit).
+  const cekBayar = () => new Promise(ok => setTimeout(() => ok(true), 1500));
+  $("#sudahBayar").onclick = async () => {
+    const b = $("#sudahBayar"), k = kode;
+    clearInterval(timer); b.disabled = true; b.textContent = "Mengecek pembayaran...";
+    const berhasil = await cekBayar();
+    if (k !== kode || !kasir.open) return;
+    if (!berhasil) { b.disabled = false; b.textContent = "Cek pembayaran"; $("#kasirCatat").textContent = "Pembayaran belum masuk. Coba cek lagi sebentar."; return; }
+    $("#okNilai").textContent = $("#kasirNilai").textContent; $("#okKode").textContent = kode;
+    $("#kasirBayar").hidden = true; $("#kasirBerhasil").hidden = false; $("#kasirWaktu").textContent = "";
+  };
+  $("#keWa").onclick = () => {
     const r = dipilih(), cat = $("#fCatatan").value.trim(), kel = $('[name="bayar"]:checked').value, sisa = total() - kini();
     const teks = `Halo Salon Ayu, saya sudah bayar untuk janji ini.\n\nNo. janji: *${kode}*\nNama: ${$("#fNama").value.trim()}\nHari: ${fmtHari(J.hari)}\nJam: ${J.jam} WIB (${lama(durasi())})\nPenata: ${PENATA.find(p => p.id === J.penata)?.n || "Siapa saja"}\n\n` +
       r.map(l => `- ${l.n}: ${harga(l)}`).join("\n") + `\n\n*Perkiraan total: ${S.rupiah(total())}*\n*Dibayar (${lunas() ? "lunas" : "DP 30%"}): ${S.rupiah(kini())}*\nLewat: ${kel}${sisa ? `\nSisa di salon: ${S.rupiah(sisa)}` : ""}` +
-      (cat ? `\nCatatan: ${cat}` : "") + "\n\nBukti bayar saya kirim setelah ini.";
+      (cat ? `\nCatatan: ${cat}` : "") + "\n\nMohon konfirmasi jadwalnya.";
     // contoh: tanpa nomor tujuan, di website asli diganti nomor salon
     window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(teks)}`, "_blank", "noopener");
     kasir.close();

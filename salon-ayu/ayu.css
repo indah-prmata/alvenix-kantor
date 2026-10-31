@@ -242,3 +242,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 
 .kasir:focus { outline: 0; }
+
+.kasir__ok { margin-top: 20px; }
+.kasir__ok h3 { margin: 0 0 6px; font-size: 1.5rem; color: var(--hijau); }
+.kasir__ok .tombol, .kasir__ok .btn { margin-top: 18px; }

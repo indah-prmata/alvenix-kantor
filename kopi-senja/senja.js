@@ -151,16 +151,29 @@
   function bukaKasir() {
     kode = S.kode("KS", 4); detik = 900;
     $("#kasirKode").textContent = kode; $("#kasirNilai").textContent = S.rupiah(total()); $("#kasirCatat").textContent = CATAT;
+    $("#kasirBayar").hidden = false; $("#kasirBerhasil").hidden = true; $("#sudahBayar").textContent = "Cek pembayaran";
     renderPay(); clearInterval(timer); tik(); timer = setInterval(tik, 1000);
     kasir.showModal();
   }
   kasir.addEventListener("close", () => clearInterval(timer));
   $("#kasirTutup").onclick = () => kasir.close();
-  $("#sudahBayar").onclick = () => {
+  // shortcut: situs statis tidak bisa membaca uang masuk, jadi mode contoh selalu berhasil.
+  // Di website asli fungsi ini menanyakan status ke backend payment gateway (Midtrans/Xendit).
+  const cekBayar = () => new Promise(ok => setTimeout(() => ok(true), 1500));
+  $("#sudahBayar").onclick = async () => {
+    const b = $("#sudahBayar"), k = kode;
+    clearInterval(timer); b.disabled = true; b.textContent = "Mengecek pembayaran...";
+    const berhasil = await cekBayar();
+    if (k !== kode || !kasir.open) return;
+    if (!berhasil) { b.disabled = false; b.textContent = "Cek pembayaran"; $("#kasirCatat").textContent = "Pembayaran belum masuk. Coba cek lagi sebentar."; return; }
+    $("#okNilai").textContent = $("#kasirNilai").textContent; $("#okKode").textContent = kode;
+    $("#kasirBayar").hidden = true; $("#kasirBerhasil").hidden = false; $("#kasirWaktu").textContent = "";
+  };
+  $("#keWa").onclick = () => {
     const terima = document.querySelector('[name="terima"]:checked').value, alamat = $("#fAlamat").value.trim(), cat = $("#fCatatan").value.trim();
     const teks = `Halo Kopi Senja, saya sudah bayar pesanan ini.\n\nNo. pesanan: *${kode}*\nNama: ${$("#fNama").value.trim()}\nTerima: ${terima}${terima === "Antar" ? `\nAlamat: ${alamat}` : ""}\n\n` +
       baris().map(m => `${m.q}x ${m.n} = ${S.rupiah(m.h * m.q)}`).join("\n") + `\n\n*Dibayar: ${S.rupiah(total())}*\nLewat: ${document.querySelector('[name="bayar"]:checked').value}` +
-      (cat ? `\nCatatan: ${cat}` : "") + "\n\nBukti bayar saya kirim setelah ini.";
+      (cat ? `\nCatatan: ${cat}` : "") + "\n\nMohon segera diproses.";
     // contoh: tanpa nomor tujuan, di website asli diganti nomor kedai
     window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(teks)}`, "_blank", "noopener");
     kasir.close();
