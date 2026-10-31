@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bengkel Maju Jaya — jemput motor mogok dan sparepart di Jambi</title>
+<meta name="description" content="Contoh website bengkel buatan alvenix: panggil jemput motor mogok, beli sparepart dari gambar motor terurai, booking servis, bayar, dan lacak statusnya.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="img/logo.png" type="image/png">
+<link rel="stylesheet" href="maju.css?v=4">
+</head>
+<body>
+<p class="ribbon">Contoh website buatan alvenix. <a href="../">Bikin seperti ini</a></p>
+
+<header class="bar">
+  <a class="bar__nama" href="#top"><img src="img/logo.png" alt="" width="34" height="38">Maju Jaya</a>
+  <nav aria-label="Menu halaman"><a href="#jemput">Jemput</a><a href="#sparepart">Sparepart</a><a href="#servis">Servis</a><a href="#oli">Cek oli</a><a href="#lacak">Lacak</a><a href="#lokasi">Lokasi</a></nav>
+  <button class="bar__keranjang" type="button" data-buka-keranjang>Keranjang <b data-jumlah>0</b></button>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <img src="img/jemput-malam.jpg" alt="Mekanik mengikat motor mogok di bak mobil jemput, malam hari di jalan Jambi" width="2200" height="1643" fetchpriority="high">
+    <div class="hero__isi">
+      <h1>Mogok?<br><em>Kami jemput.</em></h1>
+      <p>Mobil Bengkel Maju Jaya datang ke tempatmu di Kota Jambi, siang atau tengah malam. Ongkosnya kelihatan sebelum mobil berangkat.</p>
+      <div class="hero__aksi"><a class="tombol" href="#jemput">Jemput motor saya</a><a class="tombol tombol--garis" href="#sparepart">Belanja sparepart</a></div>
+    </div>
+  </section>
+  <div class="pita" aria-hidden="true"></div>
+
+  <section class="jemput" id="jemput">
+    <div class="jemput__foto">
+      <img src="img/jemput-bicara.jpg" alt="Mekanik berbicara dengan pengendara di samping mobil jemput" loading="lazy" width="1500" height="1120">
+      <div>
+        <h2>Menepi dulu.<br>Kami datang.</h2>
+        <p>Menepi ke tempat aman, nyalakan lampu hazard, lalu isi tiket ini. Banyak mogok selesai di lokasi, jadi motor tidak selalu harus diangkut.</p>
+      </div>
+    </div>
+    <form class="tiket" id="formJemput" novalidate>
+      <fieldset class="langkah"><legend><i>1</i>Di mana motormu?</legend>
+        <button class="tombol tombol--garis tombol--penuh" type="button" id="pakaiLokasi">Pakai lokasi saya</button>
+        <p class="kecil" id="lokasiPesan" role="status">Atau geser jarak dari bengkel di bawah ini.</p>
+        <label class="geser-km">Jarak dari bengkel <b id="kmNilai">5 km</b>
+          <input type="range" id="fKm" min="1" max="25" value="5" step="1">
+        </label>
+        <label>Patokan lokasi<input id="fPatokan" autocomplete="off" placeholder="Depan Masjid Agung, arah Telanaipura"></label>
+      </fieldset>
+      <fieldset class="langkah"><legend><i>2</i>Motornya kenapa?</legend>
+        <div class="pilih-motor" data-pilih-motor></div>
+        <div class="masalah" id="masalah"></div>
+      </fieldset>
+      <fieldset class="langkah"><legend><i>3</i>Siapa yang dijemput?</legend>
+        <div class="dua">
+          <label>Nama<input id="fNamaJ" autocomplete="name" required></label>
+          <label>Plat motor<input id="fPlat" autocomplete="off" placeholder="BH 1234 XX"></label>
+        </div>
+      </fieldset>
+      <div class="taksir" aria-live="polite">
+        <p class="taksir__eta"><span>Mekanik tiba sekitar</span><b id="eta">25 menit</b></p>
+        <ul id="rincianJ"></ul>
+        <p class="taksir__total"><span>Total ongkos</span><b id="totalJ">Rp0</b></p>
+        <p class="galat" id="galatJ" role="alert"></p>
+        <button class="tombol tombol--hitam tombol--penuh" type="submit">Lanjut bayar dan panggil</button>
+        <p class="kecil">Kalau ternyata perlu sparepart, mekanik menunjukkan harganya dulu sebelum dipasang.</p>
+      </div>
+    </form>
+  </section>
+
+  <section class="bongkar" id="bongkar" aria-label="Motor terurai">
+    <div class="bongkar__panggung">
+      <img src="img/bongkar.jpg" alt="Motor matic yang dibongkar per bagian, dari rangka sampai mesin" loading="lazy" width="2000" height="1116">
+      <h2>Hafal motormu <em>sampai bautnya.</em></h2>
+    </div>
+  </section>
+
+  <section class="sparepart" id="sparepart">
+    <div class="sparepart__kepala">
+      <h2>Beli langsung dari gambarnya</h2>
+      <div class="pilih-motor" data-pilih-motor></div>
+    </div>
+    <div class="fiche">
+      <div class="fiche__kiri">
+        <div class="fiche__tahap" id="tahap"><div class="fiche__peta" id="peta"><img src="img/terurai.jpg" alt="Gambar motor matic terurai dengan titik komponen yang bisa dibeli" width="2752" height="1536"></div><button class="fiche__semua" type="button" id="lihatSemua" hidden>Lihat seluruh motor</button></div>
+        <div class="fiche__daftar" id="daftar" role="group" aria-label="Pilih komponen"></div>
+      </div>
+      <article class="fiche__kartu" id="kartuPart" aria-live="polite"></article>
+    </div>
+
+    <h3 class="rak__judul">Rak bengkel</h3>
+    <ul class="rak" id="rak"></ul>
+  </section>
+
+  <section class="servis" id="servis">
+    <div class="servis__kiri">
+      <h2>Harga servis ditulis dari awal</h2>
+      <p>Pilih jenis motor, centang yang dibutuhkan. Tidak ada biaya tambahan tanpa persetujuanmu.</p>
+      <div class="pilih-motor pilih-motor--terang" data-pilih-motor></div>
+      <div class="harga" id="daftarServis"></div>
+    </div>
+    <form class="spk" id="formServis" novalidate>
+      <h3>Lembar kerja</h3>
+      <ul class="spk__baris" id="spkBaris"></ul>
+      <label class="cek"><input type="checkbox" id="fAntar"><span>Motor dijemput dari rumah dan diantar kembali</span><b>Rp25.000</b></label>
+      <p class="spk__judul">Hari</p>
+      <div class="pilih" id="pilihHari"></div>
+      <p class="spk__judul">Jam masuk</p>
+      <div class="pilih" id="pilihJam"></div>
+      <div class="dua">
+        <label>Nama<input id="fNamaS" autocomplete="name" required></label>
+        <label>Plat motor<input id="fPlatS" autocomplete="off" placeholder="BH 1234 XX"></label>
+      </div>
+      <p class="spk__total"><span>Total</span><b id="totalS">Rp0</b></p>
+      <p class="galat" id="galatS" role="alert"></p>
+      <button class="tombol tombol--hitam tombol--penuh" type="submit">Lanjut bayar</button>
+      <p class="kecil">Antrean bengkel 7 hari ke depan bisa dipilih. Minggu tutup, kecuali layanan jemput.</p>
+    </form>
+  </section>
+
+  <section class="oli" id="oli">
+    <img class="oli__foto" src="img/tuang-oli.jpg" alt="Oli baru dituang ke mesin motor" loading="lazy" width="1400" height="1045">
+    <div class="oli__isi">
+      <h2>Kapan oli harus diganti?</h2>
+      <p>Lihat angka di speedometer, isi di sini.</p>
+      <div class="pilih-motor" data-pilih-motor></div>
+      <div class="dua">
+        <label>KM saat ganti oli terakhir<input id="kmLama" inputmode="numeric" value="12400"></label>
+        <label>KM sekarang<input id="kmKini" inputmode="numeric" value="13950"></label>
+      </div>
+      <p class="odo" id="odo" aria-hidden="true"></p>
+      <p class="oli__hasil" id="oliHasil" aria-live="polite"></p>
+      <div class="oli__bar"><i id="oliBar"></i></div>
+      <button class="tombol" type="button" id="beliOli">Masukkan oli ke keranjang</button>
+    </div>
+  </section>
+
+  <section class="tim" id="bengkel">
+    <div class="tim__video">
+      <video src="img/bengkel.mp4" poster="img/bengkel-awal.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Mekanik mengencangkan baut roda motor di atas lift"></video>
+    </div>
+    <div class="tim__teks">
+      <h2>Kencang sesuai torsi</h2>
+      <p>Motor naik lift, dicek berurutan, lalu diuji jalan sebelum kuncinya kembali ke kamu.</p>
+    </div>
+    <figure><img src="img/mekanik-bayu.jpg" alt="Bayu, mekanik Bengkel Maju Jaya, memegang kunci torsi" loading="lazy" width="1000" height="747"><figcaption><b>Bayu</b> Kepala mekanik, spesialis mesin dan CVT</figcaption></figure>
+    <figure><img src="img/mekanik-rani.jpg" alt="Rani, mekanik Bengkel Maju Jaya, memeriksa ban motor" loading="lazy" width="1000" height="747"><figcaption><b>Rani</b> Mekanik, spesialis kaki-kaki dan kelistrikan</figcaption></figure>
+  </section>
+
+  <section class="garansi">
+    <img src="img/serah-kunci.jpg" alt="Pelanggan menerima kunci motor dari mekanik" loading="lazy" width="1400" height="1045">
+    <div>
+      <p class="garansi__angka">30 hari</p>
+      <h2>Garansi kerja</h2>
+      <p>Keluhan yang sama muncul lagi dalam 30 hari? Bawa kembali, kami kerjakan tanpa biaya jasa. Sparepart lama diberikan kepadamu supaya bisa dilihat sendiri.</p>
+      <p class="garansi__nilai"><b>4,8</b> dari 359 ulasan pelanggan</p>
+    </div>
+  </section>
+
+  <section class="lacak" id="lacak">
+    <div>
+      <h2>Lacak motor dan pesanan</h2>
+      <p>Masukkan kode yang kamu dapat setelah membayar.</p>
+      <form class="lacak__cari" id="formLacak">
+        <label class="sr" for="fLacak">Kode pesanan</label>
+        <input id="fLacak" autocomplete="off" placeholder="MJ-XXXX">
+        <button class="tombol" type="submit">Lacak</button>
+      </form>
+    </div>
+    <div class="lacak__hasil" id="hasilLacak" aria-live="polite"></div>
+  </section>
+
+  <section class="lokasi" id="lokasi">
+    <img src="img/kerja-lift.jpg" alt="Ruang servis Bengkel Maju Jaya" loading="lazy" width="1400" height="781">
+    <div>
+      <h2>Mampir ke bengkel</h2>
+      <p>Jl. Kolonel Abunjani No. 17, Telanaipura, Kota Jambi</p>
+      <table>
+        <tr><th scope="row">Servis dan sparepart</th><td>Senin sampai Sabtu, 08.00 sampai 18.00</td></tr>
+        <tr><th scope="row">Jemput motor mogok</th><td>Setiap hari, 24 jam</td></tr>
+      </table>
+      <a class="tombol tombol--garis" href="https://www.google.com/maps/search/?api=1&query=Telanaipura%20Jambi" target="_blank" rel="noopener">Buka di Google Maps</a>
+    </div>
+  </section>
+</main>
+
+<footer class="kaki">
+  <p class="kaki__nama"><img src="img/logo.png" alt="" width="34" height="38">Bengkel Maju Jaya</p>
+  <ul>
+    <li>WhatsApp 08122*******</li>
+    <li><a href="https://instagram.com/alvenixx" target="_blank" rel="noopener">Instagram @maju**</a></li>
+    <li><a href="https://www.tiktok.com/@alvenix31" target="_blank" rel="noopener">TikTok @****</a></li>
+  </ul>
+  <p class="kaki__catat">Nama, alamat, harga, dan ulasan di halaman ini adalah contoh.</p>
+</footer>
+
+<div class="apung" id="apung">
+  <a class="tombol" href="#jemput">Mogok? Jemput</a>
+  <button class="tombol tombol--hitam" type="button" data-buka-keranjang>Keranjang <b data-jumlah>0</b></button>
+</div>
+
+<dialog class="kasir keranjang" id="keranjang" aria-labelledby="keranjangJudul" tabindex="-1" autofocus>
+  <button class="kasir__tutup" type="button" data-tutup aria-label="Tutup keranjang">×</button>
+  <h2 id="keranjangJudul">Keranjang</h2>
+  <ul class="keranjang__isi" id="isiKeranjang"></ul>
+  <form id="formKeranjang" novalidate>
+    <fieldset class="seg"><legend>Cara terima</legend><div>
+      <label><input type="radio" name="terima" value="ambil" checked><span>Ambil</span></label>
+      <label><input type="radio" name="terima" value="kirim"><span>Dikirim</span></label>
+      <label><input type="radio" name="terima" value="pasang"><span>Dipasang</span></label>
+    </div></fieldset>
+    <label>Nama<input id="fNamaK" autocomplete="name" required></label>
+    <label id="wadahAlamat" hidden>Alamat kirim<textarea id="fAlamat" rows="2" autocomplete="street-address"></textarea></label>
+    <ul class="keranjang__hitung" id="hitungKeranjang"></ul>
+    <p class="galat" id="galatK" role="alert"></p>
+    <button class="tombol tombol--penuh" type="submit">Lanjut bayar</button>
+  </form>
+</dialog>
+
+<dialog class="kasir" id="kasir" aria-labelledby="kasirJudul" tabindex="-1" autofocus>
+  <button class="kasir__tutup" type="button" data-tutup aria-label="Tutup pembayaran">×</button>
+  <h2 id="kasirJudul">Bayar</h2>
+  <p class="kasir__nilai"><b id="kasirNilai">Rp0</b><span id="kasirWaktu"></span></p>
+  <p>Kode <b id="kasirKode"></b></p>
+  <div id="kasirBayar">
+    <fieldset class="seg"><legend>Bayar pakai</legend><div>
+      <label><input type="radio" name="bayar" value="QRIS" checked><span>QRIS</span></label>
+      <label><input type="radio" name="bayar" value="E-wallet"><span>E-wallet</span></label>
+      <label><input type="radio" name="bayar" value="M-banking"><span>M-banking</span></label>
+    </div></fieldset>
+    <div class="bayar" id="bayarBox"></div>
+    <button class="tombol tombol--penuh" type="button" id="sudahBayar">Cek pembayaran</button>
+    <p class="kecil" id="kasirCatat"></p>
+  </div>
+  <div class="kasir__ok" id="kasirBerhasil" hidden>
+    <h3>Pembayaran berhasil</h3>
+    <p><b id="okNilai"></b> untuk <b id="okKode"></b></p>
+    <button class="tombol tombol--penuh" type="button" id="keWa">Kirim rincian ke WhatsApp</button>
+    <button class="tombol tombol--garis tombol--penuh" type="button" id="keLacak">Lacak statusnya</button>
+  </div>
+</dialog>
+
+<script src="../config.js?v=20261030y"></script>
+<script src="../shared.js?v=20261030f"></script>
+<script src="maju.js?v=3"></script>
+</body>
+</html>

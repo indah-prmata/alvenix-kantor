@@ -28,7 +28,7 @@
     ["kopi-broyat", "Kopi Broyat", "Kedai Kopi", "Jambi", 0, 0, "Website", "https://kopibroyat.netlify.app/"],
     ["kopi-senja", "Kopi Senja", "Kedai Kopi", "Jambi", 0, 0, "Website", "kopi-senja/"],
     ["salon-ayu", "Salon Ayu", "Salon Kecantikan", "Jakarta", 0, 0, "Website", "salon-ayu/"],
-    ["bengkel", "Bengkel Maju Jaya", "Bengkel Sepeda Motor", "Jambi", 4.8, 359, "Landing page"],
+    ["bengkel", "Bengkel Maju Jaya", "Bengkel Sepeda Motor", "Jambi", 0, 0, "Website", "bengkel-maju-jaya/"],
     ["klinik", "Klinik Senyum", "Klinik Gigi", "Jakarta", 4.9, 410, "Website"],
     ["katering", "Dapur Mama", "Katering", "Jambi", 4.8, 275, "Website"],
     ["butik", "Butik Anggun", "Butik", "Jambi", 4.7, 188, "Website"]
