@@ -53,9 +53,9 @@
   const rataN = n => ASPEK.reduce((s, [k]) => s + +n[k], 0) / ASPEK.length;
   const titik = n => n.toFixed(1).replace(".", ",");
   async function pullNilai() {
-    if (!CFG.nilaiUrl) return;
+    if (!CFG.nilaiTimUrl) return;
     try {
-      const res = await fetch(CFG.nilaiUrl + "?key=" + encodeURIComponent(accessKey()), { headers: { Accept: "application/json" } });
+      const res = await fetch(CFG.nilaiTimUrl + "?key=" + encodeURIComponent(accessKey()), { headers: { Accept: "application/json" } });
       if (!res.ok) return;
       let j = await res.json(); if (Array.isArray(j) && j.length === 1 && j[0].nilai) j = j[0];
       nilai = {}; (j.nilai || []).forEach(n => { if (n.kode) nilai[n.kode] = n; });
