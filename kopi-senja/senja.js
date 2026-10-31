@@ -76,12 +76,16 @@
   function renderPay() { $("#payBox").innerHTML = BAYAR[document.querySelector('[name="bayar"]:checked').value](); }
 
   /* ---------- menu ---------- */
-  $("#menuBody").innerHTML = `<h2>Menu, urut dari sore sampai malam</h2>` + Object.entries(LANGIT).map(([k, L]) => `
-    <div class="jam"><h3>${L.judul}</h3><p>${L.isi}</p></div>
-    <div class="tiles tiles--${k}">${MENU.filter(m => m.l === k).map(m => `<article class="tile ${m.besar ? "tile--besar" : ""}">
-      <div class="tile__foto ${m.lepas ? "tile__foto--lepas" : ""}" style="background:${L.foto || L.warna}">${gambar(m)}</div>
-      <div class="tile__info" style="background:${L.warna};color:${L.tinta}"><h4>${esc(m.n)}</h4><p>${esc(m.f)}</p><div><b>${S.rupiah(m.h)}</b><button class="btn btn--sm" type="button" data-tambah="${m.id}" data-count="${m.id}">Tambah</button></div></div>
-    </article>`).join("")}${k === "malam" ? `<figure class="tile__lebar"><img src="img/suasana-lampu.jpg" alt="Dek kedai saat lampu menyala setelah gelap" width="1600" height="1600" loading="lazy"></figure>` : ""}</div>`).join("");
+  $("#menu").innerHTML = `<div class="wrap menu__judul"><h2>Menu, dari sore sampai malam</h2></div>` + Object.entries(LANGIT).map(([k, L]) => `
+    <section class="langit ${k === "malam" ? "langit--gelap" : ""}" style="background:${L.warna};color:${L.tinta}" aria-label="${L.judul}">
+      <div class="wrap">
+        <div class="jam"><h3>${L.judul}</h3><p>${L.isi}</p></div>
+        <div class="tiles tiles--${k}">${MENU.filter(m => m.l === k).map(m => `<article class="tile ${m.besar ? "tile--besar" : ""}">
+          <div class="tile__foto ${m.lepas ? "tile__foto--lepas" : ""}" style="background:${L.foto || L.warna}">${gambar(m)}</div>
+          <div class="tile__info"><h4>${esc(m.n)}</h4><p>${esc(m.f)}</p><div><b>${S.rupiah(m.h)}</b><button class="btn btn--sm" type="button" data-tambah="${m.id}" data-count="${m.id}">Tambah</button></div></div>
+        </article>`).join("")}${k === "malam" ? `<figure class="tile__lebar"><img src="img/suasana-lampu.jpg" alt="Dek kedai saat lampu menyala setelah gelap" width="1600" height="1600" loading="lazy"></figure>` : ""}</div>
+      </div>
+    </section>`).join("");
 
   $("#galeri").innerHTML = GALERI.map(([f, alt, c]) => `<figure class="${c}"><img src="img/${f}.jpg" alt="${alt}" width="1200" height="900" loading="lazy"></figure>`).join("");
 
@@ -143,6 +147,10 @@
   const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { x.target.classList.add("in"); io.unobserve(x.target); } }), { threshold: .1 });
   document.documentElement.classList.add("js");
   $$(".tile, .jam, .masonry figure, .cerita__grid > div:first-child, .struk").forEach((el, i) => { el.style.transitionDelay = (i % 4) * 70 + "ms"; io.observe(el); });
+
+  // foto pembuka bergerak pelan saat digulir
+  const foto = $(".sampul img");
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) addEventListener("scroll", () => { if (scrollY < innerHeight) foto.style.transform = `translateY(${scrollY * .18}px) scale(1.04)`; }, { passive: true });
 
   hero(); renderBon();
 })();

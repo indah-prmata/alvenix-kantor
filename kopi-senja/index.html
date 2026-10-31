@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600&display=swap" rel="stylesheet">
 <link rel="icon" href="img/logo-kopi-senja.svg" type="image/svg+xml">
-<link rel="stylesheet" href="senja.css?v=7">
+<link rel="stylesheet" href="senja.css?v=9">
 </head>
 <body>
 <p class="ribbon">Ini contoh website buatan alvenix, pesanan di sini tidak diproses kedai. <a href="../">Bikin seperti ini</a></p>
@@ -21,11 +21,17 @@
 </header>
 
 <main id="top">
-  <section class="hero" id="hero" aria-label="Menu andalan">
-    <div class="hero__text">
+  <section class="sampul" aria-label="Kopi Senja">
+    <img src="img/suasana-tangan.jpg" alt="Pelanggan memegang cangkir biru di dek tepi Sungai Batanghari saat senja" width="1800" height="1344" fetchpriority="high">
+    <div class="sampul__isi">
       <h1>Kopi Senja, tepi Batanghari</h1>
       <p>Kopi Kerinci dan Liberika Tungkal, diseduh saat matahari turun di Jambi. Pesan dari sini, bayar QRIS, e-wallet, atau m-banking.</p>
+      <a class="btn btn--terang" href="#menu">Lihat menu</a>
     </div>
+  </section>
+
+  <section class="hero" id="hero" aria-label="Menu andalan">
+    <h2 class="hero__judul">Paling sering dipesan</h2>
     <div class="arc" id="arc"></div>
     <div class="hero__item">
       <button class="arrow" type="button" id="prev" aria-label="Menu sebelumnya">←</button>
@@ -35,9 +41,7 @@
     <button class="btn btn--hero" type="button" id="heroAdd"></button>
   </section>
 
-  <section class="menu" id="menu">
-    <div class="wrap" id="menuBody"></div>
-  </section>
+  <section class="menu" id="menu"></section>
 
   <section class="cerita" id="cerita">
     <div class="wrap cerita__grid">
@@ -84,7 +88,13 @@
   <section class="lokasi" id="lokasi">
     <div class="wrap lokasi__grid">
       <div><h2>Datang sebelum gelap</h2><p>Selasa sampai Minggu, 15.00 – 23.00 WIB. Senin libur.</p></div>
-      <div><p><b>Alamat</b><br>Tepi Sungai Batanghari, Kota Jambi</p></div>
+      <!-- contoh: ganti link & nama akun dengan milik toko -->
+      <ul class="kontak">
+        <li><a href="https://wa.me/6282264116532" target="_blank" rel="noopener"><span>WhatsApp</span><b>0822 6411 6532</b></a></li>
+        <li><a href="https://www.instagram.com/" target="_blank" rel="noopener"><span>Instagram</span><b>@kopisenja</b></a></li>
+        <li><a href="https://www.tiktok.com/" target="_blank" rel="noopener"><span>TikTok</span><b>@kopisenja</b></a></li>
+        <li><a href="https://www.google.com/maps/search/?api=1&query=Sungai+Batanghari+Kota+Jambi" target="_blank" rel="noopener"><span>Alamat</span><b>Tepi Sungai Batanghari, Kota Jambi</b></a></li>
+      </ul>
     </div>
   </section>
 </main>
@@ -98,6 +108,6 @@
 
 <script src="../config.js?v=20261030y"></script>
 <script src="../shared.js?v=20261030f"></script>
-<script src="senja.js?v=6"></script>
+<script src="senja.js?v=7"></script>
 </body>
 </html>
