@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kopi Senja — kedai kopi di tepi Batanghari, Jambi</title>
+<meta name="description" content="Contoh website kedai kopi buatan alvenix: pesan menu dari web, bayar QRIS, e-wallet, atau m-banking, pesanan langsung ke pemilik.">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="senja.css?v=1">
+</head>
+<body>
+<p class="ribbon">Ini contoh website buatan alvenix, pesanan di sini tidak diproses kedai. <a href="../">Bikin seperti ini</a></p>
+
+<header class="bar">
+  <a class="bar__name" href="#top">Kopi Senja</a>
+  <nav aria-label="Menu halaman"><a href="#menu">Menu</a><a href="#cerita">Cerita</a><a href="#lokasi">Lokasi</a></nav>
+  <a class="btn btn--sm" href="#bon">Bon <span data-qty>0</span></a>
+</header>
+
+<main id="top">
+  <section class="hero" id="hero" aria-label="Menu andalan">
+    <div class="hero__text">
+      <h1>Kopi Senja, tepi Batanghari</h1>
+      <p>Kopi Kerinci dan Liberika Tungkal, diseduh saat matahari turun di Jambi. Pesan dari sini, bayar QRIS, e-wallet, atau m-banking.</p>
+    </div>
+    <div class="arc" id="arc"></div>
+    <div class="hero__item">
+      <button class="arrow" type="button" id="prev" aria-label="Menu sebelumnya">←</button>
+      <div aria-live="polite"><h2 id="heroName"></h2><p id="heroFact"></p></div>
+      <button class="arrow" type="button" id="next" aria-label="Menu berikutnya">→</button>
+    </div>
+    <button class="btn btn--hero" type="button" id="heroAdd"></button>
+  </section>
+
+  <section class="menu" id="menu">
+    <div class="wrap" id="menuBody"></div>
+  </section>
+
+  <section class="cerita" id="cerita">
+    <div class="wrap cerita__grid">
+      <div>
+        <h2>Dua kopi dari tanah Jambi</h2>
+        <p>Arabika Kerinci tumbuh di kaki gunung, Liberika Tungkal tumbuh di lahan gambut pesisir. Dua-duanya kami sangrai sedikit-sedikit, lalu kami seduh mulai jam tiga sore, saat panas mulai turun dari sungai.</p>
+        <p>Kedainya kecil. Bangku kayu menghadap air, dan lampunya baru dinyalakan setelah langit gelap.</p>
+      </div>
+      <div class="masonry" id="galeri"></div>
+    </div>
+  </section>
+
+  <section class="bon" id="bon">
+    <div class="wrap bon__grid">
+      <form id="form" novalidate>
+        <h2>Pesan dan bayar</h2>
+        <label class="f"><span>Nama</span><input id="fNama" autocomplete="name" required></label>
+        <fieldset class="seg"><legend>Cara terima</legend>
+          <label><input type="radio" name="terima" value="Ambil di kedai" checked><span>Ambil di kedai</span></label>
+          <label><input type="radio" name="terima" value="Antar"><span>Antar</span></label>
+        </fieldset>
+        <label class="f" id="wrapAlamat" hidden><span>Alamat antar</span><input id="fAlamat" autocomplete="street-address"></label>
+        <label class="f"><span>Catatan</span><input id="fCatatan" placeholder="Kurang manis, tanpa es"></label>
+        <fieldset class="seg"><legend>Bayar pakai</legend>
+          <label><input type="radio" name="bayar" value="QRIS" checked><span>QRIS</span></label>
+          <label><input type="radio" name="bayar" value="E-wallet"><span>E-wallet</span></label>
+          <label><input type="radio" name="bayar" value="M-banking"><span>M-banking</span></label>
+        </fieldset>
+        <div class="pay" id="payBox"></div>
+        <p class="err" id="err" role="alert"></p>
+        <button class="btn btn--wide" type="submit">Kirim pesanan ke WhatsApp kedai</button>
+        <p class="note">Setelah transfer, kirim bukti bayar di chat yang sama. Pesanan dibuat setelah pemilik mengecek pembayaran.</p>
+      </form>
+
+      <aside class="struk" aria-label="Bon pesanan">
+        <h3>Kopi Senja</h3>
+        <p>Tepi Batanghari, Kota Jambi</p>
+        <ul id="bonList"></ul>
+        <p class="struk__total"><span>Total</span><b id="bonTotal">Rp0</b></p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="lokasi" id="lokasi">
+    <div class="wrap lokasi__grid">
+      <div><h2>Datang sebelum gelap</h2><p>Selasa sampai Minggu, 15.00 – 23.00 WIB. Senin libur.</p></div>
+      <div><p><b>Alamat</b><br>Tepi Sungai Batanghari, Kota Jambi</p></div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <p class="foot__name">Kopi Senja</p>
+  <p>Website oleh <a href="../">alvenix</a></p>
+</footer>
+
+<a class="floatbon" id="floatbon" href="#bon" hidden><span id="floatText"></span><b>Lihat bon</b></a>
+
+<script src="../config.js?v=20261030y"></script>
+<script src="../shared.js?v=20261030f"></script>
+<script src="senja.js?v=1"></script>
+</body>
+</html>
