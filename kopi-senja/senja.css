@@ -121,7 +121,7 @@ form h2 { margin-bottom: 28px; }
 .lokasi h2 + p { margin-top: 16px; }
 
 .foot { padding: 40px var(--m) 28px; background: var(--ink); color: #fff; overflow: hidden; }
-.foot__name { font-weight: 600; font-size: clamp(3.4rem, 15.5vw, 16rem); letter-spacing: -.05em; line-height: .95; white-space: nowrap; }
+.foot__name { font-weight: 600; font-size: clamp(3rem, 13vw, 14rem); letter-spacing: -.05em; line-height: .95; white-space: nowrap; }
 
 .floatbon { display: none; }
 
@@ -148,3 +148,7 @@ form h2 { margin-bottom: 28px; }
   .js .tile, .js .jam, .js .masonry figure, .js .cerita__grid > div:first-child, .js .struk { opacity: 1; transform: none; }
 }
 .f[hidden] { display: none; }
+.bar__name { display: inline-flex; align-items: center; gap: 10px; }
+.bar__name .ikon { width: 1.4em; height: 1.4em; flex: none; }
+.foot__name { display: flex; align-items: center; gap: .14em; }
+.foot__name .ikon { width: .86em; height: .86em; flex: none; }
