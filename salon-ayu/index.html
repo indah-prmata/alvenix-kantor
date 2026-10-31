@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Salon Ayu — salon rambut dan rias di Menteng, Jakarta</title>
+<meta name="description" content="Contoh website salon buatan alvenix: pilih layanan dan penata, atur jam, bayar DP dengan QRIS, e-wallet, atau m-banking, janji langsung masuk WhatsApp salon.">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=boska@400,500,700,400i,500i&f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+<link rel="icon" href="img/logo.png" type="image/png">
+<link rel="stylesheet" href="ayu.css?v=3">
+</head>
+<body>
+<p class="ribbon">Contoh website buatan alvenix. <a href="../">Bikin seperti ini</a></p>
+
+<header class="bar">
+  <a class="bar__nama" href="#top"><img src="img/logo-terang.png" alt="" width="22" height="36">Salon Ayu</a>
+  <nav aria-label="Menu halaman"><a href="#layanan">Layanan</a><a href="#hasil">Hasil</a><a href="#penata">Penata</a><a href="#lokasi">Lokasi</a></nav>
+  <a class="tombol tombol--kecil" href="#janji">Buat janji</a>
+</header>
+
+<main id="top">
+  <section class="buka" id="buka" aria-label="Salon Ayu">
+    <div class="buka__panggung">
+      <h1><span>Salon</span> <span>Ayu</span></h1>
+      <div class="buka__kaca">
+        <video src="img/cermin.mp4" poster="img/cermin-awal.jpg" autoplay muted loop playsinline aria-label="Penata menyisir rambut tamu sampai berkilau"></video>
+      </div>
+      <i class="buka__bingkai" aria-hidden="true"></i>
+      <div class="buka__kiri">
+        <p>Salon rambut dan rias di Menteng, Jakarta. Pilih layanan, pilih penata, dan kursimu kami siapkan.</p>
+        <a class="tombol" href="#layanan">Pilih layanan</a>
+      </div>
+      <p class="buka__kanan">Selasa sampai Minggu<br>10.00 – 20.00 WIB</p>
+      <p class="buka__akhir">Duduk dulu.<br>Sisanya urusan kami.</p>
+    </div>
+  </section>
+
+  <section class="layanan" id="layanan">
+    <div class="layanan__kaca" aria-live="polite">
+      <div class="lengkung"><img id="kaca" src="img/potong.jpg" alt="" width="800" height="1000"></div>
+      <p id="kacaKet"></p>
+    </div>
+    <div class="layanan__papan">
+      <h2>Papan harga</h2>
+      <p class="layanan__intro">Ketuk untuk melihatnya di cermin, lalu tambahkan ke kartu janji. Harga sudah termasuk cuci dan blow.</p>
+      <div id="papan"></div>
+    </div>
+  </section>
+
+  <section class="ruang" aria-label="Ruangan salon">
+    <figure class="ruang__a"><img src="img/kursi.jpg" alt="Deretan kursi beludru hijau menghadap cermin bundar" width="1500" height="1120" loading="lazy"></figure>
+    <div class="ruang__teks">
+      <h2>Kursi beludru, keramik hijau</h2>
+      <p>Kursi di sini cuma empat. Satu penata pegang satu tamu sampai selesai, jadi kamu tidak ditinggal setengah jalan.</p>
+      <p>Tempat keramasnya kami taruh di ruang belakang yang tenang, dengan sandaran empuk dan air hangat.</p>
+    </div>
+    <figure class="ruang__b lengkung"><img src="img/keramas.jpg" alt="Wastafel keramas di ruang berkeramik hijau" width="1500" height="1120" loading="lazy"></figure>
+  </section>
+
+  <section class="hasil" id="hasil">
+    <div class="hasil__teks">
+      <h2>Geser, lihat bedanya</h2>
+      <p id="hasilKet"></p>
+      <div class="pilih" role="group" aria-label="Pilih contoh hasil">
+        <button type="button" data-pasang="rambut" aria-pressed="true">Rambut</button>
+        <button type="button" data-pasang="makeup" aria-pressed="false">Rias</button>
+      </div>
+    </div>
+    <div class="geser lengkung" id="geser" style="--x:50%">
+      <img id="sesudah" src="img/sesudah-rambut.jpg" alt="Sesudah" width="1100" height="1640" loading="lazy">
+      <img id="sebelum" src="img/sebelum-rambut.jpg" alt="Sebelum" width="1100" height="1640" loading="lazy">
+      <span class="geser__garis" aria-hidden="true"><b>↔</b></span>
+      <input type="range" id="geserIn" min="0" max="100" value="50" aria-label="Geser untuk membandingkan sebelum dan sesudah">
+      <small class="geser__a">Sebelum</small><small class="geser__b">Sesudah</small>
+    </div>
+  </section>
+
+  <section class="penata" id="penata">
+    <h2>Yang pegang rambutmu</h2>
+    <div class="penata__baris" id="penataList"></div>
+  </section>
+
+  <section class="janji" id="janji">
+    <h2>Atur janji</h2>
+    <form id="form" novalidate>
+      <fieldset class="seg"><legend>Hari</legend><div id="hari" class="geserx"></div></fieldset>
+      <fieldset class="seg"><legend>Jam</legend><div id="jam" class="grid-jam"></div></fieldset>
+      <label class="f"><span>Nama</span><input id="fNama" autocomplete="name" required></label>
+      <label class="f"><span>Catatan</span><input id="fCatatan" placeholder="Rambut sebahu, mau warna cokelat"></label>
+      <fieldset class="seg"><legend>Bayar DP pakai</legend><div>
+        <label><input type="radio" name="bayar" value="QRIS" checked><span>QRIS</span></label>
+        <label><input type="radio" name="bayar" value="E-wallet"><span>E-wallet</span></label>
+        <label><input type="radio" name="bayar" value="M-banking"><span>M-banking</span></label>
+      </div></fieldset>
+      <div class="bayar" id="bayarBox"></div>
+      <p class="galat" id="galat" role="alert"></p>
+      <button class="tombol tombol--penuh" type="submit">Kirim janji ke WhatsApp salon</button>
+      <p class="catat">Kirim bukti DP di chat yang sama. Admin mengecek jadwal penata, lalu membalas konfirmasi. Sisa bayar di salon.</p>
+    </form>
+
+    <aside class="kartu" aria-label="Kartu janji">
+      <img src="img/logo.png" alt="" width="52" height="84">
+      <h3>Kartu janji</h3>
+      <dl>
+        <div><dt>Atas nama</dt><dd id="kNama">—</dd></div>
+        <div><dt>Hari</dt><dd id="kHari">—</dd></div>
+        <div><dt>Jam</dt><dd id="kJam">—</dd></div>
+        <div><dt>Penata</dt><dd id="kPenata">—</dd></div>
+      </dl>
+      <ul id="kList"></ul>
+      <p class="kartu__total"><span>Perkiraan total</span><b id="kTotal">Rp0</b></p>
+      <p class="kartu__dp"><span>DP 30%</span><b id="kDp">Rp0</b></p>
+    </aside>
+  </section>
+
+  <section class="lokasi" id="lokasi">
+    <div class="lokasi__isi">
+      <h2>Ruko hijau di Cikini</h2>
+      <p>Selasa sampai Minggu, 10.00 – 20.00 WIB. Senin libur.</p>
+      <!-- contoh: ganti link & nama akun dengan milik salon -->
+      <ul class="kontak">
+        <li><a href="https://wa.me/6282264116532" target="_blank" rel="noopener"><span>WhatsApp</span><b>0822 6411 6532</b></a></li>
+        <li><a href="https://www.instagram.com/" target="_blank" rel="noopener"><span>Instagram</span><b>@salonayu</b></a></li>
+        <li><a href="https://www.tiktok.com/" target="_blank" rel="noopener"><span>TikTok</span><b>@salonayu</b></a></li>
+        <li><a href="https://www.google.com/maps/search/?api=1&query=Jalan+Cikini+Raya+Menteng+Jakarta+Pusat" target="_blank" rel="noopener"><span>Alamat</span><b>Jl. Cikini Raya, Menteng, Jakarta Pusat</b></a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="kaki">
+  <p class="kaki__nama">Salon Ayu</p>
+  <p>Website oleh <a href="../">alvenix</a></p>
+</footer>
+
+<a class="apung" id="apung" href="#janji" hidden><span id="apungTeks"></span><b>Atur janji</b></a>
+
+<script src="../config.js?v=20261030y"></script>
+<script src="../shared.js?v=20261030f"></script>
+<script src="ayu.js?v=1"></script>
+</body>
+</html>
