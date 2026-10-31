@@ -8,7 +8,7 @@
   const tulis = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} };
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const barang = id => KATALOG.find(b => b.id === id);
-  const fotoM = b => `img/m/${b.id}.webp?v=2`, fotoF = b => `img/f/${b.id}.webp`, fotoR = b => `img/r/${b.id}.jpg`;
+  const fotoM = b => `img/m/${b.id}.webp?v=3`, fotoF = b => `img/f/${b.id}.webp?v=2`, fotoR = b => `img/r/${b.id}.jpg`;
 
   /* ---------- kamar pas ---------- */
   const P = { g: "w", acara: "semua", id: "kebaya", ukuran: "" };
@@ -118,7 +118,29 @@
 
   /* ---------- lemari ---------- */
   $("#sJumlah").textContent = KATALOG.length;
-  $("#lemari").innerHTML = KATALOG.map(b => `<button type="button" class="baju" data-coba="${b.id}"><span class="baju__foto"><img src="${fotoR(b)}" alt="Model memakai ${esc(b.nama)}" loading="lazy"><img class="baju__flat" src="${fotoF(b)}" alt="" loading="lazy"></span><span class="baju__nama">${esc(b.nama)}</span><span class="baju__harga">${S.rupiah(b.harga)}</span></button>`).join("");
+  $("#lemari").innerHTML = KATALOG.map(b => `<button type="button" class="baju" data-lihat="${b.id}"><span class="baju__foto"><img src="${fotoR(b)}" alt="Model memakai ${esc(b.nama)}" loading="lazy"><img class="baju__flat" src="${fotoF(b)}" alt="" loading="lazy"></span><span class="baju__nama">${esc(b.nama)}</span><span class="baju__harga">${S.rupiah(b.harga)}</span></button>`).join("");
+
+  let sorotId = "", gilirSorot = 0;
+  function sorot(id) { // baju yang diketuk pindah ke bingkai besar di sebelahnya, halaman tetap di tempat
+    if (id === sorotId) return;
+    const b = barang(id), wadah = $("#sorotFoto"), lama = wadah.querySelectorAll("img"), giliran = ++gilirSorot, foto = new Image();
+    sorotId = id; foto.src = fotoR(b); foto.alt = `Model memakai ${b.nama}`;
+    $("#sorotNama").textContent = b.nama; $("#sorotHarga").textContent = S.rupiah(b.harga);
+    $$("#lemari .baju").forEach(x => x.setAttribute("aria-pressed", x.dataset.lihat === id));
+    (foto.decode ? foto.decode().catch(() => {}) : Promise.resolve()).then(() => {
+      if (giliran !== gilirSorot) return;
+      wadah.append(foto);
+      if (reduce || !lama.length) { lama.forEach(x => x.remove()); return; }
+      foto.animate([{ clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0 0 0)" }], { duration: 520, easing: "cubic-bezier(.77,0,.18,1)" }).onfinish = () => lama.forEach(x => x.remove());
+    });
+  }
+  $("#lemari").onclick = e => {
+    const t = e.target.closest("[data-lihat]"); if (!t) return;
+    sorot(t.dataset.lihat);
+    if (innerWidth <= 1040) $(".sorot").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "nearest" });
+  };
+  $("#sorotCoba").onclick = () => keKamar(sorotId);
+  sorot(KATALOG[0].id);
 
   /* ---------- cari ukuran ---------- */
   const TABEL = {
@@ -278,11 +300,11 @@
   /* ---------- putar: frame gaun mengikuti scroll ---------- */
   const FRAME = 95, kanvas = $("#kanvas"), kuas = kanvas.getContext("2d"), bingkai = [], putar = $("#putar");
   const lukis = i => { // kalau frame belum sampai, tampilkan frame terdekat sebelumnya
-    for (let k = i; k >= 0; k--) if (bingkai[k]?.complete && bingkai[k].naturalWidth) { kuas.drawImage(bingkai[k], 0, 0, 1280, 720); return; }
+    for (let k = i; k >= 0; k--) if (bingkai[k]?.complete && bingkai[k].naturalWidth) { kuas.drawImage(bingkai[k], 0, 0, 2560, 1440); return; }
   };
   const muatFrame = i => {
     if (bingkai[i]) return;
-    const f = new Image(); f.src = `img/putar/${String(i + 1).padStart(3, "0")}.webp`; bingkai[i] = f;
+    const f = new Image(); f.src = `img/putar/${String(i + 1).padStart(3, "0")}.webp?v=2`; bingkai[i] = f;
     f.onload = () => { if (i === mauFrame) lukis(i); };
   };
   let mauFrame = reduce ? 30 : 0, antre = false;

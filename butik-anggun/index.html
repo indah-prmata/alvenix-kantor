@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Six+Caps&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..600;1,6..96,400..600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" href="img/logo-hitam.png" type="image/png">
-<link rel="stylesheet" href="anggun.css?v=4">
+<link rel="stylesheet" href="anggun.css?v=6">
 </head>
 <body>
 <p class="ribbon">Contoh website buatan alvenix. <a href="../">Bikin seperti ini</a></p>
@@ -71,7 +71,7 @@
   </section>
 
   <section class="putar" id="putar" aria-label="Gaun Satin Anggur berjalan dan berputar mengikuti scroll">
-    <div class="putar__tahan"><canvas id="kanvas" width="1280" height="720"></canvas></div>
+    <div class="putar__tahan"><canvas id="kanvas" width="2560" height="1440"></canvas></div>
   </section>
   <aside class="putar__kaki">
     <p>Gaun Satin Anggur, dari depan sampai belakang.</p>
@@ -81,9 +81,15 @@
   <section class="semua" id="semua">
     <div class="semua__kepala">
       <h2>Semua <em>baju</em></h2>
-      <p><span id="sJumlah"></span> potong, stoknya sedikit karena dijahit per angkatan. Ketuk satu untuk mencobanya.</p>
+      <p><span id="sJumlah"></span> potong, stoknya sedikit karena dijahit per angkatan. Ketuk satu untuk melihatnya lebih besar.</p>
     </div>
-    <div class="lemari" id="lemari"></div>
+    <div class="etalase">
+      <figure class="sorot" aria-live="polite">
+        <div class="sorot__foto" id="sorotFoto"></div>
+        <figcaption><div><b id="sorotNama"></b><span id="sorotHarga"></span></div><button class="tombol" type="button" id="sorotCoba">Coba di kamar pas</button></figcaption>
+      </figure>
+      <div class="lemari" id="lemari"></div>
+    </div>
   </section>
 
   <section class="cariukur" id="ukuran">
@@ -189,6 +195,6 @@
 <script src="../config.js?v=20261030y"></script>
 <script src="../shared.js?v=20261030f"></script>
 <script src="data.js?v=1"></script>
-<script src="anggun.js?v=3"></script>
+<script src="anggun.js?v=5"></script>
 </body>
 </html>
