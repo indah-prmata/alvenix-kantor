@@ -31,7 +31,7 @@
     ["bengkel", "Bengkel Maju Jaya", "Bengkel Sepeda Motor", "Jambi", 0, 0, "Website", "bengkel-maju-jaya/"],
     ["klinik", "Klinik Senyum", "Klinik Gigi", "Jakarta", 0, 0, "Website", "klinik-senyum/"],
     ["katering", "Dapur Mama", "Katering", "Jakarta", 0, 0, "Website", "dapur-mama/"],
-    ["butik", "Butik Anggun", "Butik", "Jambi", 4.7, 188, "Website"]
+    ["butik", "Butik Anggun", "Butik", "Jambi", 0, 0, "Website", "butik-anggun/"]
   ];
   $("#porto").innerHTML = WORK.map(([img, n, c, city, r, u, jenis, asli]) => `
     <a class="work rise" target="_blank" rel="noopener" href="${esc(asli || S.links.demo({ name: n, category: c, city, rating: r, reviews: u }))}">

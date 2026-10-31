@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Butik Anggun — kamar pas digital, Jambi</title>
+<meta name="description" content="Contoh website butik buatan alvenix: ketuk bajunya dan model langsung memakainya, padukan baju berdua, cari ukuran, bayar, dan lacak pesanan.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Six+Caps&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..600;1,6..96,400..600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="img/logo-hitam.png" type="image/png">
+<link rel="stylesheet" href="anggun.css?v=2">
+</head>
+<body>
+<p class="ribbon">Contoh website buatan alvenix. <a href="../">Bikin seperti ini</a></p>
+
+<header class="bar">
+  <a class="bar__nama" href="#pas" aria-label="Butik Anggun, ke kamar pas"><img src="img/logo-hitam.png" alt="" width="40" height="36">Anggun</a>
+  <nav aria-label="Menu halaman"><a href="#pas">Kamar pas</a><a href="#berdua">Berdua</a><a href="#semua">Semua baju</a><a href="#ukuran">Ukuran</a><a href="#toko">Toko</a><a href="#lacak">Lacak</a></nav>
+  <button class="bar__kantong" type="button" id="bukaKantong">Kantong <b data-jumlah>0</b></button>
+</header>
+
+<main>
+  <section class="pas" id="pas" aria-label="Kamar pas digital">
+    <div class="pas__latar" id="latar" aria-hidden="true"></div>
+    <div class="pas__kiri">
+      <h1>Butik Anggun</h1>
+      <p>Ketuk bajunya, model langsung memakainya. Butik baju wanita dan pria di Jambi.</p>
+      <div class="ganti" role="group" aria-label="Pilih model">
+        <button type="button" data-g="w" aria-pressed="true">Wanita</button>
+        <button type="button" data-g="p" aria-pressed="false">Pria</button>
+      </div>
+      <div class="saring" id="saring" role="group" aria-label="Mau dipakai ke mana"></div>
+    </div>
+
+    <div class="pas__kanan" aria-live="polite">
+      <p class="pas__acara" id="pAcara"></p>
+      <h2 id="pNama"></h2>
+      <p id="pIsi"></p>
+      <p class="pas__harga" id="pHarga"></p>
+      <div class="warnaan" id="pVarian"></div>
+      <div class="ukur" id="pUkur" role="group" aria-label="Pilih ukuran"></div>
+      <p class="pas__stok" id="pStok"></p>
+      <button class="tombol" type="button" id="pMasuk">Masukkan kantong</button>
+      <p class="pas__catat"><span id="pBahan"></span><br><span id="pModel"></span> <a href="#ukuran">Cari ukuranku</a></p>
+    </div>
+
+    <div class="rel" id="rel" role="group" aria-label="Rak baju"></div>
+  </section>
+
+  <section class="berdua" id="berdua">
+    <div class="berdua__panggung" id="bPanggung" aria-live="polite">
+      <span class="berdua__huruf" aria-hidden="true" id="bHuruf"></span>
+      <img id="bW" alt="" width="520" height="1300"><img id="bP" alt="" width="520" height="1300">
+    </div>
+    <div class="berdua__panel">
+      <h2>Datang <em>berdua</em></h2>
+      <p>Satu acara, dua baju yang saling menyahut. Beli sepasang, potongannya 10%.</p>
+      <div class="berdua__pilih" id="bPilih" role="group" aria-label="Pilih acara"></div>
+      <dl class="berdua__nota">
+        <div><dt id="bNW"></dt><dd id="bHW"></dd></div>
+        <div><dt id="bNP"></dt><dd id="bHP"></dd></div>
+        <div class="total"><dt>Sepasang, hemat <span id="bHemat"></span></dt><dd id="bTotal"></dd></div>
+      </dl>
+      <div class="berdua__ukur">
+        <label>Ukuran wanita <select id="bUW"></select></label>
+        <label>Ukuran pria <select id="bUP"></select></label>
+      </div>
+      <button class="tombol" type="button" id="bMasuk">Masukkan sepasang</button>
+    </div>
+  </section>
+
+  <section class="putar" id="putar" aria-label="Gaun Satin Anggur berjalan dan berputar mengikuti scroll">
+    <div class="putar__tahan"><canvas id="kanvas" width="1280" height="720"></canvas></div>
+  </section>
+  <aside class="putar__kaki">
+    <p>Gaun Satin Anggur, dari depan sampai belakang.</p>
+    <button class="tombol tombol--garis" type="button" data-coba="anggur">Coba di kamar pas</button>
+  </aside>
+
+  <section class="semua" id="semua">
+    <div class="semua__kepala">
+      <h2>Semua <em>baju</em></h2>
+      <p><span id="sJumlah"></span> potong, stoknya sedikit karena dijahit per angkatan. Ketuk satu untuk mencobanya.</p>
+    </div>
+    <div class="lemari" id="lemari"></div>
+  </section>
+
+  <section class="cariukur" id="ukuran">
+    <div class="cariukur__hasil" aria-live="polite">
+      <b id="uHasil">M</b>
+      <p id="uKet"></p>
+    </div>
+    <div class="cariukur__isi">
+      <h2>Ukuranmu <em>yang mana?</em></h2>
+      <div class="ganti ganti--gelap" role="group" aria-label="Tabel ukuran">
+        <button type="button" data-ug="w" aria-pressed="true">Wanita</button>
+        <button type="button" data-ug="p" aria-pressed="false">Pria</button>
+      </div>
+      <label class="geser"><span>Tinggi <b id="uTinggiN"></b></span><input type="range" id="uTinggi" min="145" max="195" value="162"></label>
+      <label class="geser"><span>Berat <b id="uBeratN"></b></span><input type="range" id="uBerat" min="38" max="110" value="55"></label>
+      <table class="tabel"><caption class="sr">Tabel ukuran dalam sentimeter</caption><thead><tr><th scope="col">Ukuran</th><th scope="col">Dada</th><th scope="col">Pinggang</th><th scope="col">Pinggul</th></tr></thead><tbody id="uTabel"></tbody></table>
+      <button class="tombol" type="button" id="uPakai">Pakai ukuran ini di kamar pas</button>
+    </div>
+  </section>
+
+  <section class="toko" id="toko">
+    <figure class="toko__a"><img src="img/toko-rak.jpg" alt="Rak baju dan cermin lengkung di dalam butik" width="1800" height="1005" loading="lazy"></figure>
+    <div class="toko__teks">
+      <h2>Kamar pas yang <em>asli</em> ada di Jambi</h2>
+      <p>Mampir kalau mau pegang kainnya. Satu tamu satu kamar pas, tirainya tebal, cerminnya setinggi badan.</p>
+      <dl>
+        <div><dt>Alamat</dt><dd>Jl. Gatot Subroto No. 48, Jambi</dd></div>
+        <div><dt>Buka</dt><dd>Senin sampai Sabtu, 10.00 – 20.00 WIB</dd></div>
+        <div><dt>Tukar ukuran</dt><dd>7 hari, label jangan dilepas</dd></div>
+        <div><dt>Permak</dt><dd>Gratis sekali untuk panjang celana, rok, dan lengan</dd></div>
+        <div><dt>Kirim</dt><dd>Kota Jambi hari itu juga, luar kota 2 sampai 5 hari</dd></div>
+      </dl>
+    </div>
+    <figure class="toko__b"><img src="img/toko-kamar.jpg" alt="Tirai linen kamar pas dan cermin di butik" width="1800" height="1005" loading="lazy"></figure>
+  </section>
+
+  <section class="lacak" id="lacak">
+    <div>
+      <h2>Pesananmu <em>sampai mana?</em></h2>
+      <form class="lacak__cari" id="formLacak">
+        <label class="sr" for="fLacak">Kode pesanan</label>
+        <input id="fLacak" autocomplete="off" placeholder="AG-XXXX">
+        <button class="tombol" type="submit">Lacak</button>
+      </form>
+    </div>
+    <div class="lacak__hasil" id="hasilLacak" aria-live="polite"></div>
+  </section>
+</main>
+
+<footer class="kaki">
+  <p class="kaki__nama" aria-hidden="true">Anggun</p>
+  <div>
+    <p>Jl. Gatot Subroto No. 48, Jambi.</p>
+    <ul>
+      <li>WhatsApp 08122*******</li>
+      <li><a href="https://instagram.com/alvenixx" target="_blank" rel="noopener">Instagram @anggun**</a></li>
+      <li><a href="https://www.tiktok.com/@alvenix31" target="_blank" rel="noopener">TikTok @****</a></li>
+    </ul>
+    <p class="kaki__catat">Nama, alamat, harga, dan stok di halaman ini adalah contoh. Model di halaman ini adalah model digital.</p>
+  </div>
+</footer>
+
+<div class="apung sembunyi" id="apung"><button class="tombol" type="button" id="apungBuka">Kantong <b data-jumlah>0</b> <span id="apungTotal"></span></button></div>
+
+<dialog class="kantong" id="kantong" aria-labelledby="kantongJudul">
+  <button class="kasir__tutup" type="button" id="kantongTutup" aria-label="Tutup kantong">×</button>
+  <h2 id="kantongJudul">Kantong</h2>
+  <ul class="kantong__isi" id="kIsi"></ul>
+  <p class="kantong__kosong" id="kKosong">Masih kosong. Coba satu baju dulu di kamar pas.</p>
+  <form id="formPesan">
+    <fieldset class="seg"><legend>Cara terima</legend><div id="kirim"></div></fieldset>
+    <label>Nama <input id="fNama" autocomplete="name" required></label>
+    <label>Nomor HP <input id="fHp" type="tel" inputmode="tel" autocomplete="tel" required pattern="[0-9+ \-]{8,}" title="Minimal 8 angka"></label>
+    <label id="alamatBox">Alamat <textarea id="fAlamat" rows="2" autocomplete="street-address"></textarea></label>
+    <dl class="kantong__nota" id="kNota"></dl>
+    <button class="tombol tombol--penuh" type="submit">Lanjut bayar</button>
+  </form>
+</dialog>
+
+<dialog class="kasir" id="kasir" aria-labelledby="kasirJudul" tabindex="-1" autofocus>
+  <button class="kasir__tutup" type="button" id="kasirTutup" aria-label="Tutup pembayaran">×</button>
+  <h2 id="kasirJudul">Bayar</h2>
+  <p class="kasir__nilai"><b id="kasirNilai">Rp0</b><span id="kasirWaktu"></span></p>
+  <p>Kode pesanan <b id="kasirKode"></b></p>
+  <div id="kasirBayar">
+    <fieldset class="seg"><legend>Bayar pakai</legend><div>
+      <label><input type="radio" name="bayar" value="QRIS" checked><span>QRIS</span></label>
+      <label><input type="radio" name="bayar" value="E-wallet"><span>E-wallet</span></label>
+      <label><input type="radio" name="bayar" value="M-banking"><span>M-banking</span></label>
+    </div></fieldset>
+    <div class="bayar" id="bayarBox"></div>
+    <button class="tombol tombol--penuh" type="button" id="sudahBayar">Cek pembayaran</button>
+    <p class="kecil" id="kasirCatat"></p>
+  </div>
+  <div class="kasir__ok" id="kasirBerhasil" hidden>
+    <h3>Pembayaran berhasil</h3>
+    <p><b id="okNilai"></b> untuk <b id="okKode"></b></p>
+    <button class="tombol tombol--penuh" type="button" id="keWa">Kirim rincian ke WhatsApp</button>
+    <button class="tombol tombol--garis tombol--penuh" type="button" id="keLacak">Lacak pesanan</button>
+  </div>
+</dialog>
+
+<script src="../config.js?v=20261030y"></script>
+<script src="../shared.js?v=20261030f"></script>
+<script src="data.js?v=1"></script>
+<script src="anggun.js?v=2"></script>
+</body>
+</html>
