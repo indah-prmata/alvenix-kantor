@@ -41,23 +41,6 @@
       <div class="work__meta"><div><b>${esc(n)}</b><small>${esc(c)} · ${esc(jenis)}</small></div><span class="work__go" aria-hidden="true">→</span></div>
     </a>`).join("");
 
-  /* ---------- ulasan klien asli; tanpa data, tampil pesan bawaan dari index.html ---------- */
-  const bintang = n => "★".repeat(Math.round(n)) + "☆".repeat(5 - Math.round(n));
-  if (CFG.ulasanUrl) fetch(CFG.ulasanUrl).then(r => r.json()).then(j => {
-    if (Array.isArray(j)) j = j[0];
-    const L = (j && j.ulasan) || [];
-    if (!L.length || !(+j.rata > 0)) return;
-    $("#ulasanRata").textContent = (+j.rata).toFixed(1).replace(".", ",");
-    $("#ulasanBintang").textContent = bintang(+j.rata);
-    $("#ulasanJumlah").textContent = `dari ${+j.jumlah} klien`;
-    $("#ulasanList").innerHTML = L.slice(0, 6).map(u => `
-      <blockquote class="ulasan__kartu">
-        <span role="img" aria-label="${esc(u.rata)} dari 5 bintang">${bintang(+u.rata)}</span>
-        ${u.komentar ? `<p>${esc(u.komentar)}</p>` : ""}
-        <footer><b>${esc(u.usaha)}</b>${u.rekomendasi === "Ya" ? " · merekomendasikan alvenix" : ""}</footer>
-      </blockquote>`).join("");
-  }).catch(() => {});
-
   /* ---------- konsultasi lewat Dina dulu, baru WhatsApp ---------- */
   const waLangsung = text => window.open(S.waLink(CFG.waKantor, text), "_blank", "noopener");
   document.addEventListener("click", e => {

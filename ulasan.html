@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ulasan Klien — alvenix</title>
+<meta name="description" content="Penilaian dari klien yang sudah membuat website bersama alvenix.">
+<meta name="theme-color" content="#EEF2FB">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css?v=20261101g">
+</head>
+<body>
+
+<header class="nav is-scrolled">
+  <div class="wrap nav__in">
+    <a class="logo" href="index.html" aria-label="alvenix — beranda">
+      <svg viewBox="0 0 100 100" aria-hidden="true"><g stroke="currentColor" stroke-width="11" stroke-linecap="round" fill="none"><path d="M52 54 L18 58"/><path d="M52 54 Q58 34 80 20"/><path d="M52 54 Q60 72 77 84"/></g><g fill="currentColor"><circle cx="52" cy="54" r="15"/><circle cx="15" cy="58" r="12"/><circle cx="82" cy="18" r="12"/><circle cx="78" cy="86" r="12"/></g></svg>
+      <span>alveni<b>x</b></span>
+    </a>
+    <nav class="nav__links" aria-label="Menu">
+      <a href="index.html#harga">Harga</a>
+      <a href="index.html#karya">Karya</a>
+      <a href="klien.html">Cek progres</a>
+      <a href="klien.html#nilai">Beri nilai</a>
+    </nav>
+    <div class="nav__cta"><a class="btn btn--ghost btn--sm" href="index.html">← Beranda</a></div>
+  </div>
+</header>
+
+<main class="block ulasan-hal">
+  <div class="wrap">
+    <div class="head">
+      <h1>Kata klien alvenix</h1>
+      <p>Penilaian dari klien yang sudah membuat website bersama kami.</p>
+    </div>
+    <div class="ulasan">
+      <aside class="ulasan__skor">
+        <b id="rata">0,0</b>
+        <span class="ulasan__bintang" id="bintang" aria-hidden="true">☆☆☆☆☆</span>
+        <p id="jumlah">Belum ada penilaian</p>
+        <a class="btn btn--blue" href="klien.html#nilai">Beri nilai</a>
+      </aside>
+      <div class="ulasan__list" id="list">
+        <div class="ulasan__kosong"><b>Belum ada ulasan</b><p>Ulasan muncul di sini setelah klien menilai kerja kami dan mengizinkan komentarnya ditampilkan.</p></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="config.js?v=20261101b"></script>
+<script>
+(() => {
+  const CFG = window.HQ_CONFIG || {};
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const bintang = n => "★".repeat(Math.round(n)) + "☆".repeat(5 - Math.round(n));
+  fetch(CFG.ulasanUrl).then(r => r.json()).then(j => {
+    if (Array.isArray(j)) j = j[0];
+    if (!j || !(+j.jumlah > 0)) return;
+    $("#rata").textContent = (+j.rata).toFixed(1).replace(".", ",");
+    $("#bintang").textContent = bintang(+j.rata);
+    $("#jumlah").textContent = `dari ${+j.jumlah} klien`;
+    if ((j.ulasan || []).length) $("#list").innerHTML = j.ulasan.map(u => `
+      <blockquote class="ulasan__kartu">
+        <span role="img" aria-label="${esc(u.rata)} dari 5 bintang">${bintang(+u.rata)}</span>
+        ${u.komentar ? `<p>${esc(u.komentar)}</p>` : ""}
+        <footer><b>${esc(u.usaha)}</b>${u.rekomendasi === "Ya" ? " · merekomendasikan alvenix" : ""}</footer>
+      </blockquote>`).join("");
+  }).catch(() => {});
+})();
+</script>
+</body>
+</html>

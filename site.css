@@ -49,21 +49,24 @@ h1, h2, h3 { margin: 0; color: var(--ink); letter-spacing: -.03em; }
 .logo b { color: var(--blue); }
 .nav__links { display: flex; gap: 28px; font-weight: 600; font-size: .94rem; color: var(--muted); white-space: nowrap; }
 .nav__links a:hover { color: var(--ink); }
-.ulasan { display: grid; grid-template-columns: minmax(220px, 1fr) 2.4fr; gap: 28px; align-items: start; }
-.ulasan__skor b:empty, .ulasan__bintang:empty, .ulasan__list:empty { display: none; }
-.ulasan:has(.ulasan__list:empty) { display: block; }
-.ulasan__skor h3 { font-size: 1.5rem; }
-.ulasan__skor b { display: block; margin-top: 14px; font-size: 4.2rem; font-weight: 800; letter-spacing: -.05em; line-height: 1; color: var(--ink); }
+.ulasan-hal { padding-top: 150px; min-height: 70vh; }
+.ulasan-hal h1 { font-size: clamp(2.4rem, 5vw, 3.8rem); line-height: 1.04; font-weight: 800; letter-spacing: -.045em; }
+.ulasan { display: grid; grid-template-columns: minmax(260px, 1fr) 2.2fr; gap: 24px; align-items: start; }
+.ulasan__skor { padding: 28px; border-radius: 26px; background: #fff; box-shadow: 0 18px 40px -30px rgba(11,18,32,.5); }
+.ulasan__skor b { display: block; font-size: 4.6rem; font-weight: 800; letter-spacing: -.05em; line-height: 1; color: var(--ink); }
 .ulasan__bintang, .ulasan__kartu span { color: #F5A524; letter-spacing: .08em; }
-.ulasan__bintang { display: block; margin-top: 8px; font-size: 1.2rem; }
-.ulasan__skor p { margin: 6px 0 14px; color: var(--muted); }
-.ulasan__skor a { color: var(--blue-2); font-weight: 700; }
+.ulasan__bintang { display: block; margin-top: 10px; font-size: 1.3rem; }
+.ulasan__skor p { margin: 6px 0 20px; color: var(--muted); }
+.ulasan__skor .btn { width: 100%; }
 .ulasan__list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-.ulasan__kartu { margin: 0; padding: 22px; border-radius: 22px; background: #fff; box-shadow: 0 18px 40px -30px rgba(11,18,32,.5); min-width: 0; }
+.ulasan__kartu { margin: 0; padding: 24px; border-radius: 22px; background: #fff; box-shadow: 0 18px 40px -30px rgba(11,18,32,.5); min-width: 0; }
 .ulasan__kartu p { margin: 10px 0 14px; color: var(--ink); overflow-wrap: anywhere; }
 .ulasan__kartu footer { color: var(--muted); font-size: .9rem; }
 .ulasan__kartu footer b { color: var(--ink); }
-@media (max-width: 860px) { .ulasan, .ulasan__list { grid-template-columns: 1fr; } }
+.ulasan__kosong { grid-column: 1 / -1; padding: 40px 28px; border: 1.5px dashed #C9D7FA; border-radius: 22px; text-align: center; color: var(--muted); }
+.ulasan__kosong b { display: block; margin-bottom: 4px; font-size: 1.2rem; color: var(--ink); }
+.ulasan__kosong p { margin: 0 auto; max-width: 46ch; }
+@media (max-width: 860px) { .ulasan, .ulasan__list { grid-template-columns: 1fr; } .ulasan-hal { padding-top: 110px; } }
 .nav__cta { margin-left: auto; display: flex; align-items: center; gap: 14px; }
 .nav__promo { padding: 9px 16px; border-radius: 999px; border: 1.5px solid #C9D7FA; color: var(--blue-2); font-weight: 700; font-size: .74rem; letter-spacing: .14em; text-transform: uppercase; }
 .nav__team { display: inline-flex; align-items: center; gap: 7px; height: 44px; padding: 0 14px; border-radius: 13px; border: 1.5px solid var(--line); background: rgba(255,255,255,.7); font-weight: 600; font-size: .88rem; color: var(--muted); }
