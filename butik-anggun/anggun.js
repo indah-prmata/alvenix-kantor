@@ -8,7 +8,7 @@
   const tulis = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} };
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const barang = id => KATALOG.find(b => b.id === id);
-  const fotoM = b => `img/m/${b.id}.webp?v=4`, fotoF = b => `img/f/${b.id}.webp?v=2`, fotoR = b => `img/r/${b.id}.jpg`;
+  const fotoM = b => `img/m/${b.id}.webp?v=5`, fotoF = b => `img/f/${b.id}.webp?v=2`, fotoR = b => `img/r/${b.id}.jpg`;
 
   /* ---------- kamar pas ---------- */
   const P = { g: "w", acara: "semua", id: "kebaya", ukuran: "" };
@@ -206,7 +206,7 @@
   /* ---------- kantong ---------- */
   const kantong = $("#kantong");
   let isi = baca("ag.kantong", []).filter(c => barang(c.id)); // {id, u, q, pasang}
-  const KIRIM = [["ambil", "Ambil di toko", 0], ["kota", "Antar kota Jambi", 15000], ["luar", "Luar kota", 35000]];
+  const KIRIM = [["ambil", "Ambil di toko", 0], ["kota", "Antar Jakarta", 15000], ["luar", "Luar Jakarta", 35000]];
   let kirim = "kota";
   const simpan = () => tulis("ag.kantong", isi);
   const sisaStok = (id, u) => barang(id).stok[u] - (isi.find(c => c.id === id && c.u === u)?.q || 0);
