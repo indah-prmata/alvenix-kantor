@@ -203,3 +203,35 @@ form h2 { margin-bottom: 28px; }
   .tiles--senja .tile__foto, .tiles--senja .tile--besar .tile__foto { flex: none; aspect-ratio: 1; }
   .kontak a { grid-template-columns: 1fr; gap: 0; }
 }
+
+/* tema malam: biru sungai + kuning lentera, foto yang bicara */
+:root { --bg: #0E1B26; --surface: #1B2F3E; --ink: #F3EDE2; --muted: #BCC6CC; --accent: #F2B24E; --accent-ink: #14202B; --paper: #F3EDE2; }
+:focus-visible { outline-color: var(--accent); }
+.ribbon { background: #070F16; }
+.bar { background: var(--bg); }
+.hero { background: #132633; }
+.hero__item h2, .jam h3 { color: var(--langit); transition: color .4s; }
+.btn--hero { background: var(--accent); color: var(--accent-ink); }
+.arrow { background: var(--surface); color: var(--ink); }
+.langit:nth-of-type(even) { background: #132633; }
+.langit .tile__info p { opacity: 1; color: var(--muted); }
+.langit--gelap .btn { background: var(--accent); color: var(--accent-ink); }
+.cerita { background: #0A151E; }
+.f input { background: var(--surface); }
+.f input::placeholder { color: var(--muted); }
+.seg span { background: var(--surface); }
+.seg input:checked + span { background: var(--accent); color: var(--accent-ink); }
+.pay { background: var(--surface); }
+.qris svg { padding: 8px; background: #fff; fill: #14202B; }
+.akun button { background: var(--bg); }
+.err { color: #FFA794; }
+.struk { color: #14202B; }
+.struk > p:first-of-type, .struk small, .struk .kosong { color: #4A525B; }
+.qty button { background: #E2D9C9; color: #14202B; }
+.lokasi { position: relative; background: url(img/suasana-lampu.jpg) center 45% / cover; color: #fff; padding-block: clamp(96px, 13vw, 190px); }
+.lokasi::before { content: ""; position: absolute; inset: 0; background: rgba(7, 15, 22, .62); }
+.lokasi__grid { position: relative; }
+.foot { background: #070F16; color: var(--ink); }
+.floatbon { background: var(--accent); color: var(--accent-ink); }
+.btn--terang { background: var(--accent); color: var(--accent-ink); }
+.tiles--malam .tile__foto--lepas img { object-fit: cover; padding: 0; }

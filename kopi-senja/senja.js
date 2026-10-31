@@ -9,7 +9,7 @@
   const LANGIT = {
     sore: { warna: "#F2B24E", tinta: "#1C2430", judul: "Sore, jam tiga", isi: "Panas mulai turun. Kopi seduh dan teh dingin." },
     senja: { warna: "#F0667A", tinta: "#1C2430", judul: "Senja, jam enam", isi: "Langit merah muda di atas sungai. Es kopi andalan kedai." },
-    malam: { warna: "#1E3A4C", foto: "#8FB0BF", tinta: "#FFFFFF", judul: "Malam, jam delapan", isi: "Lampu menyala. Minuman hangat sampai tutup." },
+    malam: { warna: "#1E3A4C", aksen: "#8FB0BF", foto: "#8FB0BF", tinta: "#FFFFFF", judul: "Malam, jam delapan", isi: "Lampu menyala. Minuman hangat sampai tutup." },
     teman: { warna: "#E9B9A5", tinta: "#1C2430", judul: "Teman kopi", isi: "Kudapan khas Jambi, dibuat setiap hari." }
   };
   const MENU = [
@@ -77,7 +77,7 @@
 
   /* ---------- menu ---------- */
   $("#menu").innerHTML = `<div class="wrap menu__judul"><h2>Menu, dari sore sampai malam</h2></div>` + Object.entries(LANGIT).map(([k, L]) => `
-    <section class="langit ${k === "malam" ? "langit--gelap" : ""}" style="background:${L.warna};color:${L.tinta}" aria-label="${L.judul}">
+    <section class="langit" style="--langit:${L.aksen || L.warna}" aria-label="${L.judul}">
       <div class="wrap">
         <div class="jam"><h3>${L.judul}</h3><p>${L.isi}</p></div>
         <div class="tiles tiles--${k}">${MENU.filter(m => m.l === k).map(m => `<article class="tile ${m.besar ? "tile--besar" : ""}">
@@ -95,7 +95,7 @@
   $("#arc").innerHTML = PILIH.map((m, i) => `<button type="button" class="arc__item" data-arc="${i}" aria-label="Lihat ${esc(m.n)}">${gambar(m)}</button>`).join("");
   function hero() {
     const n = PILIH.length, m = PILIH[cur], L = LANGIT[m.l];
-    const h = $("#hero"); h.style.background = L.warna; h.style.color = L.tinta;
+    $("#hero").style.setProperty("--langit", L.aksen || L.warna);
     const lebar = innerWidth, langkah = Math.min(250, lebar * .24);
     $$(".arc__item").forEach((el, i) => {
       let d = i - cur; if (d > n / 2) d -= n; if (d < -n / 2) d += n;
